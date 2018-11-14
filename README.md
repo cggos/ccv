@@ -11,3 +11,13 @@ apps based on cgocv, computer vision docs and demos based on opencv and pcl usin
 * **opencv_demo**: OpenCV practice Demos
 * **ros_wrapper**
   - **stereo_reconstruct**
+
+## Build
+
+### ros_wrapper
+* download dependencies
+  ```bash
+  cd ros_wrapper/src
+  wstool init . ../ros_install.yaml
+  wstool update
+  ```

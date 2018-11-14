@@ -1,0 +1,5 @@
+.rosinstall
+cgocv/
+
+build/
+devel/
