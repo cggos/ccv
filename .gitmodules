@@ -1,0 +1,3 @@
+[submodule "cgocv"]
+	path = cgocv
+	url = https://github.com/chenguang055/cgocv.git
