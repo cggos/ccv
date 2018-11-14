@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 2.8)
+project( opencv_demo )
+
+set(CMAKE_CXX_STANDARD 11)
+
+find_package( OpenCV )
+if( OpenCV_FOUND )
+	include_directories( ${OpenCV_INCLUDE_DIRS} )
+	link_libraries( ${OpenCV_LIBS} )
+endif()
+
+add_subdirectory( BackProject )
+add_subdirectory( CamShift )
+add_subdirectory( Camera )
+add_subdirectory( EdgeDetection )
+add_subdirectory( Histogram )
+add_subdirectory( ImgValue )
+add_subdirectory( RotateScale )
