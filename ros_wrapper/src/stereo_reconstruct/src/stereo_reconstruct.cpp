@@ -15,8 +15,6 @@
 
 #include <cv_bridge/cv_bridge.h>
 
-#include <opencv2/highgui/highgui.hpp>
-
 #include <pcl/pcl_base.h>
 #include <pcl/point_types.h>
 
@@ -160,18 +158,11 @@ namespace stereo_reconstruct {
 
                 stereo_camera_.depth_to_pointcloud(*depth_frame_, mat_left, *pcl_cloud_);
 
-                // apply colormap to depth image
                 if(is_use_colormap_)
                 {
-                    double minval, maxval;
-                    cv::minMaxIdx(*depth_frame_, &minval, &maxval);
-
-                    cv::Mat gray_depth;
-                    depth_frame_->convertTo(gray_depth, CV_8UC1, 255.0 / maxval);
-
-                    cv::Mat depth_colormap;
-                    cv::applyColorMap(gray_depth, depth_colormap, cv::COLORMAP_JET);
-                    cv::imshow("depth colormap", depth_colormap);
+                    cv::Mat colormap;
+                    stereo_camera_.generate_colormap(*depth_frame_, &colormap);
+                    cv::imshow("depth colormap", colormap);
                     cv::waitKey(3);
                 }
 

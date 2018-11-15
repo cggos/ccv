@@ -15,7 +15,3 @@ ROS Wrapper for Stereo Reconstruction, generate Depth Image and Point Cloud by l
 ```
 catkin_make
 ```
-
-## Implementation
-* [applyColorMap for pseudocoloring in OpenCV ( C++ / Python )](https://www.learnopencv.com/applycolormap-for-pseudocoloring-in-opencv-c-python/)  
-![colormap_opencv_example.jpg](./images/colormap_opencv_example.jpg)
