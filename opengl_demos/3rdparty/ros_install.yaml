@@ -1,0 +1,6 @@
+- git:
+    local-name: glew 
+    uri: https://github.com/nigels-com/glew.git
+- git:
+    local-name: glfw
+    uri: git@github.com:glfw/glfw.git
