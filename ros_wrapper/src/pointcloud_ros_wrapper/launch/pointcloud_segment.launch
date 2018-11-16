@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="camera" default="stereo" />
+    <arg name="rviz" default="false"/>
+
+    <group if="$(arg rviz)">
+        <arg name="rviz_cfg" default="$(find pointcloud_utility)/launch/config/pointcloud_ros_wrapper.rviz" />
+        <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_cfg)"/>
+    </group>
+
+    <node pkg="pointcloud_ros_wrapper" type="pointcloud_segment_node" name="pointcloud_segment_node" output="screen">
+
+        <remap from="cloud_in"       to="$(arg camera)/points"/>
+        <remap from="cloud_ground"   to="$(arg camera)/cloud_ground"/>
+
+        <rosparam>
+            cam_angle: 30
+            frontend: 10
+            backend: 100
+        </rosparam>
+
+    </node>
+
+    <include file="$(find pointcloud_ros_wrapper)/launch/pointcloud_tf.launch">
+        <arg name="camera" value="$(arg camera)" />
+    </include>
+
+</launch>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="camera" default="stereo" />
+
+    <arg name="pi/2" value="1.5707963267948966" />
+
+    <node pkg="tf" type="static_transform_publisher" name="camera_base_link1"
+          args="0 0 0 0 0 0 $(arg camera)_cloud_optical_frame cloud_msg_output 100" />
+
+</launch>

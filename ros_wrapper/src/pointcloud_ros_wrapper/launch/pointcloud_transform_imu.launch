@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <node pkg="pointcloud_ros_wrapper" type="pointcloud_transform_imu_node" name="pointcloud_transform_imu_node" output="screen">
+
+        <remap from="cloud_in"  to="/stereo/voxel_cloud"/>
+        <remap from="cloud_out" to="/stereo/voxel_cloud_imu"/>
+
+        <remap from="imu_data"  to="/imu/data" />
+
+    </node>
+
+</launch>
