@@ -5,6 +5,7 @@
 
 // Qt
 #include <QMainWindow>
+#include <QMenuBar>
 
 // Point Cloud Library
 #include <pcl/point_cloud.h>
@@ -49,6 +50,12 @@ public Q_SLOTS:
   void
   blueSliderValueChanged (int value);
 
+  void
+  openCloudFile ();
+
+  void
+  saveCloudFile ();
+
 protected:
   boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
   PointCloudT::Ptr cloud;
@@ -59,6 +66,10 @@ protected:
 
 private:
   Ui::PCLViewer *ui;
+
+  QMenu *menu_file;
+  QAction *action_open_file;
+  QAction *action_save_file;
 
 };
 

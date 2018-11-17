@@ -1,6 +1,11 @@
 #include "pclviewer.h"
 #include "ui_pclviewer.h"
 
+#include <pcl/io/pcd_io.h>
+#include <pcl/io/ply_io.h>
+
+#include "filedialog.h"
+
 PCLViewer::PCLViewer (QWidget *parent) :
   QMainWindow (parent),
   ui (new Ui::PCLViewer)
@@ -8,10 +13,22 @@ PCLViewer::PCLViewer (QWidget *parent) :
   ui->setupUi (this);
   this->setWindowTitle ("PCL viewer");
 
+  action_open_file = new QAction(tr("Open Cloud..."),this);
+  connect(action_open_file, &QAction::triggered, this, &PCLViewer::openCloudFile);
+
+  action_save_file = new QAction(tr("Save Cloud..."),this);
+  connect(action_save_file, &QAction::triggered, this, &PCLViewer::saveCloudFile);
+
+  menu_file = menuBar()->addMenu(tr("Files"));
+  menu_file->addAction(action_open_file);
+  menu_file->addAction(action_save_file);
+
   // Setup the cloud pointer
   cloud.reset (new PointCloudT);
-  // The number of points in the cloud
-  cloud->points.resize (200);
+
+  cloud->width = 200;
+  cloud->height = 20;
+  cloud->points.resize (cloud->width * cloud->height);
 
   // The default color
   red   = 128;
@@ -113,6 +130,46 @@ PCLViewer::blueSliderValueChanged (int value)
 {
   blue = value;
   printf("blueSliderValueChanged: [%d|%d|%d]\n", red, green, blue);
+}
+
+void
+PCLViewer::openCloudFile ()
+{
+    QString strFilePath="";
+    if(0 == FileDialog::Show(FileDialog::Data3D,strFilePath))
+    {
+        pcl::io::loadPCDFile<pcl::PointXYZRGBA>(strFilePath.toStdString(), *cloud);
+        viewer->updatePointCloud (cloud, "cloud");
+        ui->qvtkWidget->update ();
+    }
+}
+
+void
+PCLViewer::saveCloudFile ()
+{
+    QString filename = QFileDialog::getSaveFileName(this, tr ("Open point cloud"), "", tr ("Point cloud data (*.pcd *.ply)"));
+
+    if (filename.isEmpty ())
+        return;
+
+    int return_status;
+    if (filename.endsWith (".pcd", Qt::CaseInsensitive))
+        return_status = pcl::io::savePCDFileASCII (filename.toStdString (), *cloud);
+    else if (filename.endsWith (".ply", Qt::CaseInsensitive))
+        return_status = pcl::io::savePLYFileASCII (filename.toStdString (), *cloud);
+    else
+    {
+        filename.append(".ply");
+        return_status = pcl::io::savePLYFileASCII (filename.toStdString (), *cloud);
+    }
+
+    if (return_status != 0)
+    {
+        PCL_ERROR("Error writing point cloud %s\n", filename.toStdString ().c_str ());
+        return;
+    }
+
+    PCL_INFO("Save Cloud to %s\n", filename.toStdString ().c_str ());
 }
 
 PCLViewer::~PCLViewer ()
