@@ -2,6 +2,7 @@
 .catkin_workspace
 ros_wrapper/src/CMakeLists.txt
 cgocv/
+*.raw
 
 build/
 devel/

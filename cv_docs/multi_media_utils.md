@@ -14,6 +14,22 @@
 One of the Most Popular Viewers Worldwide
 
 ## imagemagick
+* [opening a YUV image with ImageMagick](https://www.imagemagick.org/discourse-server/viewtopic.php?t=12037)
+
+## RAW pixels viewer
+[This application](http://rawpixels.net/) allows you analyze raw image data, you can display memory dumps of frame buffers, video buffers and uncompressed video files.
+
+## vooya :: raw Video Sequence Player
+[vooya](http://www.offminor.de/) is a YUV player, RGB player and a generic raw data player – video data that is uncompressed and containerless, most commonly used in scientific environments. Besides, vooya plays DPX/CINEON, TIFF, OpenEXR and Radiance (HDR) image sequences.
+
+## Datahammer 7yuv
+[Datahammer 7yuv](http://datahammer.de/) is a YUV Viewer, Raw Bayer/RGB Viewer, YUV Editor, and Hex Editor.
+
+## YUVTools
+[YUVTools](http://www.sunrayimage.com/) are a set of software utilities to play, convert and analyze YUV or RGB video data in their raw formats.
+
+## YUView
+[YUView](http://ient.github.io/YUView/) is a Qt based YUV player with an advanced analytic toolset for Linux, Windows and Mac.
 
 ## GIMP
 [GIMP](https://www.gimp.org/) (GNU Image Manipulation Program) is a cross-platform image editor available for GNU/Linux, OS X, Windows and more operating systems.
