@@ -1,6 +1,6 @@
 # cgocv_app
 
-apps based on cgocv, computer vision docs and demos based on opencv and pcl using c++, matlab or c#
+apps based on [cgocv](https://github.com/cggos/cgocv), computer vision docs and demos based on opencv and pcl using c++, matlab or c#
 
 -----
 
