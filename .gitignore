@@ -3,6 +3,8 @@
 ros_wrapper/src/CMakeLists.txt
 cgocv/
 *.raw
+.vscode/
+CImg.h
 
 build/
 devel/
