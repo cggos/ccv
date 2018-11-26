@@ -4,7 +4,9 @@ ros_wrapper/src/CMakeLists.txt
 cgocv/
 *.raw
 .vscode/
+.idea/
 CImg.h
+*.bmp
 
 build/
 devel/

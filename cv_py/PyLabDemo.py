@@ -4,7 +4,7 @@
 from PIL import Image
 from pylab import *
 
-im = array(Image.open('./data/lena.bmp'))
+im = array(Image.open('lena.bmp'))
 
 print im.shape, im.dtype
 
@@ -21,7 +21,7 @@ print 'you clicked: ', x
 
 
 figure()
-im = array(Image.open('./data/lena.bmp').convert('L'), 'f')
+im = array(Image.open('lena.bmp').convert('L'), 'f')
 
 print im.shape, im.dtype
 

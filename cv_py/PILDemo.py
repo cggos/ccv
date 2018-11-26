@@ -3,7 +3,7 @@
 
 from PIL import Image
 
-pil_im = Image.open('./data/lena.bmp').convert('L')
+pil_im = Image.open('lena.bmp').convert('L')
 
 box = (50, 50, 400, 400)
 region = pil_im.crop(box)
