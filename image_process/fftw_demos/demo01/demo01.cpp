@@ -4,6 +4,20 @@
 #include "../CImg.h"
 using namespace cimg_library;
 
+CImg<float> cimg_grayscale(CImg<float> img) {
+    CImg<float> grayscaled = img;
+    cimg_forXY(img, x, y) {
+        int r = img(x, y, 0);
+        int g = img(x, y, 1);
+        int b = img(x, y, 2);
+        double newValue = (r * 0.2126 + g * 0.7152 + b * 0.0722);
+        grayscaled(x, y, 0) = newValue;
+        grayscaled(x, y, 1) = newValue;
+        grayscaled(x, y, 2) = newValue;
+    }
+    return grayscaled;
+}
+
 int main()
 {
 	std::string strImgIn  = "/home/cg/projects/cgocv_app/ros_wrapper/src/cgocv/images/lena.bmp";
@@ -21,6 +35,8 @@ int main()
 
 	fftwf_plan planDFT2D_F = fftwf_plan_dft_2d(Nx,Ny, in, out,FFTW_FORWARD, FFTW_ESTIMATE);
 
+    bool is_shift = true;
+    int factor = 1;
 	int v=0;
 	while(v<3)
 	{
@@ -28,7 +44,9 @@ int main()
 		{
 			for(int y=0;y<Ny;y++)
 			{
-				in[y+x*Ny][0]=imgIn(x,y,0,v);
+                if(is_shift)
+                    factor = (x+y)%2==1 ? -1 : 1;
+				in[y+x*Ny][0] = imgIn(x,y,0,v) * factor;
 			}
 		}
 
@@ -61,6 +79,7 @@ int main()
 
 	CImg<float> imageOut(imgOut.data(),Nx,Ny,1,3);
 	imageOut.normalize(0,255);
+    imageOut = cimg_grayscale(imageOut);
 	imageOut.save_bmp(strImgOut.c_str());
 
     return 0;

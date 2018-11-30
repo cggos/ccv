@@ -2,7 +2,10 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import cm
 # import matplotlib.image as mpimg
+from matplotlib.ticker import LinearLocator, FormatStrFormatter
+from mpl_toolkits.mplot3d import Axes3D
 from scipy import fftpack
 from scipy import ndimage
 from PIL import Image
@@ -15,38 +18,46 @@ def plot_spectrum(im_fft):
     plt.colorbar()
 
 
-image = Image.open('lena.bmp').convert('L')
-im = np.asarray(image)
+img = Image.open('lena.bmp').convert('L')
+im = np.asarray(img)
 
 im_blur = ndimage.gaussian_filter(im, 4)
 
-im_fft = fftpack.fft2(im)
+rows, cols = im.shape
+mask = np.ones(im.shape, np.uint8)
+# mask[rows/2-30:rows/2+30, cols/2-30:cols/2+30] = 1
 
-im_fft2 = im_fft.copy()
-r, c = im_fft2.shape
+# ==========================================
+im_f_o = fftpack.fft2(im)
+im_f_c = fftpack.fftshift(im_f_o)
 
-keep_fraction = 0.1
-im_fft2[int(r*keep_fraction):int(r*(1-keep_fraction))] = 0
-im_fft2[:, int(c*keep_fraction):int(c*(1-keep_fraction))] = 0
+im_f_filter_c = im_f_c * mask
 
-im_new = fftpack.ifft2(im_fft2).real
+im_f_filter_o = fftpack.ifftshift(im_f_filter_c)
 
+im_new = fftpack.ifft2(im_f_filter_o).real
+
+
+# ==========================================
+im_f_c_2 = np.abs(im_f_c)**2
+
+spectrum_o = np.log(np.abs(im_f_o))
+spectrum_c = np.log(np.abs(im_f_filter_c))
+
+phase_o = np.angle(im_f_o)
+phase_c = np.angle(im_f_filter_c)
+
+
+# ===========================================
+plt.figure()
+plt.subplot(221), plt.imshow(im, cmap='gray'), plt.title('origin image')
+plt.subplot(222), plot_spectrum(im_f_filter_c), plt.title('Fourier transform')
+plt.subplot(223), plt.imshow(abs(im_new), plt.cm.gray), plt.title('Reconstructed Image')
+plt.subplot(224), plt.imshow(np.log10(im_f_c_2)), plt.title('Power Spectrum')
 
 plt.figure()
 plt.imshow(im_blur, plt.cm.gray)
-plt.title('Blurred image')
-
-plt.figure()
-plot_spectrum(im_fft2)
-plt.title('Fourier transform')
-
-plt.figure()
-plt.imshow(im_new, plt.cm.gray)
-plt.title('Reconstructed Image')
-
-plt.figure()
-plt.imshow(im, cmap='gray')
-plt.title('origin image')
+plt.title('Gauss Blurred image')
 
 plt.show()
 
