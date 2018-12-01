@@ -1,10 +1,11 @@
 # Multi-Media Utilities
 
+* [Color picker](http://colorizer.org/), calculator and generator with high precision and contrast test. Converts also RGB, HEX, HSL, HSV/HSB, CMYK and CIE-LAB colors and lots of other formats. In the Hex-field, you can write a known color name, too.
+* [colorbrewer2](http://colorbrewer2.org)
+
 -----
 
 [TOC]
-
-[Color picker](http://colorizer.org/), calculator and generator with high precision and contrast test. Converts also RGB, HEX, HSL, HSV/HSB, CMYK and CIE-LAB colors and lots of other formats. In the Hex-field, you can write a known color name, too.
 
 # 1. 2D Images
 

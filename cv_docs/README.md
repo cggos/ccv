@@ -2,4 +2,6 @@
 
 -----
 
-![cv_overview.jpg](./images/cv_overview.jpg)
+<div align=center>
+  <img src="./images/cv_overview.jpg"/>
+</div>
