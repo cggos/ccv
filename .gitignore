@@ -7,7 +7,7 @@ cgocv/
 .idea/
 CImg.h
 *.bmp
-*.jpg
+imgs/
 
 cam_stereo.yml
 calib.sh

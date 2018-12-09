@@ -1,5 +1,9 @@
 # Camera Calibration & Rectification
 
+<div align="center">
+  <img src="./images/cam_calib_01.jpg"> <img src="./images/cam_calib_02.jpg">
+</div>
+
 -----
 
 [TOC]
@@ -70,7 +74,7 @@ By default, the **unified projection model** is used since this model approximat
 
 * [image_proc (ROS wiki)](http://wiki.ros.org/image_proc)
   - Single image rectification and color processing.
-  
+
 * [ethz-asl/image_undistort](https://github.com/ethz-asl/image_undistort)
   - A compact package for undistorting images directly from **kalibr calibration files**, Can also perform dense stereo estimation
 
