@@ -9,6 +9,9 @@ CImg.h
 *.bmp
 *.jpg
 
+cam_stereo.yml
+calib.sh
+
 build/
 devel/
 build-*/
