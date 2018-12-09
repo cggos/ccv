@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="camera"   default="stereo"/>
+
+  <node pkg="nodelet" type="nodelet" name="capture_image" args="standalone capture_image/imageraw" respawn="true" output="screen">
+
+    <remap from="left/image"        to="$(arg camera)/left/image_raw"/>
+    <remap from="right/image"       to="$(arg camera)/right/image_raw"/>
+    <remap from="left/camera_info"  to="$(arg camera)/left/camera_info"/>
+    <remap from="right/camera_info" to="$(arg camera)/right/camera_info"/>
+
+    <param name="approx_sync"       type="bool"   value="true"/>
+    <param name="imgs_dir"          type="string" value="/home/cg/projects/fisheye_stereo_calib_rectify-master/calibration/imgs"/>
+
+  </node>
+
+</launch>

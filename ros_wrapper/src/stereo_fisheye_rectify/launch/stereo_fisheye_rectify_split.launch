@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="camera_raw" default="stereo" />
+    <arg name="camera_rec" default="stereo_fisheye" />
+
+    <node pkg="stereo_fisheye_rectify" type="stereo_fisheye_rectify" name="stereo_fisheye_rectify" output="screen">
+
+      <param name="calib_file" value="$(find stereo_fisheye_rectify)/params/cam_stereo.yml"/>
+
+      <param name="img_width"      type="int"    value="752"/>
+      <param name="img_height"     type="int"    value="480"/>
+
+      <param name="left_frame_id"  type="string" value="$(arg camera_rec)_left_frame"/>
+      <param name="right_frame_id" type="string" value="$(arg camera_rec)_right_frame"/>
+
+      <remap from="~left/image_raw"  to="$(arg camera_raw)/left/image_raw"/>
+      <remap from="~right/image_raw" to="$(arg camera_raw)/right/image_raw"/>
+
+      <remap from="~left/rectified"  to="$(arg camera_rec)/left/image_rect"/>
+      <remap from="~right/rectified" to="$(arg camera_rec)/right/image_rect"/>
+
+    </node>
+</launch>
