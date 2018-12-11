@@ -4,11 +4,10 @@ Programming Computer Vision with Python
 
 ---
 
-## Libraries
+## Python Imageing Libraries
 
-* [PIL (Python Imaging Library)](http://effbot.org/zone/pil-index.htm)
-* [PyLab](https://sourceforge.net/projects/pylab/)
-* [NumPy](http://www.numpy.org/)
+* [PIL (Python Imaging Library)](http://effbot.org/zone/pil-index.htm) adds image processing capabilities to your Python interpreter
+* [scikit-image](https://scikit-image.org/) is a collection of algorithms for image processing
 
 ## Relates
 
