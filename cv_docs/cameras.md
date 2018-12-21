@@ -42,7 +42,13 @@
 * [dxomark](https://www.dxomark.com/): source for image quality benchmarks for phones and cameras
 
 
-## 3. Digital Camera
+## 3. Industrial Camera
+
+* [iDS](https://en.ids-imaging.com/home.html)
+* [1stVision](https://www.1stvision.com/)
+
+
+## 4. Digital Camera
 * [gPhoto](http://www.gphoto.org/) is a free, redistributable, ready to use set of digital camera software applications for Unix-like systems
 * [digiCamControl](http://digicamcontrol.com/): An innovative and easy to use solution for complex camera control!
 * [DSLR Controller](http://www.dslrcontroller.com/) was the first and is still the best app to fully control your Canon EOS DSLR from your Android device, with nothing more than a USB cable.
@@ -50,7 +56,7 @@
 ![digital_cam_ctrl_p100.jpg](./images/digital_cam_ctrl_p100.jpg)
 
 
-## 4. Camera Modules
+## 5. Camera Modules
 
 * [In Search of a Better Serial Camera Module](http://sigalrm.blogspot.com/2013/07/in-search-of-better-serial-camera-module.html)
 
@@ -88,7 +94,7 @@ Open-source quad-core camera effortlessly adds powerful machine vision to all yo
 ![jevois.png](./images/jevois.png)
 
 
-## 5. 3D (Depth) Cameras
+## 6. 3D (Depth) Cameras
 
 ### Structure Light Camera
 
@@ -100,10 +106,6 @@ Open-source quad-core camera effortlessly adds powerful machine vision to all yo
 * [【翻译】Kinect v1和Kinect v2的彻底比较](http://www.cnblogs.com/TracePlus/p/4136297.html)
 * [code-iai/iai_kinect2](https://github.com/code-iai/iai_kinect2): Tools for using the Kinect One (Kinect v2) in ROS
 
-#### Realsense Camera
-* [realsense_camera (ROS Wiki)](http://wiki.ros.org/realsense_camera)
-* [Intel® RealSense­™ Camera ZR300](https://software.intel.com/en-us/realsense/zr300)
-
 #### Orbbec Astra Camera
 * [astra_camera (ROS Wiki)](http://wiki.ros.org/astra_camera)
 * [ROS wrapper for Astra camera](https://github.com/orbbec/ros_astra_camera)
@@ -113,11 +115,18 @@ Open-source quad-core camera effortlessly adds powerful machine vision to all yo
 
 ### Stereo Camera
 
+#### Realsense Camera
+* [realsense_camera (ROS Wiki)](http://wiki.ros.org/realsense_camera)
+* [Intel® RealSense­™ Camera ZR300](https://software.intel.com/en-us/realsense/zr300)
+
 #### ZED Stereo Camera
 * [StereoLabs](https://www.stereolabs.com/)
 
 #### FLIR Bumblebee
 * [立体视觉](https://www.ptgrey.com/stereo-vision-cameras-systems)
+
+#### Tara
+* [Tara - USB 3.0 Stereo Vision Camera](https://www.e-consystems.com/3D-USB-stereo-camera.asp)
 
 ### Event Camera
 * [Event Camera动态视觉传感器，让无人机用相机低成本进行导航](https://www.leiphone.com/news/201709/LkfPqS60ZYgmXk8x.html)
