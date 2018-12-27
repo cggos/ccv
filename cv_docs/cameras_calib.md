@@ -8,7 +8,7 @@
 
 [TOC]
 
-# Calibration Board
+# Calibration Targets
 
 * https://calib.io/
 * [Calibration targets (Kalibr)](https://github.com/ethz-asl/kalibr/wiki/calibration-targets)
@@ -18,6 +18,23 @@
 ## CheckerBoard
 
 ## CircleGrid
+
+## ChArUco: Chessboard + ArUco
+
+###  ArUco vs Chessboard
+* ArUco markers and boards
+  * fast detection and their versatility
+  * the accuracy of their corner positions is not too high, even after applying subpixel refinement
+
+* Chessboard patterns
+  * the corners of chessboard patterns can be refined more accurately since each corner is surrounded by two black squares
+  * finding a chessboard pattern is not as versatile as finding an ArUco board
+
+### Related
+
+* [Aruco](https://mecaruco2.readthedocs.io/en/latest/notebooks_rst/Aruco/Aruco.html)
+* [Detection of ChArUco Corners (OpenCV)](https://docs.opencv.org/3.1.0/df/d4a/tutorial_charuco_detection.html)
+
 
 ## AprilGrid
 * [AprilTags C++ Library](http://people.csail.mit.edu/kaess/apriltags/)
@@ -114,6 +131,10 @@ By default, the **unified projection model** is used since this model approximat
 
 ## Camera and Range Sensor Calibration Toolbox
 * http://www.cvlibs.net/software/calibration/
+
+## velo2cam_calibration
+
+The [velo2cam_calibration](https://github.com/beltransen/velo2cam_calibration) software implements an Automatic Calibration algorithm for Lidar-Stereo camera setups
 
 ## Kalibr
 [Kalibr](https://github.com/ethz-asl/kalibr) is a toolbox that solves the following calibration problems:  
