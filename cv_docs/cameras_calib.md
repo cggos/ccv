@@ -77,6 +77,16 @@ rosrun camera_calibration cameracalibrator.py \
 
 Matlab code for Super-Wide-Angle-lens Radial Distortion correction just using a single image of a checkerboard
 
+### OCamCalib: Omnidirectional Camera Calibration Toolbox for Matlab
+
+* https://sites.google.com/site/scarabotix/ocamcalib-toolbox
+* Omnidirectional Camera Calibration Toolbox for Matlab (for Windows, MacOS & Linux)
+* For catadioptric and fisheye cameras up to 195 degrees
+
+#### Improved OcamCalib
+
+* [urbste/ImprovedOcamCalib](https://github.com/urbste/ImprovedOcamCalib): an add-on to the OCamCalib toolbox by Scaramuzza et al.
+
 ### InerVis Toolbox for Matlab -- IMU CAM calibration
 * http://home.deec.uc.pt/~jlobo/InerVis_WebIndex/InerVis_Toolbox.html
 
@@ -102,7 +112,8 @@ By default, the **unified projection model** is used since this model approximat
 ## GML C++ Camera Calibration Toolbox
 [GML Camera Calibration toolbox](http://graphics.cs.msu.ru/en/node/909) is a free functionally completed tool for cameras' calibrating. You can easy calculate intrinsic and extrinsic camera parameters after calibrating.
 
-## [Camera and Range Sensor Calibration Toolbox](http://www.cvlibs.net/software/calibration/)
+## Camera and Range Sensor Calibration Toolbox
+* http://www.cvlibs.net/software/calibration/
 
 ## Kalibr
 [Kalibr](https://github.com/ethz-asl/kalibr) is a toolbox that solves the following calibration problems:  
