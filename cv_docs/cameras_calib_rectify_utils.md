@@ -8,38 +8,6 @@
 
 [TOC]
 
-# Calibration Targets
-
-* https://calib.io/
-* [Calibration targets (Kalibr)](https://github.com/ethz-asl/kalibr/wiki/calibration-targets)
-* [机器视觉标定板](http://www.china-vision.com.cn/third_category/192.html)
-* [Intel® RealSense™ D400 Camera OEM Calibration Target](https://click.intel.com/realsense-d400-camera-oem-calibration.html)
-
-## CheckerBoard
-
-## CircleGrid
-
-## ChArUco: Chessboard + ArUco
-
-###  ArUco vs Chessboard
-* ArUco markers and boards
-  * fast detection and their versatility
-  * the accuracy of their corner positions is not too high, even after applying subpixel refinement
-
-* Chessboard patterns
-  * the corners of chessboard patterns can be refined more accurately since each corner is surrounded by two black squares
-  * finding a chessboard pattern is not as versatile as finding an ArUco board
-
-### Related
-
-* [Aruco](https://mecaruco2.readthedocs.io/en/latest/notebooks_rst/Aruco/Aruco.html)
-* [Detection of ChArUco Corners (OpenCV)](https://docs.opencv.org/3.1.0/df/d4a/tutorial_charuco_detection.html)
-
-
-## AprilGrid
-* [AprilTags C++ Library](http://people.csail.mit.edu/kaess/apriltags/)
-
-
 # Camera Calibration
 
 * [Tutorial Camera Calibration](http://boofcv.org/index.php?title=Tutorial_Camera_Calibration)
@@ -50,6 +18,8 @@
 ## OpenCV
 * [Interactive camera calibration application](http://docs.opencv.org/3.2.0/d7/d21/tutorial_interactive_calibration.html)
 * [Calibrate fisheye lens using OpenCV](https://medium.com/@kennethjiang/calibrate-fisheye-lens-using-opencv-333b05afa0b0)
+* [Omnidirectional Cameara Calibration](https://docs.opencv.org/3.4/dd/d12/tutorial_omnidir_calib_main.html)
+* [Custom Calibration Pattern for 3D reconstruction](https://docs.opencv.org/3.3.1/d3/ddc/group__ccalib.html)
 
 ## camera_calibration (ROS Wiki)
 * http://wiki.ros.org/camera_calibration
@@ -76,12 +46,27 @@ rosrun camera_calibration cameracalibrator.py \
 
 ## Matlab
 
-### Camera Calibration Toolbox for Matlab
+### Camera Calibration Toolbox for Matlab (Caltech & by Jean-Yves Bouguet)
 * http://www.vision.caltech.edu/bouguetj/calib_doc/
 
 <div align="center">
   <img src="./images/matlab_calib.gif">
 </div>
+
+### Omnidirectional Calibration Toolbox (by Christopher Mei)
+
+* [The toolbox](http://www.robots.ox.ac.uk/~cmei/Toolbox.html) has been successfully used to calibrate hyperbolic, parabolic, folded mirror, spherical and wide-angle sensors.
+* It is a combination of the unified projection model from Geyer and Barreto and a radial distortion function. This model makes it possible take into account the distortion introduced by telecentric lenses (for parabolic mirrors) and gives a greater flexibility (spherical mirrors can be calibrated).
+
+### OCamCalib: Omnidirectional Camera Calibration Toolbox for Matlab (by Davide Scaramuzza)
+
+* https://sites.google.com/site/scarabotix/ocamcalib-toolbox
+* Omnidirectional Camera Calibration Toolbox for Matlab (for Windows, MacOS & Linux)
+* For catadioptric and fisheye cameras up to 195 degrees
+
+#### Improved OcamCalib
+
+* [urbste/ImprovedOcamCalib](https://github.com/urbste/ImprovedOcamCalib): an add-on to the OCamCalib toolbox by Scaramuzza et al.
 
 ### Calibr
 * [Camera calibration toolbox for Matlab](http://www.ee.oulu.fi/~jth/calibr/)
@@ -94,23 +79,16 @@ rosrun camera_calibration cameracalibrator.py \
 
 Matlab code for Super-Wide-Angle-lens Radial Distortion correction just using a single image of a checkerboard
 
-### OCamCalib: Omnidirectional Camera Calibration Toolbox for Matlab
-
-* https://sites.google.com/site/scarabotix/ocamcalib-toolbox
-* Omnidirectional Camera Calibration Toolbox for Matlab (for Windows, MacOS & Linux)
-* For catadioptric and fisheye cameras up to 195 degrees
-
-#### Improved OcamCalib
-
-* [urbste/ImprovedOcamCalib](https://github.com/urbste/ImprovedOcamCalib): an add-on to the OCamCalib toolbox by Scaramuzza et al.
-
 ### InerVis Toolbox for Matlab -- IMU CAM calibration
 * http://home.deec.uc.pt/~jlobo/InerVis_WebIndex/InerVis_Toolbox.html
 
 Inertial Measurement Unit and Camera Calibration Toolbox
 
 
-## [CamOdoCal](https://github.com/hengli/camodocal)
+## CamOdoCal
+
+* https://github.com/hengli/camodocal
+
 **Automatic Intrinsic and Extrinsic Calibration of a Rig with Multiple Generic Cameras and Odometry.**  
 
 This C++ library supports the following tasks:  
@@ -128,6 +106,10 @@ By default, the **unified projection model** is used since this model approximat
 
 ## GML C++ Camera Calibration Toolbox
 [GML Camera Calibration toolbox](http://graphics.cs.msu.ru/en/node/909) is a free functionally completed tool for cameras' calibrating. You can easy calculate intrinsic and extrinsic camera parameters after calibrating.
+
+## EasyCal Toolbox
+
+* The [EasyCal Toolbox](http://www.cis.upenn.edu/~kostas/tele-immersion/research/downloads/EasyCal/) can be used to calibrate a large cluster of cameras easily eliminating the need to click tediously on multiple images.
 
 ## Camera and Range Sensor Calibration Toolbox
 * http://www.cvlibs.net/software/calibration/

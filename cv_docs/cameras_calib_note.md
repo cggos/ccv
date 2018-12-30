@@ -30,15 +30,33 @@ depth).
 
 ## Calibration Patterns
 
+* https://calib.io/
+* [Calibration targets (Kalibr)](https://github.com/ethz-asl/kalibr/wiki/calibration-targets)
+* [机器视觉标定板](http://www.china-vision.com.cn/third_category/192.html)
+* [Intel® RealSense™ D400 Camera OEM Calibration Target](https://click.intel.com/realsense-d400-camera-oem-calibration.html)
+
 ### Pattern size
 
 As a rule of thumb, the calibration plate should have an area of at least half the available pixel area when observed frontally
 
 ### Pattern type
-* Checkerboard
-* Circle grids
-* CharuCo targets
-* AprilTag
+
+#### Checkerboard
+#### Circle grids
+#### CharuCo: Chessboard + ArUco
+
+#####  ArUco vs Chessboard
+* ArUco markers and boards
+  * fast detection and their versatility
+  * the accuracy of their corner positions is not too high, even after applying subpixel refinement
+
+* Chessboard patterns
+  * the corners of chessboard patterns can be refined more accurately since each corner is surrounded by two black squares
+  * finding a chessboard pattern is not as versatile as finding an ArUco board
+
+#### AprilTag
+
+
 
 ## Camera Models
 
@@ -51,7 +69,9 @@ As a rule of thumb, the calibration plate should have an area of at least half t
 ### Accuracy Check
 This procedure should be used to check the accuracy of the camera.
 
-* Calibrate the camera with the ATAN model and make sure you have a very low reprojection error (~0.1px).
+* Reprojection error statistic
+  * Qualitatively speaking, a good calibration yields +- 1px reprojection error
+  * Calibrate the camera with the ATAN model and make sure you have a very low reprojection error (~0.1px) (from SVO)
 
 * Expect accuracy within 2% at @2 meters
   * Place the camera in parallel to a flat wall and exactly two meter (2000 mm) away. Once the camera is placed in its position, Use Intel® RealSenseTMViewer or Depth Quality Tool to measure the absolute distance. For a flat surface at a distance of 2 meter the absolute distance should be within 2% or better at 2 meter (2000mm). If the distance is not within the defined range, then the camera needs to be calibrated.
