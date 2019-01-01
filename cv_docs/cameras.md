@@ -8,6 +8,7 @@
 
 ## 1. Camera Control
 
+* [Webcam Capture](http://webcam-capture.sarxos.pl/): Generic Webcam Java API
 * [Set up a Webcam with Linux](http://www.linuxintro.org/wiki/Set_up_a_Webcam_with_Linux)
 * [Accessing the Video Device](https://www.tldp.org/HOWTO/Webcam-HOWTO/dev-intro.html)
   Create Video Device ( /dev/video1 )
@@ -40,6 +41,9 @@
 ## 2. Camera Lenses
 * [Lensation](https://www.lensation.de/) provides free of charge consulting about lenses, illumination and optical components
 * [dxomark](https://www.dxomark.com/): source for image quality benchmarks for phones and cameras
+
+### Fisheye Lens
+* Its not unusual for a fisheye lens to have a FOV of 185 degrees.
 
 
 ## 3. Industrial Camera

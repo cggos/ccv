@@ -10,7 +10,6 @@
 
 # Camera Calibration
 
-* [Tutorial Camera Calibration](http://boofcv.org/index.php?title=Tutorial_Camera_Calibration)
 * [张氏法相机标定](https://zhuanlan.zhihu.com/p/24651968)
 * [Multi-Camera Self-Calibration](http://cmp.felk.cvut.cz/~svoboda/SelfCal/)
 * [LIBCBDETECT: Corner and Checkerboard Detection](http://www.cvlibs.net/software/libcbdetect/): MATLAB code for fully automatic sub-pixel checkerboard / chessboard pattern detection
@@ -46,7 +45,7 @@ rosrun camera_calibration cameracalibrator.py \
 
 ## Matlab
 
-### Camera Calibration Toolbox for Matlab (Caltech & by Jean-Yves Bouguet)
+### Caltech's Camera Calibration Toolbox for Matlab (by Jean-Yves Bouguet)
 * http://www.vision.caltech.edu/bouguetj/calib_doc/
 
 <div align="center">
@@ -73,6 +72,7 @@ rosrun camera_calibration cameracalibrator.py \
 
 ### Stereo Camera Calibrator App
 * https://www.mathworks.com/help/vision/ug/stereo-camera-calibrator-app.html
+  ![Stereo Camera Calibrator](https://www.mathworks.com/help/vision/ug/stereocalibrator_calibrated.png)
 
 ### SWARD Camera Calibration Toolbox
 * http://swardtoolbox.github.io/
@@ -82,8 +82,9 @@ Matlab code for Super-Wide-Angle-lens Radial Distortion correction just using a 
 ### InerVis Toolbox for Matlab -- IMU CAM calibration
 * http://home.deec.uc.pt/~jlobo/InerVis_WebIndex/InerVis_Toolbox.html
 
-Inertial Measurement Unit and Camera Calibration Toolbox
-
+<div align=center>
+  <img src="http://home.deec.uc.pt/~jlobo/InerVis_WebIndex/imu_cam_menu.gif">
+</div>
 
 ## CamOdoCal
 
