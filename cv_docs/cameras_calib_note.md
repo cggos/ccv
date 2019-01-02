@@ -115,6 +115,10 @@ As a rule of thumb, the calibration plate should have an area of at least half t
   * the corners of chessboard patterns can be refined more accurately since each corner is surrounded by two black squares
   * finding a chessboard pattern is not as versatile as finding an ArUco board
 
+#### Calibration with ChArUco Boards and ArUco Boards
+
+As it can be stated, calibration can be done using both, marker corners or ChArUco corners. However, **it is highly recommended using the ChArUco corners approach since the provided corners are much more accurate in comparison to the marker corners**. Calibration using a standard Board should only be employed in those scenarios where the ChArUco boards cannot be employed because of any kind of restriction.
+
 #### AprilTag
 
 
