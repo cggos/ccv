@@ -55,6 +55,17 @@ depth).
   - the target needs to be mounted on a flat surface. Any warping will decrease calibration accuracy. An ideal surface will be rigid and smooth.
 * Remove bad observations
 
+### Others
+
+#### OpenCV
+
+Basically, you need to take snapshots of these patterns with your camera and let OpenCV find them.  
+Each found pattern results in a new equation.   
+To solve the equation you need at least a predetermined number of pattern snapshots to form a well-posed equation system.   
+This number is higher for the chessboard pattern and less for the circle ones.   
+For example, in theory the chessboard pattern requires at least two snapshots.   
+However, in practice we have a good amount of noise present in our input images, so for good results you will probably need at least 10 good snapshots of the input pattern in different positions.
+
 
 ## Calibration Patterns
 
