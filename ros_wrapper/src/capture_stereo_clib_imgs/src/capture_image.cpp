@@ -23,9 +23,12 @@ namespace capture_image
     class CaptureImage : public nodelet::Nodelet
     {
         public:
-            CaptureImage() : approxSyncStereo_(0), exactSyncStereo_(0) {
-                str_imgs_dir = "./";
-            }
+            CaptureImage() 
+                : approxSyncStereo_(0)
+                , exactSyncStereo_(0) 
+                , num_corner_h_(0)
+                , num_corner_v_(0)
+                , str_imgs_dir("./") {}
 
             virtual ~CaptureImage()
             {
@@ -46,6 +49,8 @@ namespace capture_image
                 bool approxSync = true;
                 pnh.param("approx_sync", approxSync, approxSync);
                 pnh.param("imgs_dir", str_imgs_dir, str_imgs_dir);
+                pnh.param("num_corner_h", num_corner_h_, 7);
+                pnh.param("num_corner_v", num_corner_v_, 6);
 
                 if(approxSync)
                 {
@@ -100,8 +105,8 @@ namespace capture_image
                 cv::Mat mat_left  = ptrLeftImage->image;
                 cv::Mat mat_right = ptrRightImage->image;
 
-                int numCornersHor = 7;
-                int numCornersVer = 6;
+                int numCornersHor = 11;
+                int numCornersVer = 7;
                 cv::Size board_sz = cv::Size(numCornersHor, numCornersVer);
 
                 cv::Mat mat_left_color(mat_left.size(), CV_8UC3);
@@ -122,31 +127,36 @@ namespace capture_image
                     cv::drawChessboardCorners(mat_left_color,  board_sz, corners_l, found_l);
                     cv::drawChessboardCorners(mat_right_color, board_sz, corners_r, found_r);
 
-                    std::ostringstream oss_left;
-                    std::ostringstream oss_right;
-                    std::string left  = str_imgs_dir + "/left";
-                    std::string right = str_imgs_dir + "/right";
-                    oss_left  << left  << n_image_pair << ".jpg";
-                    oss_right << right << n_image_pair << ".jpg";
+                    char key = (char)cv::waitKey(10);
+                    if(key == 'c') {
+                        std::ostringstream oss_left;
+                        std::ostringstream oss_right;
+                        std::string left  = str_imgs_dir + "/left";
+                        std::string right = str_imgs_dir + "/right";
+                        oss_left  << left  << n_image_pair << ".jpg";
+                        oss_right << right << n_image_pair << ".jpg";
 
-                    cv::imwrite(oss_left.str(),  mat_left);
-                    cv::imwrite(oss_right.str(), mat_right);
+                        cv::imwrite(oss_left.str(),  mat_left);
+                        cv::imwrite(oss_right.str(), mat_right);
 
-                    n_image_pair++;
+                        n_image_pair++;
 
-                    ROS_INFO("found and save image pair %d", n_image_pair);
+                        ROS_INFO("found and save image pair %d", n_image_pair);
+                    }
                 }
 
                 cv::Mat mat_all;
                 cv::hconcat(mat_left_color, mat_right_color, mat_all);
                 cv::imshow("left and right color image", mat_all);
 
-                cv::waitKey(200);
+                cv::waitKey(10);
             }
 
         private:
 
             int n_image_pair ;
+            int num_corner_h_;
+            int num_corner_v_;
 
             std::string str_imgs_dir;
 
