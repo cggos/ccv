@@ -67,6 +67,12 @@ rosrun camera_calibration cameracalibrator.py \
 
 * [urbste/ImprovedOcamCalib](https://github.com/urbste/ImprovedOcamCalib): an add-on to the OCamCalib toolbox by Scaramuzza et al.
 
+### Camera Calibration Toolbox for Generic Lenses (by Juho Kannala)
+
+* http://www.ee.oulu.fi/~jkannala/calibration/calibration.html
+
+This is a camera calibration toolbox for Matlab which can be used for calibrating several different kinds of central cameras. A central camera is a camera which has a single effective viewpoint. The toolbox has been successfully used for both conventional and omnidirectional cameras such as fish-eye lens cameras and catadioptric cameras.
+
 ### Calibr
 * [Camera calibration toolbox for Matlab](http://www.ee.oulu.fi/~jth/calibr/)
 
