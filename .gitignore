@@ -2,16 +2,18 @@
 .catkin_workspace
 ros_wrapper/src/CMakeLists.txt
 cgocv/
-*.raw
 .vscode/
 .idea/
-CImg.h
-*.bmp
 imgs/
+CImg.h
+*.raw
+*.bmp
+*.png
 
 cam_stereo.yml
 calib.sh
 
+cmake-build-debug/
 build/
 devel/
 logs/
