@@ -1,0 +1,2 @@
+#define cgocv_VERSION_MAJOR @cgocv_VERSION_MAJOR@
+#define cgocv_VERSION_MINOR @cgocv_VERSION_MINOR@
