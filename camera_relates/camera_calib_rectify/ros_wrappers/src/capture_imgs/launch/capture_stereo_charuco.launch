@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <arg name="camera"    default="mynteye"/>
+
+    <node pkg="nodelet" type="nodelet" name="nodelet_manager"  args="manager" output="screen"/>
+
+    <node pkg="nodelet" type="nodelet" name="capture_stereo_charuco"
+          args="load capture_imgs/CaptureStereoCharuco nodelet_manager">
+
+        <remap from="left/image"        to="$(arg camera)/left/image_raw"/>
+        <remap from="right/image"       to="$(arg camera)/right/image_raw"/>
+        <remap from="left/camera_info"  to="$(arg camera)/left/camera_info"/>
+        <remap from="right/camera_info" to="$(arg camera)/right/camera_info"/>
+
+        <rosparam file="$(find capture_imgs)launch/config/capture_stereo_charuco.yaml" command="load"/>
+
+    </node>
+
+</launch>
