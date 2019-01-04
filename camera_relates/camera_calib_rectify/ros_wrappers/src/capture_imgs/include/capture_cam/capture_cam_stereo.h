@@ -1,5 +1,5 @@
-#ifndef CAPTURE_STEREO_CHARUCO_H_
-#define CAPTURE_STEREO_CHARUCO_H_
+#ifndef CAPTURE_CAM_STEREO_H_
+#define CAPTURE_CAM_STEREO_H_
 
 #include <ros/ros.h>
 #include <nodelet/nodelet.h>
@@ -18,15 +18,15 @@
 
 #include <cv_bridge/cv_bridge.h>
 
-#include "capture_imgs/detect_charuco.h"
+#include "detect_charuco/detect_charuco_stereo.h"
 
-namespace capture_imgs {
+namespace capture_cam {
 
-    class CaptureStereoCharuco : public nodelet::Nodelet {
+    class CaptureCamStereo : public nodelet::Nodelet {
     public:
-        CaptureStereoCharuco() {}
+        CaptureCamStereo() {}
 
-        virtual ~CaptureStereoCharuco() {
+        virtual ~CaptureCamStereo() {
             if(approx_sync_stereo_)
                 delete approx_sync_stereo_;
             if(exact_sync_stereo_)
@@ -47,14 +47,14 @@ namespace capture_imgs {
                         MyApproxSyncStereoPolicy(queue_size), filter_img_l_, filter_img_r_, filter_caminfo_l_,
                         filter_caminfo_r_);
                 approx_sync_stereo_->registerCallback(
-                        boost::bind(&CaptureStereoCharuco::stereoCallback, this, _1, _2, _3, _4));
+                        boost::bind(&CaptureCamStereo::stereoCallback, this, _1, _2, _3, _4));
             }
             else {
                 exact_sync_stereo_ = new message_filters::Synchronizer<MyExactSyncStereoPolicy>(
                         MyExactSyncStereoPolicy(queue_size), filter_img_l_, filter_img_r_, filter_caminfo_l_,
                         filter_caminfo_r_);
                 exact_sync_stereo_->registerCallback(
-                        boost::bind(&CaptureStereoCharuco::stereoCallback, this, _1, _2, _3, _4));
+                        boost::bind(&CaptureCamStereo::stereoCallback, this, _1, _2, _3, _4));
             }
 
             ros::NodeHandle nh_left  ( nh, "left" );
@@ -71,17 +71,7 @@ namespace capture_imgs {
             filter_caminfo_l_.subscribe(nh_left,  "camera_info", 1);
             filter_caminfo_r_.subscribe(nh_right, "camera_info", 1);
 
-            int id_dictionary = 10;
-            int squares_x;
-            int squares_y;
-            float square_length;
-            float marker_length;
-            pnh.param("squares_x", squares_x, 7);
-            pnh.param("squares_y", squares_y, 11);
-            pnh.param("square_length", square_length, 0.021f);
-            pnh.param("marker_length", marker_length, 0.014f);
-            charuco_detector_r_ = charuco_detector_l_ =
-                    CharucoDetector(id_dictionary, squares_x, squares_y, square_length, marker_length);
+            capture_cam_stereo_imp_ = new CaptureCamStereoImp(pnh);
         }
 
         void stereoCallback(const sensor_msgs::ImageConstPtr& image_left,
@@ -110,10 +100,8 @@ namespace capture_imgs {
             cv::Mat img_l = ptr_img_l->image;
             cv::Mat img_r = ptr_img_r->image;
 
-            process(img_l, img_r);
+            capture_cam_stereo_imp_->process(img_l, img_r);
         }
-
-        void process(const cv::Mat &img_l, const cv::Mat &img_r);
 
     private:
         typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::CameraInfo, sensor_msgs::CameraInfo> MyApproxSyncStereoPolicy;
@@ -127,12 +115,11 @@ namespace capture_imgs {
         message_filters::Subscriber<sensor_msgs::CameraInfo> filter_caminfo_l_;
         message_filters::Subscriber<sensor_msgs::CameraInfo> filter_caminfo_r_;
 
-        CharucoDetector charuco_detector_l_;
-        CharucoDetector charuco_detector_r_;
+        CaptureCamStereoImp *capture_cam_stereo_imp_;
     };
 
-    PLUGINLIB_EXPORT_CLASS(capture_imgs::CaptureStereoCharuco, nodelet::Nodelet);
+    PLUGINLIB_EXPORT_CLASS(capture_cam::CaptureCamStereo, nodelet::Nodelet);
 }
 
 
-#endif // CAPTURE_STEREO_CHARUCO_H_
+#endif // CAPTURE_CAM_STEREO_H_

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(capture_imgs)
+project(capture_cam)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -108,8 +108,8 @@ find_package(Boost REQUIRED COMPONENTS system)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-  LIBRARIES capture_stereo_charuco_nodelet
+  INCLUDE_DIRS include
+  LIBRARIES detect_charuco_stereo_nodelet
   CATKIN_DEPENDS cv_bridge dynamic_reconfigure geometry_msgs image_geometry image_transport message_filters nodelet roscpp rospy sensor_msgs std_msgs std_srvs
 #  DEPENDS system_lib
 )
@@ -125,13 +125,12 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_library(capture_stereo_charuco_nodelet src/capture_stereo_charuco_nodelet.cc)
-#add_executable(${PROJECT_NAME} src/capture_stereo_charuco.cc)
-target_link_libraries(capture_stereo_charuco_nodelet ${catkin_LIBRARIES})
+add_library(detect_charuco_stereo_nodelet src/detect_charuco_stereo.cc include/capture_cam/capture_cam_stereo.h)
+target_link_libraries(detect_charuco_stereo_nodelet ${catkin_LIBRARIES})
 
 # set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
 
-add_dependencies(capture_stereo_charuco_nodelet ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(detect_charuco_stereo_nodelet ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
 #############
