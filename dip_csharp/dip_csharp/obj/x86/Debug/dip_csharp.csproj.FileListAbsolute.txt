@@ -1,9 +1,0 @@
-/home/cg/projects/cgocv/dip_csharp/dip_csharp/bin/Debug/dip_csharp.exe
-/home/cg/projects/cgocv/dip_csharp/dip_csharp/bin/Debug/dip_csharp.pdb
-/home/cg/projects/cgocv/dip_csharp/dip_csharp/obj/x86/Debug/dip_csharp.csprojAssemblyReference.cache
-/home/cg/projects/cgocv/dip_csharp/dip_csharp/obj/x86/Debug/dip_csharp.MainForm.resources
-/home/cg/projects/cgocv/dip_csharp/dip_csharp/obj/x86/Debug/dip_csharp.Properties.Resources.resources
-/home/cg/projects/cgocv/dip_csharp/dip_csharp/obj/x86/Debug/dip_csharp.csproj.GenerateResource.cache
-/home/cg/projects/cgocv/dip_csharp/dip_csharp/obj/x86/Debug/dip_csharp.csproj.CoreCompileInputs.cache
-/home/cg/projects/cgocv/dip_csharp/dip_csharp/obj/x86/Debug/dip_csharp.exe
-/home/cg/projects/cgocv/dip_csharp/dip_csharp/obj/x86/Debug/dip_csharp.pdb
