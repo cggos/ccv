@@ -10,11 +10,7 @@ namespace capture_cam {
     public:
         CaptureCamStereoImp() {}
         CaptureCamStereoImp(ros::NodeHandle &nh) : nh_(nh) {}
-
-        virtual void process(const cv::Mat &img_l, const cv::Mat &img_r) {
-            std::cout << "CaptureCamStereoImp process" << std::endl;
-        }
-
+        virtual void process(const cv::Mat &img_l, const cv::Mat &img_r) = 0;
     public:
         ros::NodeHandle nh_;
     };

@@ -2,7 +2,7 @@
 
 <launch>
 
-    <arg name="camera"    default="mynteye"/>
+    <arg name="camera"    default="stereo"/>
 
     <node pkg="nodelet" type="nodelet" name="nodelet_manager"  args="manager" output="screen"/>
 

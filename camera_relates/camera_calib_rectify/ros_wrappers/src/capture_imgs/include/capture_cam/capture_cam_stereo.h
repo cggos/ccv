@@ -18,7 +18,7 @@
 
 #include <cv_bridge/cv_bridge.h>
 
-#include "detect_charuco/detect_charuco_stereo.h"
+#include "capture_cam/detect_charuco_stereo.h"
 
 namespace capture_cam {
 
@@ -71,7 +71,7 @@ namespace capture_cam {
             filter_caminfo_l_.subscribe(nh_left,  "camera_info", 1);
             filter_caminfo_r_.subscribe(nh_right, "camera_info", 1);
 
-            capture_cam_stereo_imp_ = new CaptureCamStereoImp(pnh);
+            capture_cam_stereo_imp_ = new StereoCharucoDetector(pnh);
         }
 
         void stereoCallback(const sensor_msgs::ImageConstPtr& image_left,
@@ -90,8 +90,6 @@ namespace capture_cam {
                 NODELET_ERROR("Input type must be image=mono8,mono16,rgb8,bgr8 (enc=%s)", image_left->encoding.c_str());
                 return;
             }
-
-            NODELET_INFO("");
 
             cv_bridge::CvImageConstPtr ptr_img_l, ptr_img_r;
             ptr_img_l = cv_bridge::toCvShare(image_left,  "mono8");
