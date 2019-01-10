@@ -144,6 +144,7 @@ This procedure should be used to check the accuracy of the camera.
   * Qualitatively speaking, a good calibration yields +- 1px reprojection error
   * Calibrate the camera with the ATAN model and make sure you have a very low reprojection error (~0.1px) (from SVO)
   * For a well made target and a decent camera reprojection error is typically around 0.1 pixels
+  * Typically, an epipolar error below 0.25 pixel is considered acceptable, and below 0.1 excellent (from ROS StereoCalibration)
 
 * Expect accuracy within 2% at @2 meters
   * Place the camera in parallel to a flat wall and exactly two meter (2000 mm) away. Once the camera is placed in its position, Use Intel® RealSenseTMViewer or Depth Quality Tool to measure the absolute distance. For a flat surface at a distance of 2 meter the absolute distance should be within 2% or better at 2 meter (2000mm). If the distance is not within the defined range, then the camera needs to be calibrated.
@@ -153,4 +154,4 @@ This procedure should be used to check the accuracy of the camera.
 
 ### Stereo Rectification
 
-Stereo rectification is the process of distorting two images such that both their epipoles are at infinity, typically along the x-axis. When this happens the epipolar lines are all parallel to each other simplifying the problem of finding feature correspondences to searching along the image axis. Many stereo algorithms require images to be rectified first.
+Stereo rectification is the process of distorting two images such that **both their epipoles are at infinity, typically along the x-axis**. When this happens the epipolar lines are all parallel to each other simplifying the problem of finding feature correspondences to searching along the image axis. Many stereo algorithms require images to be rectified first.
