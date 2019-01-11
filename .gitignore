@@ -37,8 +37,6 @@ obj/
 
 .rosinstall
 .catkin_workspace
-camera_relates/camera_calib_rectify/ros_wrappers/src/CMakeLists.txt
-camera_relates/ros_wrappers/src/CMakeLists.txt
 .vscode/
 .idea/
 *.swp
