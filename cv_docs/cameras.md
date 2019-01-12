@@ -50,6 +50,7 @@
 
 * [iDS](https://en.ids-imaging.com/home.html)
 * [1stVision](https://www.1stvision.com/)
+* [MatrixVision](https://www.matrix-vision.com)
 
 
 ## 4. Digital Camera
