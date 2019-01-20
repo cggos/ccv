@@ -18,7 +18,8 @@
 
 #include <cv_bridge/cv_bridge.h>
 
-#include "capture_cam/detect_charuco_stereo.h"
+#include "detect_charuco/detect_charuco_stereo.h"
+#include "detect_checker/detect_checker_stereo.h"
 
 namespace capture_cam {
 
@@ -71,7 +72,9 @@ namespace capture_cam {
             filter_caminfo_l_.subscribe(nh_left,  "camera_info", 1);
             filter_caminfo_r_.subscribe(nh_right, "camera_info", 1);
 
-            capture_cam_stereo_imp_ = new StereoCharucoDetector(pnh);
+            std::string str_params_dir = "./params_out";
+            pnh.param("param_dir",  str_params_dir, str_params_dir);
+            capture_cam_stereo_imp_ = new StereoCheckerDetector(pnh, str_params_dir);
         }
 
         void stereoCallback(const sensor_msgs::ImageConstPtr& image_left,

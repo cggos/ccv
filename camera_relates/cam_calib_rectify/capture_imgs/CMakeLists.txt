@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(capture_cam)
 
+set(CMAKE_BUILD_TYPE Release)
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
@@ -125,7 +127,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_library(detect_charuco_stereo_nodelet src/detect_charuco_stereo.cc)
+add_library(detect_charuco_stereo_nodelet src/detect_charuco_stereo.cc src/detect_checker_stereo.cc src/calib_fisheye_stereo.cc)
 target_link_libraries(detect_charuco_stereo_nodelet ${catkin_LIBRARIES})
 
 # set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")

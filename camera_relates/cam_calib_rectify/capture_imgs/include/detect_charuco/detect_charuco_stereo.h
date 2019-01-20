@@ -2,14 +2,14 @@
 #define CAPTURE_IMGS_DETECT_CHARUCO_STEREO_H
 
 #include "capture_cam/capture_cam_stereo_imp.h"
-#include "capture_cam/detect_charuco.h"
+#include "detect_charuco/detect_charuco.h"
 
 using namespace capture_cam;
 
 class StereoCharucoDetector : public CaptureCamStereoImp {
 
 public:
-    StereoCharucoDetector(ros::NodeHandle &nh) : CaptureCamStereoImp(nh) {
+    StereoCharucoDetector(ros::NodeHandle &nh, std::string param_dir) : CaptureCamStereoImp(nh) {
         int id_dictionary = 10;
         int squares_x;
         int squares_y;

@@ -2,11 +2,14 @@
 
 <launch>
 
-    <arg name="camera"    default="stereo"/>
+    <arg name="camera"  default="stereo"/>
+
+    <arg name="yaml_charuco" default="$(find capture_cam)launch/config/capture_stereo_charuco.yaml"/>
+    <arg name="yaml_checker" default="$(find capture_cam)launch/config/capture_stereo_checker.yaml"/>
 
     <node pkg="nodelet" type="nodelet" name="nodelet_manager"  args="manager" output="screen"/>
 
-    <node pkg="nodelet" type="nodelet" name="capture_stereo_charuco"
+    <node pkg="nodelet" type="nodelet" name="capture_stereo"
           args="load capture_cam/CaptureCamStereo nodelet_manager">
 
         <remap from="left/image"        to="$(arg camera)/left/image_raw"/>
@@ -14,7 +17,8 @@
         <remap from="left/camera_info"  to="$(arg camera)/left/camera_info"/>
         <remap from="right/camera_info" to="$(arg camera)/right/camera_info"/>
 
-        <rosparam file="$(find capture_cam)launch/config/capture_stereo_charuco.yaml" command="load"/>
+        <param name="param_dir" type="string" value="$(find capture_cam)/params_out"/>
+        <rosparam file="$(arg yaml_checker)" command="load"/>
 
     </node>
 

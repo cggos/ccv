@@ -1,4 +1,4 @@
-#include "capture_cam/detect_charuco_stereo.h"
+#include "detect_charuco/detect_charuco_stereo.h"
 
 #include "capture_cam/capture_cam_stereo.h"
 
@@ -12,7 +12,7 @@ void StereoCharucoDetector::process(const cv::Mat &img_l, const cv::Mat &img_r) 
         cv::Mat img_concat;
         cv::hconcat(img_show_l, img_show_r, img_concat);
 
-        putText(img_concat, "Press 's' to add current frame. 'c' to finish and calibrate",
+        putText(img_concat, "Press 's' to add current frame, 'c' to finish and calibrate",
                 Point(10, 20), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(255, 0, 0), 2);
 
         cv::imshow("StereoCharucoDetector", img_concat);
