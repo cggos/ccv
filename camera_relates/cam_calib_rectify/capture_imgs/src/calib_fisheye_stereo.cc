@@ -1,8 +1,5 @@
 #include "calib_cam/calib_fisheye_stereo.h"
 
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-
 void StereoFisheyeCalib::calib(const cv::Mat &img_l, const cv::Mat &img_r) {
 
     static bool is_get_size = false;
@@ -76,5 +73,39 @@ void StereoFisheyeCalib::calib(const cv::Mat &img_l, const cv::Mat &img_r) {
             cv::Point(10, 20), cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 255, 0), 1);
 
     cv::imshow("Stereo Checker Detector", img_concat);
+}
+
+void StereoFisheyeCalib::rectify(const cv::Mat &img_l, const cv::Mat &img_r) {
+
+    static bool is_get_map = false;
+    if(!is_get_map) {
+        get_rect_map();
+        is_get_map = true;
+    }
+
+    cv::Mat img_rect_l;
+    cv::Mat img_rect_r;
+    cv::remap(img_l, img_rect_l, rect_map_[0][0], rect_map_[0][1], cv::INTER_LINEAR);
+    cv::remap(img_r, img_rect_r, rect_map_[1][0], rect_map_[1][1], cv::INTER_LINEAR);
+
+    char key = (char) cv::waitKey(10);
+    {
+        cv::Mat img_concat;
+        cv::hconcat(img_rect_l, img_rect_l, img_concat);
+        cv::cvtColor(img_concat, img_concat, cv::COLOR_GRAY2BGR);
+        putText(img_concat, "Press 's' to save frame, 'm' to match with surf",
+                cv::Point(10, 20), cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 255, 0), 1);
+        for (int i = 0; i < img_concat.rows; i += 32)
+            cv::line(img_concat, cv::Point(0, i), cv::Point(img_concat.cols, i), cv::Scalar(0, 255, 0), 1, 8);
+
+        cv::imshow("rect", img_concat);
+
+        if (key == 's') {
+        }
+
+        if (key == 'n') {
+            math_flann_surf(img_rect_l, img_rect_r);
+        }
+    }
 }
 

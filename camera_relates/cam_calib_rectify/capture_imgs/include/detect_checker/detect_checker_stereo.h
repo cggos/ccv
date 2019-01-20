@@ -18,6 +18,7 @@ public:
         nh_.param("corner_num_x", corner_num_x, 11);
         nh_.param("corner_num_y", corner_num_y, 7);
         nh_.param("square_size",  square_size, 0.03);
+        nh_.param("is_rectify",   is_rectify_, false);
 
         cv::Size corner_num = cv::Size(corner_num_x, corner_num_y);
 
@@ -30,7 +31,7 @@ public:
 
 private:
     StereoFisheyeCalib calib_stereo_fisheye_;
-
+    bool is_rectify_;
 };
 
 #endif //CAPTURE_CAM_DETECT_CHECKER_STEREO_H
