@@ -9,8 +9,6 @@
 
 ## What Calib Do
 
-
-
 Camera calibration is the process of estimating intrinsic and/or extrinsic parameters.  
 
 * Intrinsic parameters deal with the camera's internal characteristics, such as, its focal length, skew, distortion, and image center.
@@ -120,14 +118,6 @@ As a rule of thumb, the calibration plate should have an area of at least half t
 As it can be stated, calibration can be done using both, marker corners or ChArUco corners. However, **it is highly recommended using the ChArUco corners approach since the provided corners are much more accurate in comparison to the marker corners**. Calibration using a standard Board should only be employed in those scenarios where the ChArUco boards cannot be employed because of any kind of restriction.
 
 #### AprilTag
-
-
-
-## Camera Models
-
-### Pin Hole
-
-### ATAN
 
 
 ## Calibration Quality Check

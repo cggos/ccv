@@ -6,54 +6,27 @@
 
 [TOC]
 
-## 1. Camera Control
+## 1. Camera Lenses
 
-* [Webcam Capture](http://webcam-capture.sarxos.pl/): Generic Webcam Java API
-* [Set up a Webcam with Linux](http://www.linuxintro.org/wiki/Set_up_a_Webcam_with_Linux)
-* [Accessing the Video Device](https://www.tldp.org/HOWTO/Webcam-HOWTO/dev-intro.html)
-  Create Video Device ( /dev/video1 )
-  ```
-  sudo mknod /dev/video1 c 81 1
-  sudo chmod 666 /dev/video1
-  sudo chgrp video /dev/video1
-  ```
-
-### Drivers
-
-* Video4Linux
-  - V4L for short, is a collection of device drivers and an API for supporting realtime video capture on Linux systems.
-  - v4l2-ctl
-
-* Firewire
-  - [The IEEE1394/USB3 Digital Camera List](https://damien.douxchamps.net/ieee1394/cameras/)
-
-* UVC (USB Video Class)
-
-### Viewer
-- [Webcam Test (Online)](https://webcamtests.com/)
-- [Turn Camera On (Online)](https://turncameraon.com/)
-- [Coriander](https://damien.douxchamps.net/ieee1394/coriander/) is the Linux graphical user interface (GUI) for controlling a Digital Camera through the IEEE1394 bus (aka FireWire, or iLink).
-- [GTK+ UVC Viewer](http://guvcview.sourceforge.net/index.html)
-  * guvcview
-- cheese
-
-
-## 2. Camera Lenses
 * [Lensation](https://www.lensation.de/) provides free of charge consulting about lenses, illumination and optical components
 * [dxomark](https://www.dxomark.com/): source for image quality benchmarks for phones and cameras
+
+## Knowledge
+
+* [摄像机镜头详细知识](https://zhuanlan.zhihu.com/p/29098395)
 
 ### Fisheye Lens
 * Its not unusual for a fisheye lens to have a FOV of 185 degrees.
 
 
-## 3. Industrial Camera
+## 2. Industrial Camera
 
 * [iDS](https://en.ids-imaging.com/home.html)
 * [1stVision](https://www.1stvision.com/)
 * [MatrixVision](https://www.matrix-vision.com)
 
 
-## 4. Digital Camera
+## 3. Digital Camera
 * [gPhoto](http://www.gphoto.org/) is a free, redistributable, ready to use set of digital camera software applications for Unix-like systems
 * [digiCamControl](http://digicamcontrol.com/): An innovative and easy to use solution for complex camera control!
 * [DSLR Controller](http://www.dslrcontroller.com/) was the first and is still the best app to fully control your Canon EOS DSLR from your Android device, with nothing more than a USB cable.
@@ -61,7 +34,7 @@
 ![digital_cam_ctrl_p100.jpg](./images/digital_cam_ctrl_p100.jpg)
 
 
-## 5. Camera Modules
+## 4. Camera Modules
 
 * [In Search of a Better Serial Camera Module](http://sigalrm.blogspot.com/2013/07/in-search-of-better-serial-camera-module.html)
 
@@ -99,7 +72,7 @@ Open-source quad-core camera effortlessly adds powerful machine vision to all yo
 ![jevois.png](./images/jevois.png)
 
 
-## 6. 3D (Depth) Cameras
+## 5. 3D (Depth) Cameras
 
 ### Structure Light Camera
 
