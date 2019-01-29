@@ -40,9 +40,13 @@ void bfMatch(const vector<DescType> &desc1, const vector<DescType> &desc2, vecto
 
 int main(int argc, char **argv) {
 
-    // load image
-    cv::Mat first_image = cv::imread(first_file, 0);    // load grayscale image
-    cv::Mat second_image = cv::imread(second_file, 0);  // load grayscale image
+    if ( argc != 3 ) {
+        cout << "usage: feature_extraction img1 img2" << endl;
+        return 1;
+    }
+
+    cv::Mat first_image  = cv::imread ( argv[1], 0 );
+    cv::Mat second_image = cv::imread ( argv[2], 0 );
 
     // plot the image
     cv::imshow("first image", first_image);
@@ -104,7 +108,7 @@ void computeAngle(const cv::Mat &image, vector<cv::KeyPoint> &keypoints) {
     int half_patch_size = 8;
     for (auto &kp : keypoints) {
 	    // START YOUR CODE HERE (~7 lines)
-        kp.angle = 0; // compute kp.angle 
+        kp.angle = 0; // compute kp.angle
 
 	    int l = kp.pt.x-half_patch_size;
 		int r = kp.pt.x+half_patch_size-1;
@@ -119,7 +123,7 @@ void computeAngle(const cv::Mat &image, vector<cv::KeyPoint> &keypoints) {
 		for(int y=-half_patch_size; y<half_patch_size; ++y){
 			for(int x=-half_patch_size; x<half_patch_size; ++x){
 				m01 += y * image.at<uchar>(kp.pt.y+y, kp.pt.x+x);
-				m10 += x * image.at<uchar>(kp.pt.y+y, kp.pt.x+x);	
+				m10 += x * image.at<uchar>(kp.pt.y+y, kp.pt.x+x);
 			}
 		}
 
@@ -434,7 +438,7 @@ void computeORBDesc(const cv::Mat &image, vector<cv::KeyPoint> &keypoints, vecto
 				d.clear();
 				break;
 			}
-			
+
 			int pI = image.at<uchar>((int)pv, (int)pu);
 			int qI = image.at<uchar>((int)qv, (int)qu);
 
@@ -458,11 +462,11 @@ void bfMatch(const vector<DescType> &desc1, const vector<DescType> &desc2, vecto
     int d_max = 50;
 
     // START YOUR CODE HERE (~12 lines)
-    // find matches between desc1 and desc2. 
-	
+    // find matches between desc1 and desc2.
+
 	if(desc1.empty() || desc2.empty())
 		return;
-    
+
 	cv::DMatch match;
 	size_t nSizeD1 = desc1.size();
 	size_t nSizeD2 = desc2.size();
@@ -476,7 +480,7 @@ void bfMatch(const vector<DescType> &desc1, const vector<DescType> &desc2, vecto
 				continue;
 			int dist = 0;
 			for(int n=0; n<256; ++n){
-                if(desc1[i][n] != desc2[j][n]) 
+                if(desc1[i][n] != desc2[j][n])
                     ++dist;
 			}
 			if(dist<d_min){
@@ -487,7 +491,7 @@ void bfMatch(const vector<DescType> &desc1, const vector<DescType> &desc2, vecto
 		if(d_min<=d_max){
 			match.queryIdx = i;
 			match.trainIdx = j_min;
-			match.distance = d_min;	
+			match.distance = d_min;
 			matches.push_back(match);
 		}
 	}
