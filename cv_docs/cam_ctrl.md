@@ -22,6 +22,7 @@
   - [The IEEE1394/USB3 Digital Camera List](https://damien.douxchamps.net/ieee1394/cameras/)
 
 * UVC (USB Video Class)
+  - [libuvc_camera (ROS Wiki)](http://wiki.ros.org/libuvc_camera)
 
 ## Viewer/Controller
 - [Webcam Test (Online)](https://webcamtests.com/)
