@@ -96,6 +96,7 @@ Open-source quad-core camera effortlessly adds powerful machine vision to all yo
 #### Realsense Camera
 * [realsense_camera (ROS Wiki)](http://wiki.ros.org/realsense_camera)
 * [Intel® RealSense­™ Camera ZR300](https://software.intel.com/en-us/realsense/zr300)
+* [ethz-asl/maplab_realsense](https://github.com/ethz-asl/maplab_realsense): Simple ROS wrapper for the Intel RealSense driver with a focus on the ZR300
 
 #### ZED Stereo Camera
 * [StereoLabs](https://www.stereolabs.com/)
