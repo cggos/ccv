@@ -7,22 +7,32 @@ set( CMAKE_CXX_FLAGS "-std=c++11 -O3" )
 list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules )
 
 find_package( OpenCV 3.1 REQUIRED )
-find_package( G2O REQUIRED )
-link_directories(/opt/g2o/lib)
-find_package( CSparse REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
 
-include_directories(
-    ${OpenCV_INCLUDE_DIRS}
-    ${G2O_INCLUDE_DIRS}
-    ${CSPARSE_INCLUDE_DIR}
-    /usr/include/eigen3/
-)
+find_package( G2O REQUIRED )
+include_directories( ${G2O_INCLUDE_DIRS} )
+link_directories(/opt/g2o/lib)
+set(G2O_USER_LIBS g2o_core g2o_stuff g2o_types_sba g2o_csparse_extension)
+
+find_package( CSparse REQUIRED )
+include_directories(${CSPARSE_INCLUDE_DIR})
+
+find_package(Sophus)
+if(Sophus_FOUND)
+    include_directories( ${Sophus_INCLUDE_DIRS} )
+endif()
+
+find_package( Pangolin )
+include_directories( ${Pangolin_INCLUDE_DIRS} )
+
+find_package(Eigen3)
+include_directories(${EIGEN3_INCLUDE_DIR})
 
 add_library(pose_estimation SHARED pose_estimation.cpp)
 target_link_libraries(pose_estimation
         ${OpenCV_LIBS}
         ${CSPARSE_LIBRARY}
-        g2o_core g2o_stuff g2o_types_sba g2o_csparse_extension)
+        ${G2O_USER_LIBS})
 
 add_executable( pose_estimation_2d2d pose_estimation_2d2d.cpp )
 target_link_libraries( pose_estimation_2d2d  pose_estimation)
@@ -35,3 +45,6 @@ target_link_libraries( pose_estimation_3d2d pose_estimation )
 
 add_executable( pose_estimation_3d3d pose_estimation_3d3d.cpp )
 target_link_libraries( pose_estimation_3d3d pose_estimation )
+
+add_executable(icp icp.cpp)
+target_link_libraries( icp ${Pangolin_LIBRARIES} ${Sophus_LIBRARIES} )
