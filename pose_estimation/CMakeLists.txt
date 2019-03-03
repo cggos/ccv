@@ -12,7 +12,7 @@ include_directories( ${OpenCV_INCLUDE_DIRS} )
 find_package( G2O REQUIRED )
 include_directories( ${G2O_INCLUDE_DIRS} )
 link_directories(/opt/g2o/lib)
-set(G2O_USER_LIBS g2o_core g2o_stuff g2o_types_sba g2o_csparse_extension)
+set(G2O_USER_LIBS g2o_core g2o_stuff g2o_types_sba g2o_solver_csparse g2o_csparse_extension)
 
 find_package( CSparse REQUIRED )
 include_directories(${CSPARSE_INCLUDE_DIR})
@@ -54,3 +54,12 @@ target_link_libraries(optical_flow_lk ${OpenCV_LIBS})
 
 add_executable(optical_flow optical_flow.cpp)
 target_link_libraries(optical_flow ${OpenCV_LIBS})
+
+add_executable( direct_method direct_method.cpp )
+target_link_libraries( direct_method ${OpenCV_LIBS} ${Pangolin_LIBRARIES} ${Sophus_LIBRARIES} )
+
+add_executable( direct_sparse direct_sparse.cpp )
+target_link_libraries( direct_sparse  ${OpenCV_LIBS} ${G2O_USER_LIBS} )
+
+add_executable( direct_semidense direct_semidense.cpp )
+target_link_libraries( direct_semidense ${OpenCV_LIBS} ${G2O_USER_LIBS} )
