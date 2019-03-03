@@ -48,3 +48,9 @@ target_link_libraries( pose_estimation_3d3d pose_estimation )
 
 add_executable(icp icp.cpp)
 target_link_libraries( icp ${Pangolin_LIBRARIES} ${Sophus_LIBRARIES} )
+
+add_executable(optical_flow_lk optical_flow_lk.cpp)
+target_link_libraries(optical_flow_lk ${OpenCV_LIBS})
+
+add_executable(optical_flow optical_flow.cpp)
+target_link_libraries(optical_flow ${OpenCV_LIBS})
