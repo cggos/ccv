@@ -30,12 +30,6 @@ int main()
         return fd_video;
     }
 
-    FILE* fp = fopen("/home/cg/test.jpg", "wb+");
-    if (fp < 0) {
-        perror("fb open error.");
-        return -1;
-    }
-
     //打印支持的视频格式
     struct v4l2_fmtdesc fmtdesc;
     fmtdesc.index=0;
@@ -49,8 +43,8 @@ int main()
     struct v4l2_format s_fmt;
     s_fmt.fmt.pix.width  = 640;
     s_fmt.fmt.pix.height = 480;
-    s_fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_MJPEG; // 设置视频的格式，720P JPEG
-//    s_fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
+//    s_fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_MJPEG; // 设置视频的格式，720P JPEG
+    s_fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
     printf("s_fmt.fmt.pix.pixelformat:%d\n",s_fmt.fmt.pix.pixelformat);
     s_fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     int flag= ioctl(fd_video, VIDIOC_S_FMT, &s_fmt);
@@ -103,7 +97,7 @@ int main()
 
     struct v4l2_buffer buf;
     memset(&(buf), 0, sizeof(buf));
-    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+    buf.type   = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     buf.memory = V4L2_MEMORY_MMAP;
 
     //取出图像数据
@@ -111,20 +105,30 @@ int main()
 
 #if 0
     {
+        // save image
+        FILE *fp = fopen("/home/cg/test.yuv", "wb+");
+        if (fp < 0) {
+            perror("fb open error.");
+            return -1;
+        }
+        fwrite(buffers[buf.index].start, 1, buffers[buf.index].length, fp);
+        fflush(fp);
+        fclose(fp);
+    }
+#endif
+
+#if 1
+    {
+        // YUV 2 RGB
         const int width  = 640;
         const int height = 480;
-        cv::Mat mat_src = cv::Mat(height, width*2, CV_8UC1, buffers[buf.index].start);
-        cv::Mat mat_dst = cv::Mat(height, width,   CV_8UC1);
-        cv::cvtColor(mat_src, mat_dst, cv::COLOR_YUV2GRAY_YUYV);
+        cv::Mat mat_src = cv::Mat(height, width, CV_8UC2, buffers[buf.index].start);
+        cv::Mat mat_dst = cv::Mat(height, width, CV_8UC3);
+        cv::cvtColor(mat_src, mat_dst, cv::COLOR_YUV2BGR_YUYV);
         cv::imshow("mat_dst", mat_dst);
         cv::waitKey(0);
     }
 #endif
-
-    //保存图像
-    fwrite(buffers[buf.index].start, 1, buffers[buf.index].length, fp);
-    fflush(fp);
-    fclose(fp);
 
     //放回缓冲区
     ioctl (fd_video,VIDIOC_QBUF,&buf);
@@ -135,6 +139,5 @@ int main()
     close(fd_video);
 
     printf("capture jpg finish..\n");
-
-    system("eog -w /home/cg/test.jpg &");
+    return 0;
 }
