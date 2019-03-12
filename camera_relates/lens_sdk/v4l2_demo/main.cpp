@@ -21,16 +21,40 @@ struct buffer
     unsigned int length;
 };
 
+#define __USER_DEBUG__ 1
+
 int main()
 {
+    const char* device_name = "/dev/video0";
+
     //打开摄像头设备
-    int fd_video = open("/dev/video0", O_RDWR);
+    int fd_video = open(device_name, O_RDWR);
     if (fd_video < 0) {
         perror("video capture open");
         return fd_video;
     }
 
-#if 0
+#if __USER_DEBUG__
+    struct v4l2_capability cap;
+    int ret = ioctl(fd_video, VIDIOC_QUERYCAP, &cap); // 查看设备功能
+    if (ret < 0){
+        perror("requre VIDIOC_QUERYCAP fialed! \n");
+        return -1;
+    }
+    printf("driver:\t\t%s\n",cap.driver);
+    printf("card:\t\t%s\n",cap.card);
+    printf("bus_info:\t%s\n",cap.bus_info);
+    printf("version:\t%d\n",cap.version);
+    printf("capabilities:\t%x\n",cap.capabilities);
+    if ((cap.capabilities & V4L2_CAP_VIDEO_CAPTURE) == V4L2_CAP_VIDEO_CAPTURE){
+        printf("Device supports capture.\n");
+    }
+    if ((cap.capabilities & V4L2_CAP_STREAMING) == V4L2_CAP_STREAMING){
+        printf("Device supports streaming.\n");
+    }
+#endif
+
+#if __USER_DEBUG__
     //打印支持的视频格式
     struct v4l2_fmtdesc fmtdesc;
     fmtdesc.index=0;
@@ -49,16 +73,28 @@ int main()
     struct v4l2_format s_fmt;
     s_fmt.fmt.pix.width  = img_w;
     s_fmt.fmt.pix.height = img_h;
-//    s_fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_MJPEG; // 设置视频的格式，720P JPEG
-    s_fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
-    printf("s_fmt.fmt.pix.pixelformat:%d\n",s_fmt.fmt.pix.pixelformat);
+    s_fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV; // V4L2_PIX_FMT_MJPEG, 720P JPEG
     s_fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     int flag= ioctl(fd_video, VIDIOC_S_FMT, &s_fmt);
     if(flag != 0) {
         printf("set format error\n");
         return -1;
     }
-    printf("image size:%d %d\n", s_fmt.fmt.pix.width, s_fmt.fmt.pix.height);
+#if __USER_DEBUG__
+    if(-1 == ioctl(fd_video, VIDIOC_G_FMT, &s_fmt)){//得到图片格式
+        perror("get format failed!");
+        return -1;
+    }
+    printf("fmt.type:\t\t%d\n", s_fmt.type);
+    printf("pix.pixelformat:\t%c%c%c%c\n", \
+        s_fmt.fmt.pix.pixelformat & 0xFF, \
+        (s_fmt.fmt.pix.pixelformat >> 8) & 0xFF, \
+        (s_fmt.fmt.pix.pixelformat >> 16) & 0xFF, \
+        (s_fmt.fmt.pix.pixelformat >> 24) & 0xFF);
+    printf("pix.width:\t\t%d\n", s_fmt.fmt.pix.width);
+    printf("pix.height:\t\t%d\n", s_fmt.fmt.pix.height);
+    printf("pix.field:\t\t%d\n", s_fmt.fmt.pix.field);
+#endif
 
     //申请1个缓冲区, 一张图片就需要一帧的缓冲区
     struct v4l2_requestbuffers req;
