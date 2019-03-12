@@ -32,6 +32,7 @@
 - [GTK+ UVC Viewer](http://guvcview.sourceforge.net/index.html)
   * guvcview
 - cheese: Take photos and videos with your webcam, with fun graphical effects
+- eog: a GNOME image viewer
 - [Motion](https://motion-project.github.io/): a highly configurable program that monitors video signals from many types of cameras
   * [如何借助Motion操控Linux监控摄像头](http://blog.sae.sina.com.cn/archives/4902)
   * [树莓派+motion安装摄像头实现远程监控](http://shumeipai.nxez.com/2016/09/01/raspberry-pi-motion-cameras-for-remote-monitoring.html)
