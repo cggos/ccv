@@ -45,17 +45,15 @@ namespace capture_cam {
             int queue_size = 10;
             if(approx_sync) {
                 approx_sync_stereo_ = new message_filters::Synchronizer<MyApproxSyncStereoPolicy>(
-                        MyApproxSyncStereoPolicy(queue_size), filter_img_l_, filter_img_r_, filter_caminfo_l_,
-                        filter_caminfo_r_);
+                        MyApproxSyncStereoPolicy(queue_size), filter_img_l_, filter_img_r_);
                 approx_sync_stereo_->registerCallback(
-                        boost::bind(&CaptureCamStereo::stereoCallback, this, _1, _2, _3, _4));
+                        boost::bind(&CaptureCamStereo::stereoCallback, this, _1, _2));
             }
             else {
                 exact_sync_stereo_ = new message_filters::Synchronizer<MyExactSyncStereoPolicy>(
-                        MyExactSyncStereoPolicy(queue_size), filter_img_l_, filter_img_r_, filter_caminfo_l_,
-                        filter_caminfo_r_);
+                        MyExactSyncStereoPolicy(queue_size), filter_img_l_, filter_img_r_);
                 exact_sync_stereo_->registerCallback(
-                        boost::bind(&CaptureCamStereo::stereoCallback, this, _1, _2, _3, _4));
+                        boost::bind(&CaptureCamStereo::stereoCallback, this, _1, _2));
             }
 
             ros::NodeHandle nh_left  ( nh, "left" );
@@ -69,8 +67,6 @@ namespace capture_cam {
 
             filter_img_l_.subscribe(it_left,  nh_left.resolveName("image"),  1, hints_left);
             filter_img_r_.subscribe(it_right, nh_right.resolveName("image"), 1, hints_right);
-            filter_caminfo_l_.subscribe(nh_left,  "camera_info", 1);
-            filter_caminfo_r_.subscribe(nh_right, "camera_info", 1);
 
             std::string str_params_dir = "./params_out";
             pnh.param("param_dir",  str_params_dir, str_params_dir);
@@ -78,9 +74,7 @@ namespace capture_cam {
         }
 
         void stereoCallback(const sensor_msgs::ImageConstPtr& image_left,
-                            const sensor_msgs::ImageConstPtr& image_right,
-                            const sensor_msgs::CameraInfoConstPtr& caminfo_left,
-                            const sensor_msgs::CameraInfoConstPtr& caminfo_right) {
+                            const sensor_msgs::ImageConstPtr& image_right) {
             if (
                     !(image_left->encoding.compare(sensor_msgs::image_encodings::MONO8)  == 0
                     ||image_left->encoding.compare(sensor_msgs::image_encodings::MONO16) == 0
@@ -105,16 +99,14 @@ namespace capture_cam {
         }
 
     private:
-        typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::CameraInfo, sensor_msgs::CameraInfo> MyApproxSyncStereoPolicy;
+        typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image> MyApproxSyncStereoPolicy;
         message_filters::Synchronizer<MyApproxSyncStereoPolicy> * approx_sync_stereo_;
 
-        typedef message_filters::sync_policies::ExactTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::CameraInfo, sensor_msgs::CameraInfo> MyExactSyncStereoPolicy;
+        typedef message_filters::sync_policies::ExactTime<sensor_msgs::Image, sensor_msgs::Image> MyExactSyncStereoPolicy;
         message_filters::Synchronizer<MyExactSyncStereoPolicy> * exact_sync_stereo_;
 
         image_transport::SubscriberFilter filter_img_l_;
         image_transport::SubscriberFilter filter_img_r_;
-        message_filters::Subscriber<sensor_msgs::CameraInfo> filter_caminfo_l_;
-        message_filters::Subscriber<sensor_msgs::CameraInfo> filter_caminfo_r_;
 
         CaptureCamStereoImp *capture_cam_stereo_imp_;
     };

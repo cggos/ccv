@@ -2,7 +2,7 @@
 
 <launch>
 
-    <arg name="camera"  default="stereo"/>
+    <arg name="camera"  default="mynteye"/>
 
     <arg name="is_rect" default="false"/>
 
@@ -16,8 +16,6 @@
 
         <remap from="left/image"        to="$(arg camera)/left/image_raw"/>
         <remap from="right/image"       to="$(arg camera)/right/image_raw"/>
-        <remap from="left/camera_info"  to="$(arg camera)/left/camera_info"/>
-        <remap from="right/camera_info" to="$(arg camera)/right/camera_info"/>
 
         <param name="param_dir"  type="string" value="$(find capture_cam)/params_out"/>
         <param name="is_rectify" type="bool"   value="$(arg is_rect)"/>

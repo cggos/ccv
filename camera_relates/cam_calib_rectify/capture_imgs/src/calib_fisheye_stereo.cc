@@ -91,7 +91,7 @@ void StereoFisheyeCalib::rectify(const cv::Mat &img_l, const cv::Mat &img_r) {
     char key = (char) cv::waitKey(10);
     {
         cv::Mat img_concat;
-        cv::hconcat(img_rect_l, img_rect_l, img_concat);
+        cv::hconcat(img_rect_l, img_rect_r, img_concat);
         cv::cvtColor(img_concat, img_concat, cv::COLOR_GRAY2BGR);
         putText(img_concat, "Press 's' to save frame, 'm' to match with surf",
                 cv::Point(10, 20), cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 255, 0), 1);

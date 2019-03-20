@@ -54,12 +54,6 @@ private:
                 K1, D1, K2, D2, img_size_, R, T,
                 flag, cv::TermCriteria(3, 12, 0));
 
-        cv::Mat R1, R2, P1, P2, Q;
-        cv::fisheye::stereoRectify(
-                K1, D1, K2, D2, img_size_, R, T,
-                R1, R2, P1, P2, Q,
-                CV_CALIB_ZERO_DISPARITY, img_size_, 0.0, 1.1);
-
         cv::FileStorage fs(calib_file_, cv::FileStorage::WRITE);
 
         fs << "img_w" << img_size_.width;
@@ -71,12 +65,6 @@ private:
         fs << "D2" << D2;
         fs << "R"  << cv::Mat(R);
         fs << "T"  << T;
-
-        fs << "R1" << R1;
-        fs << "R2" << R2;
-        fs << "P1" << P1;
-        fs << "P2" << P2;
-        fs << "Q"  << Q;
 
         fs.release();
 
@@ -94,11 +82,6 @@ private:
         cv::Mat   R;
         cv::Vec3d t;
 
-        cv::Mat R1;
-        cv::Mat R2;
-        cv::Mat P1;
-        cv::Mat P2;
-
         cv::Size img_size;
 
         cv::FileStorage fs(calib_file_,cv::FileStorage::READ);
@@ -114,16 +97,21 @@ private:
         fs["R"]  >> R;
         fs["T"]  >> t;
 
-        fs["R1"] >> R1;
-        fs["R2"] >> R2;
-        fs["P1"] >> P1;
-        fs["P2"] >> P2;
-
         fs["img_w"] >> img_size.width;
         fs["img_h"] >> img_size.height;
 
-        cv::fisheye::initUndistortRectifyMap(K1, D1, R1, P1, img_size, CV_16SC2, rect_map_[0][0], rect_map_[0][1]);
-        cv::fisheye::initUndistortRectifyMap(K2, D2, R2, P2, img_size, CV_16SC2, rect_map_[1][0], rect_map_[1][1]);
+        fs.release();
+
+        cv::Size new_size = img_size ;//+ cv::Size(300, 400);
+
+        cv::Mat R1, R2, P1, P2, Q;
+        cv::fisheye::stereoRectify(
+                K1, D1, K2, D2, img_size, R, t,
+                R1, R2, P1, P2, Q,
+                CV_CALIB_ZERO_DISPARITY, new_size, 0.0, 1.1);
+
+        cv::fisheye::initUndistortRectifyMap(K1, D1, R1, P1, new_size, CV_16SC2, rect_map_[0][0], rect_map_[0][1]);
+        cv::fisheye::initUndistortRectifyMap(K2, D2, R2, P2, new_size, CV_16SC2, rect_map_[1][0], rect_map_[1][1]);
     }
 
     inline void math_flann_surf(const cv::Mat &img_1, const cv::Mat &img_2) {
