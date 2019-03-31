@@ -11,12 +11,28 @@
 * [Lensation](https://www.lensation.de/) provides free of charge consulting about lenses, illumination and optical components
 * [dxomark](https://www.dxomark.com/): source for image quality benchmarks for phones and cameras
 
-## Knowledge
+## Lens Knowledge
 
+* [Norman Koren photography: images and tutorials](http://www.normankoren.com/)
 * [摄像机镜头详细知识](https://zhuanlan.zhihu.com/p/29098395)
+* [camera资料链接整理](https://blog.csdn.net/ccwwff/article/details/86679455)
+* [摄像头模组基础扫盲](https://www.cnblogs.com/raymon-tec/p/5048632.html)
+* [相机的那些事儿 - 概念、模型及标定](https://yq.aliyun.com/articles/62472)
+* [如何理解 ISO、快门、光圈、曝光这几个概念？](https://www.zhihu.com/question/21427664)
+* [MT9V034 Tutorial：如何使用全局快门摄像头](https://zhuanlan.zhihu.com/p/34516668)
+* [Introduction to Shutter Speed in Photography](https://photographylife.com/what-is-shutter-speed-in-photography)
+* [HUTTER SPEED: A BEGINNER'S GUIDE](https://www.photographymad.com/pages/view/shutter-speed-a-beginners-guide)
+* [EXPOSURE, APERTURE AND SHUTTER SPEED EXPLAINED](https://www.photographymad.com/pages/view/exposure-aperture-shutter-speed)
+* [摄影知识普及：如何用好滤光镜，想进一步玩好摄影必看！](http://www.sohu.com/a/168545276_374721)
 
-### Fisheye Lens
-* Its not unusual for a fisheye lens to have a FOV of 185 degrees.
+## Lens Types
+
+* Fisheye Lens: Its not unusual for a fisheye lens to have a FOV of 185 degrees.
+
+## Lens Test
+
+* [ISO 12233 Test Chart](http://www.graphics.cornell.edu/~westin/misc/res-chart.html)
+* [Setting Up an Optical Testing Station](https://www.lensrentals.com/blog/2014/02/setting-up-an-optical-testing-station/)
 
 
 ## 2. Industrial Camera

@@ -114,6 +114,10 @@ The [velo2cam_calibration](https://github.com/beltransen/velo2cam_calibration) s
 * Camera-IMU calibration
 * Rolling Shutter Camera calibration
 
+## vicalib
+
+* [vicalib (arpg)](https://github.com/arpg/vicalib)
+
 
 # Image Rectification
 

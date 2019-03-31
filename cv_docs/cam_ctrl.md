@@ -5,7 +5,7 @@
 * [Webcam Capture](http://webcam-capture.sarxos.pl/): Generic Webcam Java API
 * [Set up a Webcam with Linux](http://www.linuxintro.org/wiki/Set_up_a_Webcam_with_Linux)
 * [Accessing the Video Device](https://www.tldp.org/HOWTO/Webcam-HOWTO/dev-intro.html)
-  Create Video Device ( /dev/video1 )
+* Create Video Device ( /dev/video1 )
   ```
   sudo mknod /dev/video1 c 81 1
   sudo chmod 666 /dev/video1
@@ -23,6 +23,7 @@
 
 * UVC (USB Video Class)
   - [libuvc_camera (ROS Wiki)](http://wiki.ros.org/libuvc_camera)
+  - [saki4510t/UVCCamera](https://github.com/saki4510t/UVCCamera): library and sample to access to UVC web camera on non-rooted Android device
 
 ## Viewer/Controller
 - [Webcam Test (Online)](https://webcamtests.com/)

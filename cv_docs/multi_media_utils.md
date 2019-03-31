@@ -2,6 +2,7 @@
 
 * [Color picker](http://colorizer.org/), calculator and generator with high precision and contrast test. Converts also RGB, HEX, HSL, HSV/HSB, CMYK and CIE-LAB colors and lots of other formats. In the Hex-field, you can write a known color name, too.
 * [colorbrewer2](http://colorbrewer2.org)
+* [Linux Tools for Digital Imaging, Photo Editing, Graphics Design and Spherical Panoramic Photography](http://www.yolinux.com/TUTORIALS/LinuxDigitalImaging.html)
 
 -----
 
