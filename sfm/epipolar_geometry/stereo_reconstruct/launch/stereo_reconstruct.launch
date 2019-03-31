@@ -8,7 +8,7 @@
     <arg name="rviz"      default="false"/>
     <arg name="mm"        default="false"/>
     <arg name="ocl"       default="false"/>
-    <arg name="filter_c"  default="true" />
+    <arg name="filter_c"  default="false" />
     <arg name="colormap"  default="false"/>
     <arg name="left"      default="left" />
     <arg name="right"     default="right"/>
@@ -40,7 +40,7 @@
 
         <param name="is_use_colormap"   type="bool"   value="$(arg colormap)"/>
 
-        <param name="is_cloudfilter"     type="bool"   value="$(arg filter_c)"/>
+        <param name="is_cloudfilter"    type="bool"   value="$(arg filter_c)"/>
         <param name="voxel_size"        type="double" value="0.02"/>
         <param name="min_depth"         type="double" value="0.0"/>
         <param name="max_depth"         type="double" value="5.0"/>

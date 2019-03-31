@@ -290,4 +290,3 @@ namespace stereo_reconstruct {
 
     PLUGINLIB_EXPORT_CLASS(stereo_reconstruct::StereoReconstruct, nodelet::Nodelet);
 }
-

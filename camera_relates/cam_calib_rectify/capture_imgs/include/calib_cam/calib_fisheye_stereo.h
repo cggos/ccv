@@ -29,7 +29,7 @@ public:
 
     void calib(const cv::Mat &img_l, const cv::Mat &img_r);
 
-    void rectify(const cv::Mat &img_l, const cv::Mat &img_r);
+    void rectify(const cv::Mat &img_l, const cv::Mat &img_r, cv::Mat &img_rect_l, cv::Mat &img_rect_r);
 
 private:
 
@@ -75,10 +75,6 @@ private:
 
     void get_rect_map() {
 
-        cv::Mat   K1;
-        cv::Mat   K2;
-        cv::Vec4d D1;
-        cv::Vec4d D2;
         cv::Mat   R;
         cv::Vec3d t;
 
@@ -90,10 +86,10 @@ private:
             exit(1);
         }
 
-        fs["K1"] >> K1;
-        fs["K2"] >> K2;
-        fs["D1"] >> D1;
-        fs["D2"] >> D2;
+        fs["K1"] >> K1_;
+        fs["K2"] >> K2_;
+        fs["D1"] >> D1_;
+        fs["D2"] >> D2_;
         fs["R"]  >> R;
         fs["T"]  >> t;
 
@@ -104,14 +100,14 @@ private:
 
         cv::Size new_size = img_size ;//+ cv::Size(300, 400);
 
-        cv::Mat R1, R2, P1, P2, Q;
+        cv::Mat Q;
         cv::fisheye::stereoRectify(
-                K1, D1, K2, D2, img_size, R, t,
-                R1, R2, P1, P2, Q,
+                K1_, D1_, K2_, D2_, img_size, R, t,
+                R1_, R2_, P1_, P2_, Q,
                 CV_CALIB_ZERO_DISPARITY, new_size, 0.0, 1.1);
 
-        cv::fisheye::initUndistortRectifyMap(K1, D1, R1, P1, new_size, CV_16SC2, rect_map_[0][0], rect_map_[0][1]);
-        cv::fisheye::initUndistortRectifyMap(K2, D2, R2, P2, new_size, CV_16SC2, rect_map_[1][0], rect_map_[1][1]);
+        cv::fisheye::initUndistortRectifyMap(K1_, D1_, R1_, P1_, new_size, CV_16SC2, rect_map_[0][0], rect_map_[0][1]);
+        cv::fisheye::initUndistortRectifyMap(K2_, D2_, R2_, P2_, new_size, CV_16SC2, rect_map_[1][0], rect_map_[1][1]);
     }
 
     inline void math_flann_surf(const cv::Mat &img_1, const cv::Mat &img_2) {
@@ -199,6 +195,11 @@ public:
     std::vector< std::vector< cv::Point3d > > obj_points_;
 
     cv::Mat rect_map_[2][2];
+    cv::Mat   K1_;
+    cv::Mat   K2_;
+    cv::Vec4d D1_;
+    cv::Vec4d D2_;
+    cv::Mat R1_, R2_, P1_, P2_;
 };
 
 #endif //CAPTURE_CAM_CALIB_FISHEYE_STEREO_H

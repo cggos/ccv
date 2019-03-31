@@ -10,7 +10,6 @@ namespace cg {
         if(mat_left.empty() || mat_right.empty())
             return;
 
-
         if(!(mat_depth.type() == CV_16UC1 || mat_depth.type() == CV_32FC1))
             return;
 
@@ -22,27 +21,27 @@ namespace cg {
 
         cv::Mat mat_disp;
         {
-            int blockSize_ = 15;  //15
-            int minDisparity_ = 0;   //0
-            int numDisparities_ = 64;  //64
-            int preFilterSize_ = 9;   //9
-            int preFilterCap_ = 31;  //31
-            int uniquenessRatio_ = 15;  //15
-            int textureThreshold_ = 10;  //10
+            int blockSize_         = 15;  //15
+            int minDisparity_      = 0;   //0
+            int numDisparities_    = 64;  //64
+            int preFilterSize_     = 9;   //9
+            int preFilterCap_      = 31;  //31
+            int uniquenessRatio_   = 15;  //15
+            int textureThreshold_  = 10;  //10
             int speckleWindowSize_ = 100; //100
-            int speckleRange_ = 4;   //4
+            int speckleRange_      = 4;   //4
 
-                cv::Ptr<cv::StereoBM> stereo = cv::StereoBM::create();
-                stereo->setBlockSize(blockSize_);
-                stereo->setMinDisparity(minDisparity_);
-                stereo->setNumDisparities(numDisparities_);
-                stereo->setPreFilterSize(preFilterSize_);
-                stereo->setPreFilterCap(preFilterCap_);
-                stereo->setUniquenessRatio(uniquenessRatio_);
-                stereo->setTextureThreshold(textureThreshold_);
-                stereo->setSpeckleWindowSize(speckleWindowSize_);
-                stereo->setSpeckleRange(speckleRange_);
-                stereo->compute(mat_left, mat_right, mat_disp);
+            cv::Ptr<cv::StereoBM> stereo = cv::StereoBM::create();
+            stereo->setBlockSize(blockSize_);
+            stereo->setMinDisparity(minDisparity_);
+            stereo->setNumDisparities(numDisparities_);
+            stereo->setPreFilterSize(preFilterSize_);
+            stereo->setPreFilterCap(preFilterCap_);
+            stereo->setUniquenessRatio(uniquenessRatio_);
+            stereo->setTextureThreshold(textureThreshold_);
+            stereo->setSpeckleWindowSize(speckleWindowSize_);
+            stereo->setSpeckleRange(speckleRange_);
+            stereo->compute(mat_left, mat_right, mat_disp);
         }
 
         mat_depth = cv::Mat::zeros(mat_left.size(), mat_depth.type());
@@ -91,7 +90,8 @@ namespace cg {
         }
     }
 
-    void StereoCamera::depth_to_pointcloud(const cv::Mat &mat_depth, const cv::Mat &mat_left,
+    void StereoCamera::depth_to_pointcloud(
+            const cv::Mat &mat_depth, const cv::Mat &mat_left,
             pcl::PointCloud<pcl::PointXYZRGB> &point_cloud) {
 
         point_cloud.height = (uint32_t) mat_depth.rows;

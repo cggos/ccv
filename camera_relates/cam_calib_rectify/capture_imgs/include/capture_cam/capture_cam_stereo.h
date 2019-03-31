@@ -68,6 +68,18 @@ namespace capture_cam {
             filter_img_l_.subscribe(it_left,  nh_left.resolveName("image"),  1, hints_left);
             filter_img_r_.subscribe(it_right, nh_right.resolveName("image"), 1, hints_right);
 
+            ros::NodeHandle nh_rect_l(nh, "left_rect" );
+            ros::NodeHandle nh_rect_r(nh, "right_rect");
+            image_transport::ImageTransport it_l(nh_rect_l);
+            image_transport::ImageTransport it_r(nh_rect_r);
+            // rect_pub_l_ = it_l.advertiseCamera("image", 1, false);
+            // rect_pub_r_ = it_r.advertiseCamera("image", 1, false);
+
+            rect_it_pub_l_      = it_l.advertise("image", 1);
+            rect_it_pub_r_      = it_r.advertise("image", 1);
+            rect_caminfo_pub_l_ = nh_rect_l.advertise<sensor_msgs::CameraInfo>("camera_info", 1);
+            rect_caminfo_pub_r_ = nh_rect_r.advertise<sensor_msgs::CameraInfo>("camera_info", 1);
+
             std::string str_params_dir = "./params_out";
             pnh.param("param_dir",  str_params_dir, str_params_dir);
             capture_cam_stereo_imp_ = new StereoCheckerDetector(pnh, str_params_dir);
@@ -96,6 +108,71 @@ namespace capture_cam {
             cv::Mat img_r = ptr_img_r->image;
 
             capture_cam_stereo_imp_->process(img_l, img_r);
+
+            if(capture_cam_stereo_imp_->is_rectify_)
+                pub_img_rect(capture_cam_stereo_imp_->img_rect_l_,
+                             capture_cam_stereo_imp_->img_rect_r_,
+                             ptr_img_l->header, ptr_img_r->header);
+        }
+
+        void pub_img_rect(
+                const cv::Mat &img_l, const cv::Mat &img_r,
+                const std_msgs::Header &header_l,
+                const std_msgs::Header &header_r) {
+
+            sensor_msgs::Image img_msg_l;
+            cv_bridge::CvImage(header_l, sensor_msgs::image_encodings::MONO8, img_l).toImageMsg(img_msg_l);
+
+            sensor_msgs::Image img_msg_r;
+            cv_bridge::CvImage(header_r, sensor_msgs::image_encodings::MONO8, img_r).toImageMsg(img_msg_r);
+
+            sensor_msgs::CameraInfo cam_info_l;
+            cam_info_l.header = img_msg_l.header;
+            cam_info_l.width  = img_l.cols;
+            cam_info_l.height = img_l.rows;
+            cam_info_l.distortion_model = "";
+
+            cam_info_l.D.resize(4, 0);
+            for(int i=0; i<4; ++i)
+                cam_info_l.D[i] = 0;
+
+            for(int i=0; i<9; ++i)
+                cam_info_l.K[i] = ((double*)capture_cam_stereo_imp_->K1_.data)[i];
+
+            for(int i=0; i<9; ++i)
+                cam_info_l.R[i] = ((double*)capture_cam_stereo_imp_->R1_.data)[i];
+
+            for(int i=0; i<12; ++i)
+                cam_info_l.P[i] = ((double*)capture_cam_stereo_imp_->P1_.data)[i];
+
+
+            sensor_msgs::CameraInfo cam_info_r;
+            cam_info_r.header = img_msg_l.header;
+            cam_info_r.width  = img_r.cols;
+            cam_info_r.height = img_r.rows;
+            cam_info_r.distortion_model = "";
+
+            cam_info_r.D.resize(4);
+            for(int i=0; i<4; ++i)
+                cam_info_r.D[i] = 0;
+
+            for(int i=0; i<9; ++i)
+                cam_info_r.K[i] = ((double*)capture_cam_stereo_imp_->K2_.data)[i];
+
+            for(int i=0; i<9; ++i)
+                cam_info_r.R[i] = ((double*)capture_cam_stereo_imp_->R2_.data)[i];
+
+            for(int i=0; i<12; ++i)
+                cam_info_r.P[i] = ((double*)capture_cam_stereo_imp_->P2_.data)[i];
+
+
+//        rect_pub_l_.publish(img_msg_l, cam_info_l, header_l.stamp);
+//        rect_pub_r_.publish(img_msg_r, cam_info_r, header_r.stamp);
+
+            rect_it_pub_l_.publish(img_msg_l);
+            rect_it_pub_r_.publish(img_msg_r);
+            rect_caminfo_pub_l_.publish(cam_info_l);
+            rect_caminfo_pub_r_.publish(cam_info_r);
         }
 
     private:
@@ -107,6 +184,14 @@ namespace capture_cam {
 
         image_transport::SubscriberFilter filter_img_l_;
         image_transport::SubscriberFilter filter_img_r_;
+
+        image_transport::CameraPublisher rect_pub_l_;
+        image_transport::CameraPublisher rect_pub_r_;
+
+        image_transport::Publisher rect_it_pub_l_;
+        image_transport::Publisher rect_it_pub_r_;
+        ros::Publisher rect_caminfo_pub_l_;
+        ros::Publisher rect_caminfo_pub_r_;
 
         CaptureCamStereoImp *capture_cam_stereo_imp_;
     };

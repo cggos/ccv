@@ -31,7 +31,6 @@ public:
 
 private:
     StereoFisheyeCalib calib_stereo_fisheye_;
-    bool is_rectify_;
 };
 
 #endif //CAPTURE_CAM_DETECT_CHECKER_STEREO_H

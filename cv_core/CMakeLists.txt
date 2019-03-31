@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(cgocv)
 
-set(cgocv_VERSION_MAJOR 1)
-set(cgocv_VERSION_MINOR 0)
+set(CGOCV_VERSION_MAJOR 1)
+set(CGOCV_VERSION_MINOR 0)
 configure_file(
     ${PROJECT_SOURCE_DIR}/cmake_modules/cgocv_config.h.in
     ${PROJECT_BINARY_DIR}/cgocv_config.h)
@@ -11,6 +11,10 @@ option(BUILD_DOCS      "Create and install the HTML based API documentation (req
 option(BUILD_TEST      "Build Unit Test Program for the project (requires GTest)" OFF)
 option(WITH_OPENCV_PCL "Build with OpenCV and PCL" ON)
 option(WITH_ROS        "Build with ROS" OFF)
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release")
+endif()
 
 if(CMAKE_BUILD_TYPE MATCHES "Release")
     set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -std=c++11 -O3")
@@ -47,7 +51,7 @@ if(WITH_OPENCV_PCL)
         link_libraries(${PCL_LIBRARIES})
         add_definitions(${PCL_DEFINITIONS})
     endif()
-    
+
     list(APPEND SRC_LIST src/stereo_camera.cc)
 endif()
 
@@ -70,14 +74,12 @@ if(WITH_ROS)
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
         PATTERN ".cc" EXCLUDE)
 else()
-    install(TARGETS cgocv 
+    install(TARGETS cgocv
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib)
-    install(FILES ${PROJECT_BINARY_DIR}/cgocv_config.h DESTINATION include)
+    install(FILES ${PROJECT_BINARY_DIR}/cgocv_config.h DESTINATION include/cgocv)
     install(DIRECTORY include/cgocv
         DESTINATION include
         PATTERN ".cc" EXCLUDE)
 endif()
-
-

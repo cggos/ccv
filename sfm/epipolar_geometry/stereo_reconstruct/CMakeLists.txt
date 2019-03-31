@@ -11,8 +11,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3 -march=native -Wreorder")
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
-add_subdirectory(../../cv_core ${CMAKE_BINARY_DIR}/cv_core)
-
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   dynamic_reconfigure
@@ -40,15 +38,11 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-  ../../cv_core/include
-)
+include_directories(${catkin_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} src/stereo_reconstruct.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} cgocv)
 add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
 
 # Mark executables and/or libraries for installation
 install(TARGETS ${PROJECT_NAME}

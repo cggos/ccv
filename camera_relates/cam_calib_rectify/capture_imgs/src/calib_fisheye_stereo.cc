@@ -1,5 +1,9 @@
 #include "calib_cam/calib_fisheye_stereo.h"
 
+#include <boost/filesystem.hpp>
+
+namespace fs=boost::filesystem;
+
 void StereoFisheyeCalib::calib(const cv::Mat &img_l, const cv::Mat &img_r) {
 
     static bool is_get_size = false;
@@ -75,7 +79,8 @@ void StereoFisheyeCalib::calib(const cv::Mat &img_l, const cv::Mat &img_r) {
     cv::imshow("Stereo Checker Detector", img_concat);
 }
 
-void StereoFisheyeCalib::rectify(const cv::Mat &img_l, const cv::Mat &img_r) {
+void StereoFisheyeCalib::rectify(const cv::Mat &img_l, const cv::Mat &img_r,
+                                 cv::Mat &img_rect_l, cv::Mat &img_rect_r) {
 
     static bool is_get_map = false;
     if(!is_get_map) {
@@ -83,8 +88,6 @@ void StereoFisheyeCalib::rectify(const cv::Mat &img_l, const cv::Mat &img_r) {
         is_get_map = true;
     }
 
-    cv::Mat img_rect_l;
-    cv::Mat img_rect_r;
     cv::remap(img_l, img_rect_l, rect_map_[0][0], rect_map_[0][1], cv::INTER_LINEAR);
     cv::remap(img_r, img_rect_r, rect_map_[1][0], rect_map_[1][1], cv::INTER_LINEAR);
 
@@ -101,6 +104,21 @@ void StereoFisheyeCalib::rectify(const cv::Mat &img_l, const cv::Mat &img_r) {
         cv::imshow("rect", img_concat);
 
         if (key == 's') {
+            static int n = 0;
+            fs::path cur_path(fs::current_path());
+            std::string str_dir = cur_path.string() + "/";
+            char name_l[255];
+            char name_r[255];
+            sprintf(name_l, "image_%d_l.png", n);
+            sprintf(name_r, "image_%d_r.png", n);
+            std::string str_l = name_l;
+            std::string str_r = name_r;
+            std::string str_img_l = str_dir + str_l;
+            std::string str_img_r = str_dir + str_r;
+            cv::imwrite(str_img_l, img_rect_l);
+            cv::imwrite(str_img_r, img_rect_r);
+            std::cout << "capture imgs: " << n << ", and save left and right rect images in: " << str_dir << std::endl;
+            n++;
         }
 
         if (key == 'n') {

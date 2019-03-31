@@ -23,7 +23,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /Grid1/Status1
+        - /PointCloud21/Status1
+        - /Image2
       Splitter Ratio: 0.5
     Tree Height: 248
 Visualization Manager:
@@ -72,7 +73,7 @@ Visualization Manager:
       Size (Pixels): 2
       Size (m): 0.00999999978
       Style: Points
-      Topic: /stereo/stereo_recon/cloud
+      Topic: /stereo_rect/stereo_recon/cloud
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -93,7 +94,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /stereo/left/image_rect
+      Image Topic: /mynteye/left_rect/image_rect
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -105,7 +106,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /stereo/stereo_recon/depth
+      Image Topic: /stereo_rect/stereo_recon/depth
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -149,7 +150,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: stereo_link
+    Fixed Frame: stereo_rect_cloud_optical_frame
     Frame Rate: 30
   Name: root
   Tools:
@@ -166,7 +167,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 6.93970156
+      Distance: 21.5536613
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -181,10 +182,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.630203247
+      Pitch: 0.365203232
       Target Frame: base_link
       Value: XYOrbit (rviz)
-      Yaw: 2.86224699
+      Yaw: 3.4422462
     Saved: ~
 Window Geometry:
   Displays:
@@ -204,5 +205,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1920
-  X: 1920
+  X: 0
   Y: 24

@@ -2,20 +2,25 @@
 
 <launch>
 
-    <arg name="camera"  default="mynteye"/>
-
-    <arg name="is_rect" default="false"/>
+    <arg name="camera"      default="mynteye"/>
+    <arg name="camera_rect" default="stereo_rect"/>
+    <arg name="is_rect"     default="false"/>
 
     <arg name="yaml_charuco" default="$(find capture_cam)launch/config/capture_stereo_charuco.yaml"/>
     <arg name="yaml_checker" default="$(find capture_cam)launch/config/capture_stereo_checker.yaml"/>
 
-    <node pkg="nodelet" type="nodelet" name="nodelet_manager"  args="manager" output="screen"/>
+    <node pkg="nodelet" type="nodelet" name="nodelet_manager_stereo"  args="manager" output="screen"/>
 
     <node pkg="nodelet" type="nodelet" name="capture_stereo"
-          args="load capture_cam/CaptureCamStereo nodelet_manager">
+          args="load capture_cam/CaptureCamStereo nodelet_manager_stereo">
 
         <remap from="left/image"        to="$(arg camera)/left/image_raw"/>
         <remap from="right/image"       to="$(arg camera)/right/image_raw"/>
+
+        <remap from="left_rect/image"        to="$(arg camera_rect)/left/image_rect"/>
+        <remap from="right_rect/image"       to="$(arg camera_rect)/right/image_rect"/>
+        <remap from="left_rect/camera_info"  to="$(arg camera_rect)/left/camera_info"/>
+        <remap from="right_rect/camera_info" to="$(arg camera_rect)/right/camera_info"/>
 
         <param name="param_dir"  type="string" value="$(find capture_cam)/params_out"/>
         <param name="is_rectify" type="bool"   value="$(arg is_rect)"/>
