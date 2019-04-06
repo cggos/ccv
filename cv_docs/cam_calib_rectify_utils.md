@@ -67,12 +67,6 @@ This is a camera calibration toolbox for Matlab which can be used for calibratin
 
 Matlab code for Super-Wide-Angle-lens Radial Distortion correction just using a single image of a checkerboard
 
-### InerVis Toolbox for Matlab -- IMU CAM calibration
-* http://home.deec.uc.pt/~jlobo/InerVis_WebIndex/InerVis_Toolbox.html
-
-<div align=center>
-  <img src="http://home.deec.uc.pt/~jlobo/InerVis_WebIndex/imu_cam_menu.gif">
-</div>
 
 ## CamOdoCal
 
@@ -99,24 +93,6 @@ By default, the **unified projection model** is used since this model approximat
 ## EasyCal Toolbox
 
 * The [EasyCal Toolbox](http://www.cis.upenn.edu/~kostas/tele-immersion/research/downloads/EasyCal/) can be used to calibrate a large cluster of cameras easily eliminating the need to click tediously on multiple images.
-
-## Camera and Range Sensor Calibration Toolbox
-* http://www.cvlibs.net/software/calibration/
-
-## velo2cam_calibration
-
-The [velo2cam_calibration](https://github.com/beltransen/velo2cam_calibration) software implements an Automatic Calibration algorithm for Lidar-Stereo camera setups
-
-## Kalibr
-[Kalibr](https://github.com/ethz-asl/kalibr) is a toolbox that solves the following calibration problems:  
-
-* Multiple camera calibration
-* Camera-IMU calibration
-* Rolling Shutter Camera calibration
-
-## vicalib
-
-* [vicalib (arpg)](https://github.com/arpg/vicalib)
 
 
 # Image Rectification
