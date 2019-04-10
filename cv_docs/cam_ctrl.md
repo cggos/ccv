@@ -2,15 +2,8 @@
 
 -----
 
-* [Webcam Capture](http://webcam-capture.sarxos.pl/): Generic Webcam Java API
-* [Set up a Webcam with Linux](http://www.linuxintro.org/wiki/Set_up_a_Webcam_with_Linux)
-* [Accessing the Video Device](https://www.tldp.org/HOWTO/Webcam-HOWTO/dev-intro.html)
-* Create Video Device ( /dev/video1 )
-  ```
-  sudo mknod /dev/video1 c 81 1
-  sudo chmod 666 /dev/video1
-  sudo chgrp video /dev/video1
-  ```
+[TOC]
+
 
 ## Drivers
 
@@ -44,9 +37,20 @@
 
 * [ArduCam](http://www.arducam.com/)
   - [ArduCam GitHub](https://github.com/ArduCAM)
+  - [ArduCAM Mini Cameras Tutorial](http://www.arducam.com/knowledge-base/mini-tutorial/)
   - [uctronics (buy)](https://www.uctronics.com/)
+  - [dlscorp](https://dlscorp.com/)
 * [Visual Capturing with OV7670 on Arduino](https://www.hackster.io/techmirtz/visual-capturing-with-ov7670-on-arduino-069ebb)
 
 ### Others
 * [Linux and webcams](http://krustev.net/w/articles/Linux_and_webcams/)
 * [How to Operate Your Spycams with ZoneMinder on Linux (part 1)](https://www.linux.com/learn/how-operate-your-spycams-zoneminder-linux-part-1)
+* [Webcam Capture](http://webcam-capture.sarxos.pl/): Generic Webcam Java API
+* [Set up a Webcam with Linux](http://www.linuxintro.org/wiki/Set_up_a_Webcam_with_Linux)
+* [Accessing the Video Device](https://www.tldp.org/HOWTO/Webcam-HOWTO/dev-intro.html)
+* Create Video Device ( /dev/video1 )
+  ```
+  sudo mknod /dev/video1 c 81 1
+  sudo chmod 666 /dev/video1
+  sudo chgrp video /dev/video1
+  ```
