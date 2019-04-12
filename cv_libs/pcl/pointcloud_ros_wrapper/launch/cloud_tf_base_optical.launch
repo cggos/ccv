@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="camera"             default="camera"/>
+    <arg name="frame_id_base"      default="base_link"/>
+    <arg name="frame_id_cloud_opt" default="cloud_optical_frame"/>
+    <arg name="cam_x"              default="0"/>
+    <arg name="cam_y"              default="0"/>
+    <arg name="cam_z"              default="0"/>
+
+    <arg name="pi/2" value="1.5707963267948966" />
+    <arg name="optical_rotate" value="$(arg cam_x) $(arg cam_y) $(arg cam_z) -$(arg pi/2) 0 -$(arg pi/2)" />
+
+    <node pkg="tf" type="static_transform_publisher" name="$(arg camera)_cloud_base_optical_link"
+          args="$(arg optical_rotate) $(arg frame_id_base) $(arg frame_id_cloud_opt) 100" />
+</launch>
