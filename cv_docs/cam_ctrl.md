@@ -41,6 +41,8 @@
   - [uctronics (buy)](https://www.uctronics.com/)
   - [dlscorp](https://dlscorp.com/)
 * [Visual Capturing with OV7670 on Arduino](https://www.hackster.io/techmirtz/visual-capturing-with-ov7670-on-arduino-069ebb)
+* [A Guide to Arduino Based Video Camera](https://www.open-electronics.org/a-complete-guide-to-arduino-based-video-camera/)
+* [alchitry camera tutorial](https://alchitry.com/blogs/tutorials/camera)
 
 ### Others
 * [Linux and webcams](http://krustev.net/w/articles/Linux_and_webcams/)

@@ -77,3 +77,7 @@ ffmpeg -i input.mp4 -vcodec libx264 -crf 20 output.mp4
 
 ## vokoscreen
 [vokoscreen](https://github.com/vkohaupt/vokoscreen) is an easy to use screencast creator to record educational videos, live recordings of browser, installation, videoconferences, etc.
+
+## freemake
+
+[Freemake](https://www.freemake.com/) has provided high quality freeware to over 180 million users worldwide since 2010. Safe & reliable free software without registration, time limitations, or hidden costs. Download and use our free Video Converter, Video Downloader, YouTube Converter, Audio Converter and Free Music Player!
