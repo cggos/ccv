@@ -35,6 +35,7 @@
 #include <pcl/segmentation/sac_segmentation.h>
 
 #include "cgocv/stereo_camera.h"
+#include "cgocv/image_ocv.h"
 
 namespace stereo_reconstruct {
 
@@ -163,7 +164,7 @@ namespace stereo_reconstruct {
                 if(is_use_colormap_)
                 {
                     cv::Mat colormap;
-                    stereo_camera_.generate_colormap(*depth_frame_, &colormap);
+                    cg::ImageOCV::get_colormap_ocv(*depth_frame_, colormap);
                     cv::imshow("depth colormap", colormap);
                     cv::waitKey(3);
                 }

@@ -83,8 +83,7 @@ namespace cg {
                     if (right_cx > 0.0f && left_cx > 0.0f)
                         c = right_cx - left_cx;
                     depth = float(left_fx * baseline / (disp + c));
-                } else
-                    depth = std::numeric_limits<float>::quiet_NaN();
+                }
 
                 switch(mat_depth.type()) {
                     case CV_16UC1:

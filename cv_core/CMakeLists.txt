@@ -34,6 +34,7 @@ endif()
 include_directories(include ${PROJECT_BINARY_DIR})
 set(SRC_LIST
     src/image.cc
+    src/image_ocv.cc
     src/features2d.cc
     src/features2d_fast.cc
     src/mathtools.cc)
