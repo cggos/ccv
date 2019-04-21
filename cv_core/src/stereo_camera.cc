@@ -4,32 +4,28 @@
 
 namespace cg {
 
-    void StereoCamera::compute_depth_map(const cv::Mat &mat_left, const cv::Mat &mat_right,
-            cv::Mat &mat_depth) {
+    void StereoCamera::compute_disparity_map(const cv::Mat &mat_l, const cv::Mat &mat_r, cv::Mat &mat_disp) {
 
-        if(mat_left.empty() || mat_right.empty())
+        if (mat_l.empty() || mat_r.empty()) {
+            std::cerr << "[cgocv] " << __FUNCTION__ << " : mat_l or mat_r is empty !" << std::endl;
             return;
-
-        if(!(mat_depth.type() == CV_16UC1 || mat_depth.type() == CV_32FC1))
+        }
+        if (mat_l.channels() != 1 || mat_r.channels() != 1) {
+            std::cerr << "[cgocv] " << __FUNCTION__ << " : mat_l or mat_r is NOT single-channel image !" << std::endl;
             return;
+        }
 
-        double baseline = camera_model_.baseline;
-        double left_cx  = camera_model_.left.cx;
-        double left_fx  = camera_model_.left.fx;
-        double right_cx = camera_model_.right.cx;
-        double right_fx = camera_model_.right.fx;
-
-        cv::Mat mat_disp;
+        cv::Mat mat_d_bm;
         {
-            int blockSize_         = 15;  //15
-            int minDisparity_      = 0;   //0
-            int numDisparities_    = 64;  //64
-            int preFilterSize_     = 9;   //9
-            int preFilterCap_      = 31;  //31
-            int uniquenessRatio_   = 15;  //15
-            int textureThreshold_  = 10;  //10
+            int blockSize_ = 15;  //15
+            int minDisparity_ = 0;   //0
+            int numDisparities_ = 64;  //64
+            int preFilterSize_ = 9;   //9
+            int preFilterCap_ = 31;  //31
+            int uniquenessRatio_ = 15;  //15
+            int textureThreshold_ = 10;  //10
             int speckleWindowSize_ = 100; //100
-            int speckleRange_      = 4;   //4
+            int speckleRange_ = 4;   //4
 
             cv::Ptr<cv::StereoBM> stereo = cv::StereoBM::create();
             stereo->setBlockSize(blockSize_);
@@ -41,10 +37,27 @@ namespace cg {
             stereo->setTextureThreshold(textureThreshold_);
             stereo->setSpeckleWindowSize(speckleWindowSize_);
             stereo->setSpeckleRange(speckleRange_);
-            stereo->compute(mat_left, mat_right, mat_disp);
+            stereo->compute(mat_l, mat_r, mat_d_bm);
         }
 
-        mat_depth = cv::Mat::zeros(mat_left.size(), mat_depth.type());
+        // stereoBM:
+        // When disptype == CV_16S, the map is a 16-bit signed single-channel image,
+        // containing disparity values scaled by 16
+        mat_d_bm.convertTo(mat_disp, CV_32FC1, 1/16.f);
+    }
+
+    void StereoCamera::disparity_to_depth_map(const cv::Mat &mat_disp, cv::Mat &mat_depth) {
+
+        if(!(mat_depth.type() == CV_16UC1 || mat_depth.type() == CV_32FC1))
+            return;
+
+        double baseline = camera_model_.baseline;
+        double left_cx  = camera_model_.left.cx;
+        double left_fx  = camera_model_.left.fx;
+        double right_cx = camera_model_.right.cx;
+        double right_fx = camera_model_.right.fx;
+
+        mat_depth = cv::Mat::zeros(mat_disp.size(), mat_depth.type());
 
         for (int h = 0; h < (int) mat_depth.rows; h++) {
             for (int w = 0; w < (int) mat_depth.cols; w++) {
@@ -53,7 +66,7 @@ namespace cg {
 
                 switch (mat_disp.type()) {
                     case CV_16SC1:
-                        disp = float(mat_disp.at<short>(h, w)) / 16.0f;
+                        disp = mat_disp.at<short>(h, w);
                         break;
                     case CV_32FC1:
                         disp = mat_disp.at<float>(h, w);
@@ -104,10 +117,24 @@ namespace cg {
 
                 pcl::PointXYZRGB &pt = point_cloud.at(h * point_cloud.width + w);
 
-                unsigned char v = mat_left.at<unsigned char>(h, w);
-                pt.b = v;
-                pt.g = v;
-                pt.r = v;
+                switch(mat_left.channels()) {
+                    case 1:
+                    {
+                        unsigned char v = mat_left.at<unsigned char>(h, w);
+                        pt.b = v;
+                        pt.g = v;
+                        pt.r = v;
+                    }
+                        break;
+                    case 3:
+                    {
+                        cv::Vec3b v = mat_left.at<cv::Vec3b>(h, w);
+                        pt.b = v[0];
+                        pt.g = v[1];
+                        pt.r = v[2];
+                    }
+                        break;
+                }
 
                 float depth = 0.f;
                 switch (mat_depth.type()) {

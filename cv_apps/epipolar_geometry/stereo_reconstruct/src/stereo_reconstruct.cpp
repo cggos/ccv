@@ -151,10 +151,12 @@ namespace stereo_reconstruct {
                 stereo_camera_.camera_model_.right.cx = stereo_camera_model.right().cx();
                 stereo_camera_.camera_model_.right.fx = stereo_camera_model.right().fx();
 
-                if (depth_frame_ == nullptr)
-                    depth_frame_ = new cv::Mat(mat_left.size(), is_mm_ ? CV_16UC1 : CV_32FC1);
+                cv::Mat mat_disp;
+                stereo_camera_.compute_disparity_map(mat_left, mat_right, mat_disp);
 
-                stereo_camera_.compute_depth_map(mat_left, mat_right, *depth_frame_);
+                if (depth_frame_ == nullptr)
+                    depth_frame_ = new cv::Mat(mat_disp.size(), is_mm_ ? CV_16UC1 : CV_32FC1);
+                stereo_camera_.disparity_to_depth_map(mat_disp, *depth_frame_);
 
                 stereo_camera_.depth_to_pointcloud(*depth_frame_, mat_left, *pcl_cloud_);
 

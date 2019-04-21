@@ -21,8 +21,10 @@ namespace cg {
       };
 
     public:
-        void compute_depth_map(const cv::Mat &mat_left, const cv::Mat &mat_right,
-                cv::Mat &mat_depth);
+
+        void compute_disparity_map(const cv::Mat &mat_l, const cv::Mat &mat_r, cv::Mat &mat_disp);
+
+        void disparity_to_depth_map(const cv::Mat &mat_disp, cv::Mat &mat_depth);
 
         inline void generate_colormap(const cv::Mat &input_mat, cv::Mat *color_map) {
             double min, max;
