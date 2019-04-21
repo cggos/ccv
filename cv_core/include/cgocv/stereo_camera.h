@@ -28,6 +28,9 @@ namespace cg {
 
         void depth_to_pointcloud(const cv::Mat &mat_depth, const cv::Mat &mat_left,
                 pcl::PointCloud<pcl::PointXYZRGB> &point_cloud);
+
+        void generate_pointcloud(const cv::Mat &mat_l, const cv::Mat &mat_disp,
+                                 std::vector<Eigen::Vector4d, Eigen::aligned_allocator<Eigen::Vector4d>> pointcloud);
     public:
         StereoCameraModel camera_model_;
     };

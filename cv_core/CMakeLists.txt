@@ -10,6 +10,7 @@ configure_file(
 option(BUILD_DOCS      "Create and install the HTML based API documentation (requires Doxygen)" OFF)
 option(BUILD_TEST      "Build Unit Test Program for the project (requires GTest)" OFF)
 option(WITH_OPENCV_PCL "Build with OpenCV and PCL" ON)
+option(WITH_GL         "Build with OpenGL and Pangolin" ON)
 option(WITH_ROS        "Build with ROS" OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -54,6 +55,16 @@ if(WITH_OPENCV_PCL)
     endif()
 
     list(APPEND SRC_LIST src/stereo_camera.cc)
+endif()
+
+if(WITH_GL)
+    find_package( Pangolin )
+    if(Pangolin_FOUND)
+        include_directories(${Pangolin_INCLUDE_DIRS})
+        link_libraries(${Pangolin_LIBRARIES})
+    endif()
+
+    list(APPEND SRC_LIST src/pointcloud3d_ogl.cc)
 endif()
 
 add_library(cgocv SHARED ${SRC_LIST})

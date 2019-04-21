@@ -23,8 +23,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /PointCloud21/Status1
-        - /Image2
+        - /Grid1/Status1
       Splitter Ratio: 0.5
     Tree Height: 248
 Visualization Manager:
@@ -106,7 +105,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /stereo_rect/stereo_recon/depth
+      Image Topic: /stereo_rect/stereo_recon/depth/image
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -150,7 +149,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: stereo_rect_cloud_optical_frame
+    Fixed Frame: mynteye_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -167,25 +166,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 21.5536613
+      Distance: 11.7198944
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.06708479
-        Y: 1.30034626
-        Z: -4.76837158e-07
+        X: -3.18078232
+        Y: -0.288686782
+        Z: 4.71316412e-07
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.365203232
+      Pitch: 0.225203052
       Target Frame: base_link
       Value: XYOrbit (rviz)
-      Yaw: 3.4422462
+      Yaw: 3.04907846
     Saved: ~
 Window Geometry:
   Displays:

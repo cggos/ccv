@@ -14,7 +14,8 @@ namespace cg {
     class ImageOCV {
     public:
         /// pseudocolor / false color a grayscale image using OpenCV’s predefined colormaps
-        static void get_colormap_ocv(const cv::Mat &mat_in, cv::Mat &color_map);
+        static void get_colormap_ocv(const cv::Mat &mat_in, cv::Mat &color_map,
+                                     cv::ColormapTypes colortype=cv::COLORMAP_JET);
     };
 }
 

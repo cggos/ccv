@@ -20,20 +20,6 @@
 
 #include <pcl_conversions/pcl_conversions.h>
 
-#include <pcl/common/common.h>
-#include <pcl/search/kdtree.h>
-#include <pcl/features/normal_3d_omp.h>
-
-#include <pcl/filters/extract_indices.h>
-#include <pcl/filters/voxel_grid.h>
-#include <pcl/filters/frustum_culling.h>
-#include <pcl/filters/random_sample.h>
-#include <pcl/filters/passthrough.h>
-#include <pcl/filters/crop_box.h>
-
-#include <pcl/segmentation/extract_clusters.h>
-#include <pcl/segmentation/sac_segmentation.h>
-
 #include "cgocv/stereo_camera.h"
 #include "cgocv/image_ocv.h"
 
@@ -42,13 +28,9 @@ namespace stereo_reconstruct {
     class StereoReconstruct : public nodelet::Nodelet {
     public:
         StereoReconstruct() :
-                max_depth_(0.0),
-                min_depth_(0.0),
-                voxel_size_(0.0),
                 approx_sync_stereo_(0),
                 exact_sync_stereo_(0),
                 is_mm_(true),
-                is_cloudfilter_(true),
                 is_use_colormap_(false),
                 frame_id_depth_("stereo_depth_optical_frame"),
                 frame_id_cloud_("stereo_cloud_optical_frame"),
@@ -72,11 +54,7 @@ namespace stereo_reconstruct {
             bool approx_sync = true;
 
             pnh.param("approx_sync", approx_sync, approx_sync);
-            pnh.param("max_depth",  max_depth_, max_depth_);
-            pnh.param("min_depth",  min_depth_, min_depth_);
-            pnh.param("voxel_size", voxel_size_, voxel_size_);
             pnh.param("is_mm", is_mm_, is_mm_);
-            pnh.param("is_cloudfilter", is_cloudfilter_, is_cloudfilter_);
             pnh.param("is_use_colormap", is_use_colormap_, is_use_colormap_);
             pnh.param("frame_id_cloud", frame_id_cloud_, frame_id_cloud_);
             pnh.param("frame_id_depth", frame_id_depth_, frame_id_depth_);
@@ -88,12 +66,12 @@ namespace stereo_reconstruct {
                         MyApproxSyncStereoPolicy(10), image_left_, image_right_, camera_info_left_,
                         camera_info_right_);
                 approx_sync_stereo_->registerCallback(
-                        boost::bind(&StereoReconstruct::stereoCallback, this, _1, _2, _3, _4));
+                        boost::bind(&StereoReconstruct::stereo_callback, this, _1, _2, _3, _4));
             } else {
                 exact_sync_stereo_ = new message_filters::Synchronizer<MyExactSyncStereoPolicy>(
                         MyExactSyncStereoPolicy(10), image_left_, image_right_, camera_info_left_, camera_info_right_);
                 exact_sync_stereo_->registerCallback(
-                        boost::bind(&StereoReconstruct::stereoCallback, this, _1, _2, _3, _4));
+                        boost::bind(&StereoReconstruct::stereo_callback, this, _1, _2, _3, _4));
             }
 
             ros::NodeHandle left_nh(nh, "left");
@@ -116,20 +94,20 @@ namespace stereo_reconstruct {
             depth_pub_ = depth_it.advertiseCamera("depth", 1, false);
         }
 
-        void stereoCallback(const sensor_msgs::ImageConstPtr &image_left,
+        void stereo_callback(const sensor_msgs::ImageConstPtr &image_left,
                             const sensor_msgs::ImageConstPtr &image_right,
                             const sensor_msgs::CameraInfoConstPtr &cam_info_left,
                             const sensor_msgs::CameraInfoConstPtr &cam_info_right) {
 
             if (!(image_left->encoding.compare(sensor_msgs::image_encodings::MONO8)  == 0
-                  || image_left->encoding.compare(sensor_msgs::image_encodings::MONO16) == 0
-                  || image_left->encoding.compare(sensor_msgs::image_encodings::BGR8)   == 0
-                  || image_left->encoding.compare(sensor_msgs::image_encodings::RGB8)   == 0)
-                ||
+               || image_left->encoding.compare(sensor_msgs::image_encodings::MONO16) == 0
+               || image_left->encoding.compare(sensor_msgs::image_encodings::BGR8)   == 0
+               || image_left->encoding.compare(sensor_msgs::image_encodings::RGB8)   == 0)
+               ||
                 !(image_right->encoding.compare(sensor_msgs::image_encodings::MONO8) == 0
-                  || image_right->encoding.compare(sensor_msgs::image_encodings::MONO16)== 0
-                  || image_right->encoding.compare(sensor_msgs::image_encodings::BGR8)  == 0
-                  || image_right->encoding.compare(sensor_msgs::image_encodings::RGB8)  == 0)) {
+               || image_right->encoding.compare(sensor_msgs::image_encodings::MONO16)== 0
+               || image_right->encoding.compare(sensor_msgs::image_encodings::BGR8)  == 0
+               || image_right->encoding.compare(sensor_msgs::image_encodings::RGB8)  == 0)) {
                 NODELET_ERROR("Input type must be image=mono8,mono16,rgb8,bgr8 (enc=%s)", image_left->encoding.c_str());
                 return;
             }
@@ -169,13 +147,16 @@ namespace stereo_reconstruct {
                     cv::waitKey(3);
                 }
 
-                publishDepth(*depth_frame_, cam_info_left);
+                publish_depth(*depth_frame_, cam_info_left, image_left->header.stamp);
 
-                publishCloud(pcl_cloud_, image_left->header);
+                publish_cloud(pcl_cloud_, image_left->header.stamp);
             }
         }
 
-        void publishDepth(cv::Mat &depth, const sensor_msgs::CameraInfoConstPtr &cam_info) {
+        void publish_depth(
+                cv::Mat &depth,
+                const sensor_msgs::CameraInfoConstPtr &cam_info,
+                ros::Time time_stamp) {
 
             std::string encoding = "";
             switch (depth.type()) {
@@ -197,75 +178,21 @@ namespace stereo_reconstruct {
             depth_info = *cam_info;
             depth_info.header = depth_msg.header;
 
-            depth_pub_.publish(depth_msg, depth_info, ros::Time::now());
+            depth_pub_.publish(depth_msg, depth_info, time_stamp);
         }
 
-        void publishCloud(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &pcl_cloud, const std_msgs::Header &header) {
-
-            if(is_cloudfilter_) {
-
-                if (pcl_cloud->size() && (min_depth_ != 0.0 || max_depth_ > min_depth_)) {
-                    pcl::PassThrough<pcl::PointXYZRGB> filter;
-                    filter.setNegative(false);
-                    filter.setFilterFieldName("z");
-                    filter.setFilterLimits(min_depth_,
-                                           max_depth_ > min_depth_ ? max_depth_ : std::numeric_limits<float>::max());
-                    filter.setInputCloud(pcl_cloud);
-                    filter.filter(*pcl_cloud);
-                }
-
-                if (pcl_cloud->size() && voxel_size_ > 0.0) {
-                    pcl::VoxelGrid<pcl::PointXYZRGB> filter;
-                    filter.setLeafSize(voxel_size_, voxel_size_, voxel_size_);
-                    filter.setInputCloud(pcl_cloud);
-                    filter.filter(*pcl_cloud);
-                }
-
-                double noise_filter_radius = 0.0;
-                int noise_filter_min_neighbors = 5;
-                if (pcl_cloud->empty() && noise_filter_radius > 0.0 && noise_filter_min_neighbors > 0) {
-                    if (voxel_size_ <= 0.0 && !(min_depth_ != 0.0 || max_depth_ > min_depth_)) {
-                        std::vector<int> indices;
-                        pcl::removeNaNFromPointCloud(*pcl_cloud, *pcl_cloud, indices);
-                    }
-
-                    pcl::IndicesPtr indices(new std::vector<int>(pcl_cloud->size()));
-                    {
-                        pcl::search::KdTree<pcl::PointXYZRGB>::Ptr tree(
-                                new pcl::search::KdTree<pcl::PointXYZRGB>(false));
-                        int oi = 0;
-                        tree->setInputCloud(pcl_cloud);
-                        for (unsigned int i = 0; i < pcl_cloud->size(); ++i) {
-                            std::vector<int> kIndices;
-                            std::vector<float> kDistances;
-                            int k = tree->radiusSearch(pcl_cloud->at(i), noise_filter_radius, kIndices, kDistances);
-                            if (k > noise_filter_min_neighbors)
-                                indices->at(oi++) = i;
-
-                        }
-                        indices->resize(oi);
-                    }
-
-                    pcl::PointCloud<pcl::PointXYZRGB>::Ptr tmp(new pcl::PointCloud<pcl::PointXYZRGB>);
-                    pcl::copyPointCloud(*pcl_cloud, *indices, *tmp);
-                    pcl_cloud = tmp;
-                }
-            }
+        void publish_cloud(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &pcl_cloud, ros::Time time_stamp) {
 
             sensor_msgs::PointCloud2 ros_cloud;
             pcl::toROSMsg(*pcl_cloud, ros_cloud);
-            ros_cloud.header.stamp = header.stamp;
+            ros_cloud.header.stamp = time_stamp;
             ros_cloud.header.frame_id = frame_id_cloud_;
 
             cloud_pub_.publish(ros_cloud);
         }
 
     private:
-        double max_depth_;
-        double min_depth_;
-        double voxel_size_;
         bool is_mm_;
-        bool is_cloudfilter_;
         bool is_use_colormap_;
 
         pcl::PointCloud<pcl::PointXYZRGB>::Ptr pcl_cloud_;
