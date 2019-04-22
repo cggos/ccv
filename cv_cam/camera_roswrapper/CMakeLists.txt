@@ -18,7 +18,6 @@ find_package(OpenCV REQUIRED)
 generate_dynamic_reconfigure_options(
     cfg/Camera.cfg
     cfg/CameraStereo.cfg)
-    #cfg/Homography.cfg)
 
 catkin_package(
     CATKIN_DEPENDS
@@ -48,11 +47,7 @@ add_executable(camera_stereo src/camera_stereo.cpp)
 add_dependencies(camera_stereo ${PROJECT_NAME}_gencfg)
 target_link_libraries(camera_stereo ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
-#add_executable(homography src/homography.cpp)
-#add_dependencies(homography ${PROJECT_NAME}_gencfg)
-#target_link_libraries(homography ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
-
-install(TARGETS camera camera_timer camera_polling camera_stereo #homography
+install(TARGETS camera camera_timer camera_polling camera_stereo
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
