@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+  <node name="camera_v4l2" pkg="camera_roswrapper" type="camera_v4l2" output="screen">
+    <param name="device" value="/dev/video0"/>
+  </node>
+
+</launch>
+

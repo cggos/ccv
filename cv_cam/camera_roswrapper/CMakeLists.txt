@@ -13,7 +13,7 @@ find_package(catkin REQUIRED
       camera_info_manager
       tf)
 
-find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED core imgproc highgui)
 
 generate_dynamic_reconfigure_options(
     cfg/Camera.cfg
@@ -31,7 +31,9 @@ catkin_package(
       camera_info_manager
       tf)
 
-include_directories(${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
+add_subdirectory(cam_v4l2)
+
+include_directories(cam_v4l2 ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
 
 add_executable(camera src/camera.cpp)
 add_dependencies(camera ${PROJECT_NAME}_gencfg)
@@ -39,6 +41,9 @@ target_link_libraries(camera ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 add_executable(camera_timer src/camera_timer.cpp)
 target_link_libraries(camera_timer ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
+add_executable(camera_v4l2 src/camera_v4l2.cpp)
+target_link_libraries(camera_v4l2 ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} cam_v4l2)
 
 add_executable(camera_polling src/camera_polling.cpp)
 target_link_libraries(camera_polling ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
