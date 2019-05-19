@@ -10,6 +10,7 @@
 * Video4Linux
   - V4L for short, is a collection of device drivers and an API for supporting realtime video capture on Linux systems.
   - v4l2-ctl
+    - `sudo v4l2-ctl -d /dev/video0 --list-formats-ext`
 
 * Firewire
   - [The IEEE1394/USB3 Digital Camera List](https://damien.douxchamps.net/ieee1394/cameras/)
