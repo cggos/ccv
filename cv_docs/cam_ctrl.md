@@ -4,6 +4,11 @@
 
 [TOC]
 
+## Interfaces
+
+```sh
+MIPI DSI CSI LVDS DVP SCCB SPI
+```
 
 ## Drivers
 
@@ -52,7 +57,7 @@
 * [Set up a Webcam with Linux](http://www.linuxintro.org/wiki/Set_up_a_Webcam_with_Linux)
 * [Accessing the Video Device](https://www.tldp.org/HOWTO/Webcam-HOWTO/dev-intro.html)
 * Create Video Device ( /dev/video1 )
-  ```
+  ```sh
   sudo mknod /dev/video1 c 81 1
   sudo chmod 666 /dev/video1
   sudo chgrp video /dev/video1
