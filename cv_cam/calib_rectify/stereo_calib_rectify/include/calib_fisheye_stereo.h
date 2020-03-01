@@ -106,6 +106,18 @@ private:
                 R1_, R2_, P1_, P2_, Q,
                 CV_CALIB_ZERO_DISPARITY, new_size, 0.0, 1.1);
 
+        std::cout << std::endl;
+        std::cout << "K1_:\n" << K1_ << std::endl << std::endl;
+        std::cout << "K2_:\n" << K2_ << std::endl << std::endl;
+        std::cout << "D1_:\n" << D1_ << std::endl << std::endl;
+        std::cout << "D2_:\n" << D2_ << std::endl << std::endl;
+        std::cout << "R1_:\n" << R1_ << std::endl << std::endl;
+        std::cout << "R2_:\n" << R2_ << std::endl << std::endl;
+        std::cout << "P1_:\n" << P1_ << std::endl << std::endl;
+        std::cout << "P2_:\n" << P2_ << std::endl << std::endl;
+        std::cout << "Q:\n" << Q << std::endl << std::endl;
+
+
         cv::fisheye::initUndistortRectifyMap(K1_, D1_, R1_, P1_, new_size, CV_16SC2, rect_map_[0][0], rect_map_[0][1]);
         cv::fisheye::initUndistortRectifyMap(K2_, D2_, R2_, P2_, new_size, CV_16SC2, rect_map_[1][0], rect_map_[1][1]);
     }

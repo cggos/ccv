@@ -1,4 +1,4 @@
-#include "calib_cam/calib_fisheye_stereo.h"
+#include "calib_fisheye_stereo.h"
 
 #include <boost/filesystem.hpp>
 
@@ -121,9 +121,8 @@ void StereoFisheyeCalib::rectify(const cv::Mat &img_l, const cv::Mat &img_r,
             n++;
         }
 
-        if (key == 'n') {
+        if (key == 'm') {
             math_flann_surf(img_rect_l, img_rect_r);
         }
     }
 }
-

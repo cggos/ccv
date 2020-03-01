@@ -6,8 +6,7 @@
     <arg name="camera_rect" default="stereo_rect"/>
     <arg name="is_rect"     default="false"/>
 
-    <arg name="yaml_charuco" default="$(find capture_cam)launch/config/capture_stereo_charuco.yaml"/>
-    <arg name="yaml_checker" default="$(find capture_cam)launch/config/capture_stereo_checker.yaml"/>
+    <arg name="yaml_checker" default="$(find stereo_calib_rectify)launch/config/capture_stereo_checker.yaml"/>
 
     <node pkg="nodelet" type="nodelet" name="nodelet_manager_stereo"  args="manager" output="screen"/>
 
@@ -22,7 +21,7 @@
         <remap from="left_rect/camera_info"  to="$(arg camera_rect)/left/camera_info"/>
         <remap from="right_rect/camera_info" to="$(arg camera_rect)/right/camera_info"/>
 
-        <param name="param_dir"  type="string" value="$(find capture_cam)/params_out"/>
+        <param name="param_dir"  type="string" value="$(find stereo_calib_rectify)/params_out"/>
         <param name="is_rectify" type="bool"   value="$(arg is_rect)"/>
         <rosparam file="$(arg yaml_checker)" command="load"/>
 

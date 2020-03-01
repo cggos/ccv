@@ -7,12 +7,14 @@
 namespace capture_cam {
 
     class CaptureCamStereoImp {
+
     public:
         CaptureCamStereoImp() {}
-        CaptureCamStereoImp(ros::NodeHandle &nh) : nh_(nh) {}
+        // CaptureCamStereoImp(ros::NodeHandle &nh) : nh_(nh) {}
         virtual void process(const cv::Mat &img_l, const cv::Mat &img_r) = 0;
+
     public:
-        ros::NodeHandle nh_;
+        // ros::NodeHandle nh_;
         bool is_rectify_;
         cv::Mat   K1_;
         cv::Mat   K2_;
