@@ -18,7 +18,6 @@
 
 #include <cv_bridge/cv_bridge.h>
 
-#include "detect_charuco/detect_charuco_stereo.h"
 #include "detect_checker/detect_checker_stereo.h"
 
 namespace capture_cam {
