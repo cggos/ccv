@@ -37,7 +37,6 @@ obj/
 
 .rosinstall
 .catkin_workspace
-.vscode/
 .idea/
 *.swp
 imgs/
