@@ -22,8 +22,8 @@ void mouseHandler(int event, int x, int y, int flags, void* data_ptr) {
  
 int main(int argc, char** argv)
 {
-	Mat im_src = imread("/home/cg/Downloads/cvlife.jpg");
-	Mat im_dst = imread("/home/cg/Downloads/ad1.jpg");
+	Mat im_src = imread("../../../../data/cvlife.jpg");
+	Mat im_dst = imread("../../../../data/ad.jpg");
  
 	vector<Point2f> pts_src;
 	Size size = im_src.size();
