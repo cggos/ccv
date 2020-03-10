@@ -39,18 +39,19 @@ int main(int argc, char **argv)
     std::cout << "cloud_out size: " << cloud_out->size() << std::endl;
 
     // get the plane normal
-    pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>);
-    {
-        pcl::Normal pcl_normal;
-        calc_plane_normal(cloud_out, pcl_normal);
-        for(int i=0; i<cloud_out->size(); i++)
-            normals->push_back(pcl_normal);
+    Eigen::Vector3f v3normal; 
+    Eigen::Vector3f v3centroid;
+    pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>); 
+    calc_plane_normal(cloud_out, v3normal, v3centroid);
+    for(int i=0; i<cloud_out->size(); i++) {
+        pcl::Normal pcl_normal(v3normal[0], v3normal[1], v3normal[2]);
+        normals->push_back(pcl_normal);
     }
-
-    // pcl::io::savePLYFileASCII("/home/cg/Downloads/cg_wall_new.ply", *cloud_xyz);
     
-    // view
+    // save & view
     {
+        // pcl::io::savePLYFileASCII("/home/cg/Downloads/cg_wall_new.ply", *cloud_xyz);
+
         boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer(new pcl::visualization::PCLVisualizer("3D Viewer"));
 
         viewer->initCameraParameters();
@@ -73,7 +74,10 @@ int main(int argc, char **argv)
         viewer->addPointCloudNormals<pcl::PointXYZ, pcl::Normal>(cloud_out, normals, 200, 0.5, "normals",v2);
         viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 2, "target");
 
-        viewer->addCoordinateSystem(1.0);
+        viewer->addCoordinateSystem(0.5);
+        
+        Eigen::Affine3f m3A = get_transform_new_from_old(v3normal, v3centroid);
+        viewer->addCoordinateSystem(0.5, m3A, v2);
     
         while(!viewer->wasStopped()) {
             viewer->spinOnce(100);
