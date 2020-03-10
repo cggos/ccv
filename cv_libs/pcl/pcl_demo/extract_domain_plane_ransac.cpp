@@ -1,6 +1,8 @@
 #include "extract_domain_plane_ransac.h"
 
-PointCloudXYZ::Ptr extract_domain_plane_ransac(const PointCloudXYZ::Ptr cloud_in) {
+#include <Eigen/Eigenvalues>
+
+PointCloudXYZ::Ptr extract_domain_plane_ransac(const PointCloudXYZ::Ptr cloud_in, float thr) {
     PointCloudXYZ::Ptr cloud_out(new PointCloudXYZ);
 
     size_t nPoints = cloud_in->size();
@@ -41,8 +43,8 @@ PointCloudXYZ::Ptr extract_domain_plane_ransac(const PointCloudXYZ::Ptr cloud_in
                 continue;
             double dNormDist = fabs(v3Diff.dot(v3Normal));
 
-            if (dNormDist > 0.05)
-                dNormDist = 0.05;
+            if (dNormDist > thr)
+                dNormDist = thr;
             dSumError += dNormDist;
         }
         if (dSumError < dBestDistSquared) {
@@ -60,7 +62,7 @@ PointCloudXYZ::Ptr extract_domain_plane_ransac(const PointCloudXYZ::Ptr cloud_in
         if (dDistSq == 0.0)
             continue;
         double dNormDist = fabs(v3Diff.dot(v3BestNormal));
-        if (dNormDist < 0.05) {
+        if (dNormDist < thr) {
             pcl::PointXYZ pt3;
             pt3.getVector3fMap() = v3i;
             cloud_out->points.push_back(pt3);
@@ -68,4 +70,36 @@ PointCloudXYZ::Ptr extract_domain_plane_ransac(const PointCloudXYZ::Ptr cloud_in
     }
 
     return cloud_out;
+}
+
+void calc_plane_normal(const PointCloudXYZ::Ptr cloud_in, pcl::Normal &normal) {
+    // With these inliers, calculate mean and cov
+    Eigen::Vector3f v3_mean = Eigen::Vector3f::Zero();
+    for(std::vector<pcl::PointXYZ, Eigen::aligned_allocator<pcl::PointXYZ> >::iterator it = cloud_in->begin();
+        it != cloud_in->end(); it++) {
+        v3_mean += it->getVector3fMap();
+    }
+    v3_mean *= (1.0 / cloud_in->size());
+
+    Eigen::Matrix3f m3_cov = Eigen::Matrix3f::Zero();
+    for(std::vector<pcl::PointXYZ, Eigen::aligned_allocator<pcl::PointXYZ> >::iterator it = cloud_in->begin();
+        it != cloud_in->end(); it++) {
+        Eigen::Vector3f v3_diff = it->getVector3fMap() - v3_mean;
+        m3_cov += v3_diff * v3_diff.transpose();
+    }
+
+    // Find the principal component with the minimal variance: this is the plane normal
+    Eigen::EigenSolver<Eigen::Matrix3f> es(m3_cov);
+    Eigen::Matrix3f D = es.pseudoEigenvalueMatrix();
+    Eigen::Matrix3f V = es.pseudoEigenvectors();
+
+    std::cout << "D: \n" << D << std::endl;
+
+    Eigen::Vector3f v3normal = V.col(2); // eigen vector with the minimal eigen value
+
+    // Use the version of the normal which points towards the cam center
+    if(v3normal[2] > 0)
+        v3normal *= -1.f;
+
+    normal = pcl::Normal(v3normal[0], v3normal[1], v3normal[2]);
 }

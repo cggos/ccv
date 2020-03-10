@@ -34,8 +34,18 @@ int main(int argc, char **argv)
 
     std::cout << "after filter cloud_xyz size: " << cloud_xyz->size() << std::endl;
 
-    PointCloudXYZ::Ptr cloud_out = extract_domain_plane_ransac(cloud_xyz);
+    PointCloudXYZ::Ptr cloud_out = extract_domain_plane_ransac(cloud_xyz, 0.01);
+    
     std::cout << "cloud_out size: " << cloud_out->size() << std::endl;
+
+    // get the plane normal
+    pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>);
+    {
+        pcl::Normal pcl_normal;
+        calc_plane_normal(cloud_out, pcl_normal);
+        for(int i=0; i<cloud_out->size(); i++)
+            normals->push_back(pcl_normal);
+    }
 
     // pcl::io::savePLYFileASCII("/home/cg/Downloads/cg_wall_new.ply", *cloud_xyz);
     
@@ -59,12 +69,13 @@ int main(int argc, char **argv)
         viewer->setBackgroundColor(0.3, 0.3, 0.3, v2);        
         pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> target_color(cloud_out, 255, 255, 255);
         viewer->addPointCloud<pcl::PointXYZ>(cloud_out, target_color, "target", v2);
+        // 200表示需要显示法向的点云间隔，0.5表示法向长度
+        viewer->addPointCloudNormals<pcl::PointXYZ, pcl::Normal>(cloud_out, normals, 200, 0.5, "normals",v2);
         viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 2, "target");
 
         viewer->addCoordinateSystem(1.0);
     
-        while (!viewer->wasStopped())
-        {
+        while(!viewer->wasStopped()) {
             viewer->spinOnce(100);
             boost::this_thread::sleep(boost::posix_time::microseconds(100000));
         }
