@@ -1,0 +1,3 @@
+project(good_features_to_track)
+
+add_executable(good_features_to_track main.cpp good_features_to_track.cpp)
