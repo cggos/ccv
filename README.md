@@ -2,6 +2,10 @@
 
 ChenGuang Open Computer Vision class library
 
+<div align=center>
+  <img src="./data/cv_overview.jpg"/>
+</div>
+
 -----
 
 ## Overview
