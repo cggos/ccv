@@ -25,3 +25,5 @@ add_executable(demo04 demo04.cc)
 target_link_libraries(demo04 ${OpenCV_LIBS})
 add_executable(demo05 demo05.cc)
 add_executable(demo06 demo06.cc)
+
+add_subdirectory(slam_visualization)
