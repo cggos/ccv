@@ -13,5 +13,7 @@ if(Pangolin_FOUND)
 endif()
 list(APPEND LIBS ${Pangolin_LIBRARIES})
 
+link_libraries(${LIBS})
+
 add_executable(demo01 demo01.cc)
-target_link_libraries(demo01 ${LIBS})
+add_executable(demo02 demo02.cc)
