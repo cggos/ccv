@@ -59,20 +59,26 @@ int main() {
             Int_Slider = Double_Slider;
 
         // 保存整个win
-        if (pangolin::Pushed(SAVE_WIN))
+        if (pangolin::Pushed(SAVE_WIN)) {
             pangolin::SaveWindowOnRender("window");
+            std::cout << "SAVE_WIN: window.png saved" << std::endl;
+        }
 
         // 保存view
-        if (pangolin::Pushed(SAVE_IMG))
+        if (pangolin::Pushed(SAVE_IMG)) {
             d_cam.SaveOnRender("cube");
+            std::cout << "SAVE_IMG: cube.png saved" << std::endl;
+        }
 
         // 录像
-        if (pangolin::Pushed(RECORD_WIN))
+        if (pangolin::Pushed(RECORD_WIN)) {
+            std::cout << "RECORD_WIN" << std::endl;
             pangolin::DisplayBase().RecordOnRender("ffmpeg:[fps=50,bps=8388608,unique_filename]//screencap.avi");
+        }
 
         d_cam.Activate(s_cam);
 
-        // glColor3f(1.0,0.0,1.0);
+        glColor3f(1.0, 0.0, 1.0);
         pangolin::glDrawColouredCube();
 
         // Swap frames and Process Events
