@@ -10,3 +10,6 @@ endif()
 
 add_executable(extract_domain_plane_ransac main.cpp extract_domain_plane_ransac.cpp)
 target_link_libraries(extract_domain_plane_ransac ${PCL_LIBRARIES})
+
+add_executable(kdtree_demo kdtree_demo.cpp)
+target_link_libraries(kdtree_demo ${PCL_LIBRARIES})
