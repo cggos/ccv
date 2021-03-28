@@ -43,7 +43,6 @@ imgs/
 CImg.h
 *.raw
 *.bmp
-*.png
 
 cam_stereo.yml
 calib.sh
