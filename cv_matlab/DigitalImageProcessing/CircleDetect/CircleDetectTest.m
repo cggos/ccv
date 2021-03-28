@@ -1,0 +1,1 @@
+[accum, circen, cirrad] = CircleDetect('ImagesTest/calibImgNew.bmp');
