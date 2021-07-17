@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package>
+  <name>mipi_ros_wrapper</name>
+  <version>1.0.0</version>
+  <description>mipi_ros_wrapper is a ROS wrapper for the <a> href="www.slightech.com">mynt library</a>
+    for interfacing with the mynt camera.
+  </description>
+<maintainer email="mynteye@slightech.com">MYNTEYE</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rosconsole</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>opencv</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>nodelet</build_depend>
+
+  <run_depend>tf2_ros</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rosconsole</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>opencv</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>nodelet</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+<!--
+  <export>
+    <nodelet plugin="${prefix}/nodelet_plugins.xml" />
+  </export>
+-->
+</package>
