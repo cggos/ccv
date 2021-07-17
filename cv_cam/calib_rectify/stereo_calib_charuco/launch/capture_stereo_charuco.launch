@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <arg name="camera"      default="mynteye"/>
+    <arg name="camera_rect" default="mynteye_rect"/>
+    <arg name="is_rect"     default="false" />
+    <arg name="nodelet_manager" default="nodelet_manager" />
+
+    <node pkg="nodelet" type="nodelet" name="nodelet_manager_aruco"  args="manager" output="screen"/>
+
+    <node pkg="nodelet" type="nodelet" name="capture_stereo_charuco"
+          args="load capture_imgs/CaptureStereoCharuco nodelet_manager_aruco">
+
+        <remap from="left/image"        to="$(arg camera)/left/image_raw"/>
+        <remap from="right/image"       to="$(arg camera)/right/image_raw"/>
+
+        <remap from="left_rect/image"        to="$(arg camera_rect)/left/image_rect"/>
+        <remap from="right_rect/image"       to="$(arg camera_rect)/right/image_rect"/>
+        <remap from="left_rect/camera_info"  to="$(arg camera_rect)/left/camera_info"/>
+        <remap from="right_rect/camera_info" to="$(arg camera_rect)/right/camera_info"/>
+
+        <rosparam file="$(find capture_imgs)launch/config/capture_stereo_charuco.yaml" command="load"/>
+        <param name="param_dir"  value="$(find capture_imgs)/param_out/" />
+        <param name="is_rectify" value="$(arg is_rect)" />
+
+    </node>
+
+</launch>

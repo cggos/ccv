@@ -1,0 +1,9 @@
+<library path="lib/libcapture_stereo_charuco_nodelet">
+    <class name="capture_imgs/CaptureStereoCharuco"
+           type="capture_imgs::CaptureStereoCharuco"
+           base_class_type="nodelet::Nodelet">
+        <description>
+            this is capture_stereo_charuco nodelet.
+        </description>
+    </class>
+</library>
