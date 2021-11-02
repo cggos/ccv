@@ -1,9 +1,0 @@
-<library path="lib/libstereo_calib_rectify_nodelet">
-    <class name="capture_cam/CaptureCamStereo"
-           type="capture_cam::CaptureCamStereo"
-           base_class_type="nodelet::Nodelet">
-        <description>
-            this is stereo_calib_rectify_nodelet.
-        </description>
-    </class>
-</library>
