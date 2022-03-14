@@ -15,7 +15,7 @@ int main()
     const int height = 800;
 
     std::ifstream file_in;
-    file_in.open("../image_yuv_nv21_1280_800_01.raw", std::ios::binary);
+    file_in.open("../../../data/image_yuv_nv21_1280_800_01.raw", std::ios::binary);
     std::filebuf *p_filebuf = file_in.rdbuf();
     size_t size = p_filebuf->pubseekoff(0, std::ios::end, std::ios::in);
     p_filebuf->pubseekpos(0, std::ios::in);
@@ -23,16 +23,16 @@ int main()
     char *buf_src = new char[size];
     p_filebuf->sgetn(buf_src, size);
 
-    cv::Mat mat_src = cv::Mat(height*1.5, width, CV_8UC1, buf_src);
     cv::Mat mat_dst = cv::Mat(height, width, CV_8UC3);
-
+#if 0 // good
+    cv::Mat mat_src = cv::Mat(height*1.5, width, CV_8UC1, buf_src);
     cv::cvtColor(mat_src, mat_dst, cv::COLOR_YUV2BGR_NV21);
-
-    //unsigned char *buf_dst = new unsigned char[width*height*3];
-    //yuv_nv21_to_rgb(buf_dst, buf_src, width, height);
-    //memcpy(mat_dst.data, buf_dst, width*height*3);
-    //delete []buf_dst;
-
+#else // poor
+    unsigned char *buf_dst = new unsigned char[width*height*3];
+    yuv_nv21_to_rgb(buf_dst, buf_src, width, height);
+    memcpy(mat_dst.data, buf_dst, width*height*3);
+    delete []buf_dst;
+#endif
     cv::imwrite("yuv.png", mat_dst);
 
     file_in.close();
