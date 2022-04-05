@@ -2,28 +2,27 @@
 
 Computer Vision Kit 
 
-<p align=center>
+<!-- <p align=center>
   <img src="./data/cv_overview.jpg"/>
-</p>
+</p> -->
 
 -----
 
 ## Overview
 
-* core computer vision library
-* apps based on the core library
-* computer vision docs
-* demos based on opencv and pcl using c++, matlab or c#
+* **core**: core computer vision library with C++ or OpenCV
+* **libs**: cv demos with OpenCV, FFTW, PCL, OpenGL, Pangolin
+* **apps**: cv demos with the core library or with opencv using C++, Qt, C#, Java
+* **scripts**: cv demos with Python and Matlab
 
-## Build
-
-* ROS Project
+* build
+  
   ```bash
+  # for ROS Project
   # use catkin_tools
   catkin build <package-name>
-  ```
-* CMake Plain Project (No ROS)
-  ```bash
+  
+  # for CMake Plain Project (No ROS)
   mkdir build & cd build
   cmake .. & make
   ```
@@ -32,9 +31,16 @@ Computer Vision Kit
 
 * [x] DIP Demo with Qt :sunny:
 
+  <p align="center">
+    <img src="apps/DIPDemoQt/imgs/dip_demo.jpg"/>
+  </p>
+
 * [x] DIP Demo with Java
+  
 
 * [x] DIP Demo with C#
+
+  ![dip_csharp_ubuntu.png](apps/DIPDemoCSharp/images/dip_csharp_ubuntu.png)
 
 * [x] Face Detection
 
