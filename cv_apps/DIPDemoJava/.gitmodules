@@ -1,0 +1,3 @@
+[submodule "ThirdPartyToolsJava"]
+	path = ThirdPartyToolsJava
+	url = git@github.com:cggos/ThirdPartyToolsJava.git
