@@ -1,6 +1,6 @@
-# cgocv
+# CVKit
 
-ChenGuang Open Computer Vision class library
+Computer Vision Kit 
 
 <div align=center>
   <img src="./data/cv_overview.jpg"/>
