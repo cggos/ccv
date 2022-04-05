@@ -39,10 +39,8 @@ obj/
 .catkin_workspace
 .idea/
 *.swp
-imgs/
 CImg.h
 *.raw
-*.bmp
 
 cam_stereo.yml
 calib.sh

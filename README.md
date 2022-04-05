@@ -2,9 +2,9 @@
 
 Computer Vision Kit 
 
-<div align=center>
+<p align=center>
   <img src="./data/cv_overview.jpg"/>
-</div>
+</p>
 
 -----
 
@@ -27,3 +27,19 @@ Computer Vision Kit
   mkdir build & cd build
   cmake .. & make
   ```
+
+## Apps
+
+* [x] DIP Demo with Qt :sunny:
+
+* [x] DIP Demo with Java
+
+* [x] DIP Demo with C#
+
+* [x] Face Detection
+
+* [ ] Medical Imaging
+
+* [x] Stereo Matching with OpenCL
+
+* [x] Stereo Reconstruction with ROS
