@@ -5,7 +5,7 @@
 #ifndef MSCKF_UNDISTORT_H
 #define MSCKF_UNDISTORT_H
 
-#include "cvkit/cv/types.h"
+#include "cvkit/common/types.h"
 #include "cvkit/maths/vector.h"
 #include "cvkit/maths/mat.h"
 

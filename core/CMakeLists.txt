@@ -57,7 +57,6 @@ set(CV_SRC_LIST
     src/cv/image_ocv.cc
     src/cv/features2d.cc
     src/cv/features2d_fast.cc
-    src/cv/types.cpp
     src/cv/undistort.cpp
     src/cv/calib3d.cpp
     src/cv/corner_detector.cpp
@@ -145,7 +144,7 @@ else()
     ARCHIVE DESTINATION lib)
     install(FILES ${PROJECT_BINARY_DIR}/cvkit_config.h DESTINATION include/cvkit)
     install(DIRECTORY 
-        include/cvkit
+        include/cvkit/common
         include/cvkit/cv
         include/cvkit/maths 
         include/cvkit/kinematics

@@ -8,8 +8,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "cvkit/common.h"
-#include "cvkit/cv/types.h"
+#include "cvkit/common/types.h"
 
 namespace cg {
 

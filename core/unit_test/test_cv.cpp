@@ -13,7 +13,7 @@
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/video/tracking.hpp>
 
-#include "cvkit/cv/types.h"
+#include "cvkit/common/types.h"
 #include "cvkit/cv/yimg.h"
 #include "cvkit/cv/corner_detector.h"
 #include "cvkit/cv/image_filtering.h"

@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include "cvkit/cv/types.h"
+#include "cvkit/common/types.h"
 #include "cvkit/maths/vector.h"
 #include "cvkit/maths/mat.h"
 

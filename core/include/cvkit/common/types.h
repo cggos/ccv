@@ -83,6 +83,8 @@ namespace cg {
         Point2D(_T x, _T y) : x(x), y(y) {}
         
         Point2D(const Point2D &p) : x(p.x), y(p.y) {}
+
+        Point2D(const Size &size) : x(size.width), y(size.height) {}
  
         bool operator==(const Point2D &rhs) const { return  x == rhs.x && y == rhs.y; }
         
@@ -95,10 +97,20 @@ namespace cg {
             y = rhs.y;
             return *this;
         }
+
+        Point2D &operator=(const Size &size){
+            x = _T(size.width);
+            y = _T(size.height);
+            return *this;
+        }
  
         Point2D operator+(const Point2D &rhs) const { return Point2D(x+rhs.x, y+rhs.y); }
 
         Point2D operator-(const Point2D &rhs) const { return Point2D(x-rhs.x, y-rhs.y); }
+
+        Point2D operator+(const Size &rhs) const { return Point2D(x+rhs.width, y+rhs.height); }
+
+        Point2D operator-(const Size &rhs) const { return Point2D(x-rhs.width, y-rhs.height); }
 
         Point2D operator*(int n)   const { return Point2D(x * n, y * n); }
 
@@ -112,13 +124,25 @@ namespace cg {
 
         void operator-=(const Point2D &rhs)   { this->x -= rhs.x; this->y -= rhs.y; }
 
-        void operator*=(int n)   { this->x *= n; this->y *= n; }
+        void operator*=(int n) { this->x *= n; this->y *= n; }
+
+        void operator/=(int n) { this->x /= n; this->y /= n; }
 
         void operator*=(float n) { this->x *= n; this->y *= n; }
 
         void operator/=(float n) { this->x /= n; this->y /= n; }
 
         Point2D operator-() { return Point2D(-x, -y); }
+
+        inline _T area() const { return x * y; }
+
+        inline _T mag_squared() const { return x*x + y*y; }
+
+        inline Point2D<int> pt_rounded() const {
+            return Point2D<int>(
+                    static_cast<int>(x > 0.0 ? x + 0.5 : x - 0.5),
+                    static_cast<int>(y > 0.0 ? y + 0.5 : y - 0.5));
+        }
 
         _T dot(const Point2D &pt) const { return this->x * pt.x + this->y * pt.y; }
 
@@ -127,11 +151,12 @@ namespace cg {
         }
     };
 
+    template<typename T>
+    Point2D<T> operator*(int n, const Point2D<T> &pt) { return pt * n; }
+
     typedef Point2D<int>    Point2i;
     typedef Point2D<float>  Point2f;
     typedef Point2D<double> Point2d;
-
-    Point2f operator*(int n, const Point2f &pt);
 
     template <typename _T>
     struct Point3D {
@@ -186,6 +211,25 @@ namespace cg {
     typedef Point3D<int>    Point3i;
     typedef Point3D<float>  Point3f;
     typedef Point3D<double> Point3d;
+
+    struct RGB {
+        float r;
+        float g;
+        float b;
+
+        RGB() {}
+
+        RGB(float red, float green, float blue) : r(red), g(green), b(blue) {}
+
+        RGB &operator=(const RGB &rhs) {
+            if(this == &rhs)
+                return *this;
+            r = rhs.r;
+            g = rhs.g;
+            b = rhs.b;
+            return *this;
+        }
+    };
 }
 
 #endif //VIKIT_CG_TYPES_H

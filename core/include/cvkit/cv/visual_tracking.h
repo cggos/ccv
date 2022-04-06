@@ -8,7 +8,7 @@
 #include <cmath>
 #include <vector>
 
-#include "cvkit/cv/types.h"
+#include "cvkit/common/types.h"
 #include "cvkit/cv/yimg.h"
 
 namespace cg {
