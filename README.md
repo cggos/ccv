@@ -15,17 +15,25 @@ Computer Vision Kit
 * **apps**: cv demos with the core library or with opencv using C++, Qt, C#, Java
 * **scripts**: cv demos with Python and Matlab
 
-* build
-  
-  ```bash
-  # for ROS Project
-  # use catkin_tools
-  catkin build <package-name>
-  
-  # for CMake Plain Project (No ROS)
-  mkdir build & cd build
-  cmake .. & make
-  ```
+## Core
+
+* Maths
+
+* Kinematics
+
+* Computer Vision
+
+## Libs
+
+* OpenCV
+
+* FFTW
+
+* PCL
+
+* OpenGL
+
+* Pangolin
 
 ## Apps
 
@@ -49,3 +57,9 @@ Computer Vision Kit
 * [x] Stereo Matching with OpenCL
 
 * [x] Stereo Reconstruction with ROS
+
+## Scripts
+
+* Python
+
+* Matlab

@@ -4,19 +4,16 @@
 
 ## Build
 
-* Google Test ([click here for install scripts](https://gist.github.com/chenguang055/edd0f8a96b9b6126afc0759beb716acd))
-* [The CImg Library](http://cimg.eu/) (the only **CImg.h** header): a small and open-source C++ toolkit for image processing
+```bash
+# for CMake Plain Project (No ROS)
+mkdir build 
+cd build
+cmake .. [-DBUILD_TEST=ON] [-DBUILD_DOCS=ON]
+make -j$(nproc)
 
-* turn `option(WITH_ROS "Build with ROS" OFF)` to `ON` when use it with ROS
-
-* build main project
-
-  ```sh
-  mkdir build
-  cd build
-  cmake .. [-DBUILD_TEST=ON] [-DBUILD_DOC=ON]
-  make -j2
-  ```
+# for ROS Project, use catkin_tools
+catkin build -DWITH_ROS=ON <package-name>
+```
 
 ## Run
 
