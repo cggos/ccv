@@ -1,0 +1,7 @@
+%YAML 1.2
+---
+
+squares_x : 7
+squares_y : 11
+square_length : 0.021
+marker_length : 0.014

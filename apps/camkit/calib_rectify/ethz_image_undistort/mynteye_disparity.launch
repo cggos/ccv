@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<launch>
+
+<arg name="play_bag" value="false" />
+
+<node name="depth_node" pkg="image_undistort" type="depth_node">
+    <remap from="rect/first/image"        to="/mynteye/rect/first/image"/>
+    <remap from="rect/second/image"       to="/mynteye/rect/second/image"/>
+    <remap from="rect/first/camera_info"  to="/mynteye/rect/first/camera_info"/>
+    <remap from="rect/second/camera_info" to="/mynteye/rect/second/camera_info"/>
+</node>
+
+</launch>
