@@ -1,0 +1,2 @@
+include ':app'
+//include ':libs:module0' // 根目录下的二级目录，如果你需要这个module 的话
