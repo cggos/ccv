@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 2.8)
-project(cgocv)
+project(cvkit)
 
 set(CGOCV_VERSION_MAJOR 1)
 set(CGOCV_VERSION_MINOR 0)
 configure_file(
-    ${PROJECT_SOURCE_DIR}/cmake_modules/cgocv_config.h.in
-    ${PROJECT_BINARY_DIR}/cgocv_config.h)
+    ${PROJECT_SOURCE_DIR}/cmake_modules/cvkit_config.h.in
+    ${PROJECT_BINARY_DIR}/cvkit_config.h)
 
 option(BUILD_DOCS      "Create and install the HTML based API documentation (requires Doxygen)" OFF)
 option(BUILD_TEST      "Build Unit Test Program for the project (requires GTest)" OFF)
@@ -13,14 +13,18 @@ option(WITH_OPENCV_PCL "Build with OpenCV and PCL" ON)
 option(WITH_GL         "Build with OpenGL and Pangolin" ON)
 option(WITH_ROS        "Build with ROS" OFF)
 
+set(CMAKE_CXX_STANDARD 11) # -std=gnu++11
+
+add_definitions(-w)
+
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release")
 endif()
 
 if(CMAKE_BUILD_TYPE MATCHES "Release")
-    set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -std=c++11 -O3")
+    set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3")
 else(CMAKE_BUILD_TYPE MATCHES "Debug")
-    set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -std=c++11 -O0 -g -Wall")
+    set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O0 -g -Wall")
     add_definitions(-D__USER_DEBUG__)
 endif(CMAKE_BUILD_TYPE MATCHES "Release")
 
@@ -28,17 +32,31 @@ if(WITH_ROS)
     find_package(catkin REQUIRED)
     catkin_package(
         INCLUDE_DIRS include
-        LIBRARIES cgocv)
+        LIBRARIES cvkit)
     include_directories(${catkin_INCLUDE_DIRS})
 endif()
 
 include_directories(include ${PROJECT_BINARY_DIR})
+
 set(SRC_LIST
     src/image.cc
     src/image_ocv.cc
     src/features2d.cc
     src/features2d_fast.cc
     src/mathtools.cc)
+
+#find_package(OpenMP)
+#if(OpenMP_FOUND)
+#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+#    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+#endif()
+
+#find_package(Boost REQUIRED COMPONENTS system)
+#if(Boost_FOUND)
+#    include_directories(${Boost_INCLUDE_DIR})
+#    link_directories(${Boost_LIBRARY_DIR})
+#endif()
 
 if(WITH_OPENCV_PCL)
     find_package(OpenCV REQUIRED)
@@ -67,18 +85,55 @@ if(WITH_GL)
     list(APPEND SRC_LIST src/pointcloud3d_ogl.cc)
 endif()
 
-add_library(cgocv SHARED ${SRC_LIST})
+add_subdirectory(3rdparty/fast)
+include_directories(3rdparty/fast/include)
 
+## maths
+add_library(maths_cg SHARED
+        src/maths/math_basics.cpp
+        src/maths/matrix.cpp
+        src/maths/vector.cpp
+        src/maths/svd_fulluv.cpp)
+
+## kinematics
+add_library(kinematics_cg SHARED
+        src/kinematics/rotation_matrix.cpp
+        src/kinematics/quarternion.cpp
+        src/kinematics/convertor.cpp)
+target_link_libraries(kinematics_cg maths_cg)
+
+## computer vision
+include_directories(/usr/include/eigen3) # will be removed !!!!!!!!!!!!
+add_library(cv_cg SHARED
+        src/cv/types.cpp
+        src/cv/undistort.cpp
+        src/cv/calib3d.cpp
+        src/cv/corner_detector.cpp
+        src/cv/visual_tracking.cpp
+        src/cv/image_filtering.cpp)
+target_link_libraries(cv_cg kinematics_cg fast)
+
+add_library(cvkit SHARED ${SRC_LIST})
+
+
+############################### unit test ###############################
+if(BUILD_TEST)
+    enable_testing()
+    find_package(GTest)
+    if(GTest_FOUND)
+        include_directories(${GTEST_INCLUDE_DIRS})
+        add_subdirectory(unit_test)
+    endif()
+endif()
+
+############################### api docs ###############################
 if(BUILD_DOCS)
     include(cmake_modules/build_doxyfile.cmake)
 endif()
 
-if(BUILD_TEST)
-    add_subdirectory(test)
-endif()
-
+############################### install ###############################
 if(WITH_ROS)
-    install(TARGETS cgocv
+    install(TARGETS cvkit
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
@@ -86,12 +141,16 @@ if(WITH_ROS)
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
         PATTERN ".cc" EXCLUDE)
 else()
-    install(TARGETS cgocv
+    install(TARGETS cvkit maths_cg kinematics_cg
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib)
-    install(FILES ${PROJECT_BINARY_DIR}/cgocv_config.h DESTINATION include/cgocv)
-    install(DIRECTORY include/cgocv
+    install(FILES ${PROJECT_BINARY_DIR}/cvkit_config.h DESTINATION include/cvkit)
+    install(DIRECTORY 
+        include/cvkit
+        include/cvkit/maths 
+        include/cvkit/cv
+        include/cvkit/kinematics
         DESTINATION include
         PATTERN ".cc" EXCLUDE)
 endif()
