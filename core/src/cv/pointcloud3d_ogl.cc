@@ -2,7 +2,7 @@
 // Created by cg on 4/21/19.
 //
 
-#include "cvkit/pointcloud3d_ogl.h"
+#include "cvkit/cv/pointcloud3d_ogl.h"
 
 #include <unistd.h>
 #include <iostream>

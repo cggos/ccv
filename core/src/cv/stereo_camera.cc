@@ -1,4 +1,4 @@
-#include "cvkit/stereo_camera.h"
+#include "cvkit/cv/stereo_camera.h"
 
 #include <opencv2/calib3d/calib3d.hpp>
 

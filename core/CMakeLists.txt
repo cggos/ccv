@@ -38,13 +38,6 @@ endif()
 
 include_directories(include ${PROJECT_BINARY_DIR})
 
-set(SRC_LIST
-    src/image.cc
-    src/image_ocv.cc
-    src/features2d.cc
-    src/features2d_fast.cc
-    src/mathtools.cc)
-
 #find_package(OpenMP)
 #if(OpenMP_FOUND)
 #    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
@@ -57,6 +50,19 @@ set(SRC_LIST
 #    include_directories(${Boost_INCLUDE_DIR})
 #    link_directories(${Boost_LIBRARY_DIR})
 #endif()
+
+set(CV_SRC_LIST
+    src/maths/mathtools.cc
+    src/cv/image.cc
+    src/cv/image_ocv.cc
+    src/cv/features2d.cc
+    src/cv/features2d_fast.cc
+    src/cv/types.cpp
+    src/cv/undistort.cpp
+    src/cv/calib3d.cpp
+    src/cv/corner_detector.cpp
+    src/cv/visual_tracking.cpp
+    src/cv/image_filtering.cpp)
 
 if(WITH_OPENCV_PCL)
     find_package(OpenCV REQUIRED)
@@ -72,7 +78,7 @@ if(WITH_OPENCV_PCL)
         add_definitions(${PCL_DEFINITIONS})
     endif()
 
-    list(APPEND SRC_LIST src/stereo_camera.cc)
+    list(APPEND CV_SRC_LIST src/cv/stereo_camera.cc)
 endif()
 
 if(WITH_GL)
@@ -82,7 +88,7 @@ if(WITH_GL)
         link_libraries(${Pangolin_LIBRARIES})
     endif()
 
-    list(APPEND SRC_LIST src/pointcloud3d_ogl.cc)
+    list(APPEND CV_SRC_LIST src/cv/pointcloud3d_ogl.cc)
 endif()
 
 add_subdirectory(3rdparty/fast)
@@ -104,16 +110,8 @@ target_link_libraries(kinematics_cg maths_cg)
 
 ## computer vision
 include_directories(/usr/include/eigen3) # will be removed !!!!!!!!!!!!
-add_library(cv_cg SHARED
-        src/cv/types.cpp
-        src/cv/undistort.cpp
-        src/cv/calib3d.cpp
-        src/cv/corner_detector.cpp
-        src/cv/visual_tracking.cpp
-        src/cv/image_filtering.cpp)
+add_library(cv_cg SHARED ${CV_SRC_LIST})
 target_link_libraries(cv_cg kinematics_cg fast)
-
-add_library(cvkit SHARED ${SRC_LIST})
 
 
 ############################### unit test ###############################
@@ -133,7 +131,7 @@ endif()
 
 ############################### install ###############################
 if(WITH_ROS)
-    install(TARGETS cvkit
+    install(TARGETS cv_cg maths_cg kinematics_cg
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
@@ -141,15 +139,15 @@ if(WITH_ROS)
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
         PATTERN ".cc" EXCLUDE)
 else()
-    install(TARGETS cvkit maths_cg kinematics_cg
+    install(TARGETS cv_cg maths_cg kinematics_cg
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib)
     install(FILES ${PROJECT_BINARY_DIR}/cvkit_config.h DESTINATION include/cvkit)
     install(DIRECTORY 
         include/cvkit
-        include/cvkit/maths 
         include/cvkit/cv
+        include/cvkit/maths 
         include/cvkit/kinematics
         DESTINATION include
         PATTERN ".cc" EXCLUDE)

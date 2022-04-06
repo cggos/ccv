@@ -8,7 +8,7 @@
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>
 
-#include "cvkit/camera.h"
+#include "cvkit/cv/camera.h"
 
 namespace cg {
 

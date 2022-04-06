@@ -1,4 +1,4 @@
-#include "cvkit/features2d.h"
+#include "cvkit/cv/features2d.h"
 
 #include <cmath>
 

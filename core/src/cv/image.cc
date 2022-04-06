@@ -1,5 +1,5 @@
-#include "cvkit/image.h"
-#include "cvkit/mathtools.h"
+#include "cvkit/cv/image.h"
+#include "cvkit/maths/mathtools.h"
 
 namespace cg {
     int MatrixRotateImage(int cx, int cy, float degree, float M[3][3]){

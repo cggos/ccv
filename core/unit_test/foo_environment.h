@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include "cvkit/common_cv.h"
+#include "cvkit/cv/common_cv.h"
 
 #include "CImg.h"
 using namespace cimg_library;
