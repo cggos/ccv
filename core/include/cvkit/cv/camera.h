@@ -17,6 +17,12 @@ namespace cg {
       float p2;
   };
 
+  struct StereoCameraModel {
+     float baseline;
+     CameraModel left;
+     CameraModel right;
+  };
+
 };
 
 #endif //CGOCV_CAMERA_H

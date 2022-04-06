@@ -9,7 +9,8 @@ configure_file(
 
 option(BUILD_DOCS      "Create and install the HTML based API documentation (requires Doxygen)" OFF)
 option(BUILD_TEST      "Build Unit Test Program for the project (requires GTest)" OFF)
-option(WITH_OPENCV_PCL "Build with OpenCV and PCL" ON)
+option(WITH_OPENCV     "Build with OpenCV" ON)
+option(WITH_PCL        "Build with PCL" OFF)
 option(WITH_GL         "Build with OpenGL and Pangolin" ON)
 option(WITH_ROS        "Build with ROS" OFF)
 
@@ -54,30 +55,36 @@ include_directories(include ${PROJECT_BINARY_DIR})
 set(CV_SRC_LIST
     src/maths/mathtools.cc
     src/cv/image.cc
-    src/cv/image_ocv.cc
     src/cv/features2d.cc
     src/cv/features2d_fast.cc
     src/cv/undistort.cpp
     src/cv/calib3d.cpp
     src/cv/corner_detector.cpp
     src/cv/visual_tracking.cpp
-    src/cv/image_filtering.cpp)
+    src/cv/image_filtering.cpp
+)
 
-if(WITH_OPENCV_PCL)
+if(WITH_OPENCV)
     find_package(OpenCV REQUIRED)
     if(OpenCV_FOUND)
         include_directories(${OpenCV_INCLUDE_DIRS})
         link_libraries(${OpenCV_LIBS})
     endif()
 
+    list(APPEND CV_SRC_LIST 
+         src/cv/image_ocv.cc
+         src/cv/stereo_camera.cc
+         src/cv/pointcloud3d.cc
+    )
+endif()
+
+if(WITH_PCL)
     find_package(PCL REQUIRED COMPONENTS common io)
     if(PCL_FOUND)
         include_directories(${PCL_INCLUDE_DIRS})
         link_libraries(${PCL_LIBRARIES})
-        add_definitions(${PCL_DEFINITIONS})
+        add_definitions(${PCL_DEFINITIONS} -DWITH_PCL)
     endif()
-
-    list(APPEND CV_SRC_LIST src/cv/stereo_camera.cc)
 endif()
 
 if(WITH_GL)
@@ -85,9 +92,8 @@ if(WITH_GL)
     if(Pangolin_FOUND)
         include_directories(${Pangolin_INCLUDE_DIRS})
         link_libraries(${Pangolin_LIBRARIES})
+        add_definitions(-DWITH_GL)
     endif()
-
-    list(APPEND CV_SRC_LIST src/cv/pointcloud3d_ogl.cc)
 endif()
 
 add_subdirectory(3rdparty/fast)
