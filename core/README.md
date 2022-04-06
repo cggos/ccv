@@ -2,20 +2,20 @@
 
 ----
 
-## Build
+## Build & Run
 
-```bash
-# for CMake Plain Project (No ROS)
-mkdir build 
-cd build
-cmake .. [-DBUILD_TEST=ON] [-DBUILD_DOCS=ON]
-make -j$(nproc)
+* build
 
-# for ROS Project, use catkin_tools
-catkin build -DWITH_ROS=ON <package-name>
-```
-
-## Run
+  ```bash
+  # for CMake Plain Project (No ROS)
+  mkdir build 
+  cd build
+  cmake .. [-DBUILD_TEST=ON | -DBUILD_DOCS=ON]
+  make -j$(nproc)
+  
+  # for ROS Project, use catkin_tools
+  catkin build -j$(nproc) -DWITH_ROS=ON <package-name>
+  ```
 
 * run unit test
 

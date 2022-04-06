@@ -1,18 +1,18 @@
 <package>
-  <name>cgocv</name>
+  <name>cvkit</name>
   <version>0.0.0</version>
-  <description>This is a ROS-Package for lib cgocv</description>
+  <description>This is a ROS-Package for lib cvkit</description>
 
-  <maintainer email="gaohongchen01@hotmail.com">maintained by: GaoHongchen</maintainer>
+  <maintainer email="cggos@outlook.com">maintained by: Gavin Gao</maintainer>
 
   <license>GPL</license>
 
-  <author>GaoHongchen</author>
-  <author email="gaohongchen01@hotmail.com">GaoHongchen</author>
+  <author>Gavin Gao</author>
+  <author email="cggos@outlook.com">Gavin Gao</author>
 
   <buildtool_depend>catkin</buildtool_depend>
 
   <export>
-    <cpp lflags="-L${prefix}/lib -Wl,-rpath,${prefix}/lib -lcgocv" cflags="-I${prefix}/cgocv/include/"/>
+    <cpp lflags="-L${prefix}/lib -Wl,-rpath,${prefix}/lib -lcv_cg" cflags="-I${prefix}/cvkit/include/"/>
   </export>
 </package>

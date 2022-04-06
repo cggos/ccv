@@ -20,8 +20,9 @@
 
 #include <pcl_conversions/pcl_conversions.h>
 
-#include "cgocv/stereo_camera.h"
-#include "cgocv/image_ocv.h"
+#include "cvkit/cv/image_ocv.h"
+#include "cvkit/cv/stereo_camera.h"
+#include "cvkit/cv/pointcloud3d.h"
 
 namespace stereo_reconstruct {
 
@@ -137,7 +138,7 @@ namespace stereo_reconstruct {
                     depth_frame_ = new cv::Mat(mat_disp.size(), is_mm_ ? CV_16UC1 : CV_32FC1);
                 stereo_camera_.disparity_to_depth_map(mat_disp, *depth_frame_);
 
-                stereo_camera_.depth_to_pointcloud(*depth_frame_, mat_left, *pcl_cloud_);
+                cg::PointCloud3D::depth_to_pointcloud(*depth_frame_, mat_left, stereo_camera_.camera_model_, *pcl_cloud_);
 
                 if(is_use_colormap_)
                 {

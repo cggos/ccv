@@ -22,16 +22,17 @@ namespace cg {
     public:
 
 #ifdef WITH_PCL
-        void depth_to_pointcloud(const cv::Mat &mat_depth, const cv::Mat &mat_left, 
-                const StereoCameraModel &camera_model,
-                pcl::PointCloud<pcl::PointXYZRGB> &point_cloud);
+        static void depth_to_pointcloud(const cv::Mat &mat_depth, const cv::Mat &mat_left, 
+                                        const StereoCameraModel &camera_model,
+                                        pcl::PointCloud<pcl::PointXYZRGB> &point_cloud);
 
-        void generate_pointcloud(const cv::Mat &mat_l, const cv::Mat &mat_disp,
+        static void generate_pointcloud(const cv::Mat &mat_l, const cv::Mat &mat_disp,
                                  std::vector<Eigen::Vector4d, Eigen::aligned_allocator<Eigen::Vector4d>> pointcloud);
 #endif                                
 
 #ifdef WITH_GL
-        void show_pointcloud(const std::vector<Eigen::Vector4d, Eigen::aligned_allocator<Eigen::Vector4d>> &pointcloud);
+        static void show_pointcloud(
+                const std::vector<Eigen::Vector4d, Eigen::aligned_allocator<Eigen::Vector4d>> &pointcloud);
 #endif    
     };
 }

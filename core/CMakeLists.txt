@@ -33,7 +33,7 @@ if(WITH_ROS)
     find_package(catkin REQUIRED)
     catkin_package(
         INCLUDE_DIRS include
-        LIBRARIES cvkit)
+        LIBRARIES cv_cg)
     include_directories(${catkin_INCLUDE_DIRS})
 endif()
 
@@ -115,9 +115,14 @@ target_link_libraries(kinematics_cg maths_cg)
 
 ## computer vision
 include_directories(/usr/include/eigen3) # will be removed !!!!!!!!!!!!
-add_library(cv_cg SHARED ${CV_SRC_LIST})
-target_link_libraries(cv_cg kinematics_cg fast)
-
+if(NOT WITH_ROS)
+    add_library(cv_cg SHARED ${CV_SRC_LIST})
+    target_link_libraries(cv_cg kinematics_cg fast)
+else()
+    add_library(cv_cg SHARED ${CV_SRC_LIST})
+    target_link_libraries(cv_cg ${catkin_LIBRARIES} kinematics_cg fast)
+    add_dependencies(cv_cg ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+endif()
 
 ############################### unit test ###############################
 if(BUILD_TEST)
@@ -140,15 +145,22 @@ if(WITH_ROS)
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-    install(DIRECTORY include
+    install(FILES ${PROJECT_BINARY_DIR}/cvkit_config.h 
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/cvkit)
+    install(DIRECTORY 
+        include/cvkit/common
+        include/cvkit/cv
+        include/cvkit/maths 
+        include/cvkit/kinematics
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
         PATTERN ".cc" EXCLUDE)
 else()
     install(TARGETS cv_cg maths_cg kinematics_cg
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib)
-    install(FILES ${PROJECT_BINARY_DIR}/cvkit_config.h DESTINATION include/cvkit)
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)
+    install(FILES ${PROJECT_BINARY_DIR}/cvkit_config.h 
+        DESTINATION include/cvkit)
     install(DIRECTORY 
         include/cvkit/common
         include/cvkit/cv
