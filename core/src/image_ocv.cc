@@ -2,7 +2,7 @@
 // Created by cg on 4/21/19.
 //
 
-#include "cgocv/image_ocv.h"
+#include "cvkit/image_ocv.h"
 
 #include <iostream>
 

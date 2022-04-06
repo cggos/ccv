@@ -1,5 +1,5 @@
-#include "cgocv/features2d_fast.h"
-#include "cgocv/nonmax_suppression.h"
+#include "cvkit/features2d_fast.h"
+#include "cvkit/nonmax_suppression.h"
 
 namespace cg {
 

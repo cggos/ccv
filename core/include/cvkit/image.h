@@ -5,8 +5,8 @@
 #ifndef CGOCV_IMAGE_H
 #define CGOCV_IMAGE_H
 
-#include "cgocv/common_cv.h"
-#include "cgocv/camera.h"
+#include "cvkit/common_cv.h"
+#include "cvkit/camera.h"
 
 namespace cg {
 
