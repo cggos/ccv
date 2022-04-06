@@ -50,6 +50,20 @@ Computer Vision Kit
 
 ## Apps
 
+* [x] Camera Kit
+
+  * [x] Camera App on Android
+  
+  * [x] Realsense Camera utils
+  
+  * [x] Camera driver with v4l2
+
+  * [x] Stereo camera driver with MIPI and v4l2
+
+  * [x] Camera utils with ROS
+
+  * [x] Camera calib & rectify utils
+
 * [x] DIP Demo with Qt :sunny:
 
   <p align="center">
