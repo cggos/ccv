@@ -15,7 +15,7 @@ using namespace cimg_library;
 class FooEnvironment : public ::testing::Environment {
 public:
     virtual void SetUp() {
-        mstrPath = "../../images/lena.bmp";
+        mstrPath = "../../data/lena.bmp";
 
         CImg<unsigned char> img_in(mstrPath.c_str());
 

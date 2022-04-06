@@ -5,6 +5,7 @@
 #ifndef CGOCV_POINTCLOUD3D_OGL_H
 #define CGOCV_POINTCLOUD3D_OGL_H
 
+#include <vector>
 #include <Eigen/Core>
 
 namespace cg {

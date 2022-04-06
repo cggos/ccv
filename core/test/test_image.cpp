@@ -66,7 +66,7 @@ TEST(Image, features2d_fast)
 
 TEST(Image, undistort_image)
 {
-    CImg<unsigned char> img_in("../../images/test_undistort_image.png");
+    CImg<unsigned char> img_in("../../data/euroc.png");
 
     cg::Image<unsigned char> img(img_in.width(), img_in.height());
     memcpy(img.data(), img_in.data(), img.area());
