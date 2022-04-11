@@ -64,7 +64,7 @@ Computer Vision Kit
 
   * [x] Camera calib & rectify utils
 
-* [x] DIP Demo with Qt :sunny:
+* [x] [CVApp](https://github.com/cggos/CVApp): GUI App with Qt for Computer Vision :sunny:
 
   <p align="center">
     <img src="apps/DIPDemoQt/imgs/dip_demo.jpg"/>
