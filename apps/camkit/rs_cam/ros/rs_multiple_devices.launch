@@ -72,7 +72,7 @@
   </group>
 
   <group if="$(arg rviz)">
-      <node pkg="rviz" type="rviz" name="rviz" args="-d /home/cg/projects/sensors/camkit/rs_cam/rs_cam.rviz"/>
+      <node pkg="rviz" type="rviz" name="rviz" args="-d /home/cg/projects/ws_cv/src/cvkit/apps/camkit/rs_cam/ros/rs_cam.rviz"/>
   </group>
 
 </launch>
