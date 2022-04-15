@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread('lena.bmp', 0)
+img = cv2.imread('../../data/lena.bmp', 0)
 
 img_f_o = np.fft.fft2(img)
 img_f_c = np.fft.fftshift(img_f_o)

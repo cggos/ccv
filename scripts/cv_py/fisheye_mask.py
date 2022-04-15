@@ -11,7 +11,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread('lena.bmp')
+img = cv2.imread('../../data/lena.bmp')
 print(img.shape)
 rows, cols = img.shape[:2]
 

@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread('lena.bmp', 0)
+img = cv2.imread('../../data/lena.bmp', 0)
 
 rows, cols = img.shape
 mask = np.ones(img.shape, np.uint8)
