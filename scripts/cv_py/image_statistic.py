@@ -6,7 +6,7 @@ from scipy import ndimage
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = Image.open('lena.bmp').convert('L')
+img = Image.open('../../data/lena.bmp').convert('L')
 im = np.asarray(img)
 
 im_blur = ndimage.gaussian_filter(im, 4)

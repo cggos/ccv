@@ -6,7 +6,7 @@ import imtools
 
 
 def main():
-    img_raw = cv2.imread('lena.bmp')
+    img_raw = cv2.imread('../../data/lena.bmp')
 
     bright0 = imtools.brightness_by_gray(img_raw)
     bright1 = imtools.brightness_by_hsv(img_raw)

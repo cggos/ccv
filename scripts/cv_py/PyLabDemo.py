@@ -6,7 +6,7 @@ from PIL import Image
 
 import matplotlib.pylab as pl
 
-im = pl.array(Image.open('lena.bmp'))
+im = pl.array(Image.open('../../data/lena.bmp'))
 
 print
 im.shape, im.dtype
@@ -25,7 +25,7 @@ print
 'you clicked: ', x
 
 pl.figure()
-im = pl.array(Image.open('lena.bmp').convert('L'), 'f')
+im = pl.array(Image.open('../../data/lena.bmp').convert('L'), 'f')
 
 print
 im.shape, im.dtype

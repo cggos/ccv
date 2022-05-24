@@ -11,7 +11,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread('lena.bmp')
+img = cv2.imread('../../data/fisheye.png')
 print(img.shape)
 rows, cols = img.shape[:2]
 
@@ -21,6 +21,7 @@ rows, cols = img.shape[:2]
 xc = cols // 2
 yc = rows // 2
 radius = rows // 2
+radius -= 10
 
 # draw filled circles in white on black background as masks
 # mask = np.zeros_like(img)
@@ -40,7 +41,7 @@ result = cv2.bitwise_and(img, img, mask=mask)
 # plt.title('circle mask')
 # plt.show()
 
-# cv2.imwrite("fisheye_mask_848_800.png", mask)
+cv2.imwrite("out-fisheye_mask_848_800.png", mask)
 
 cv2.imshow('masked image', result)
 cv2.waitKey(0)

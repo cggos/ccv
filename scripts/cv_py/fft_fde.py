@@ -27,7 +27,7 @@ def frequency_domain_entropy(im_gray):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--img", default="lena.bmp", help="the image path")
+    parser.add_argument("--img", default="../../data/lena.bmp", help="the image path")
     args = parser.parse_args()
 
     # img = cv2.imread('lena.bmp', 0)
