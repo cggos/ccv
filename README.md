@@ -1,12 +1,12 @@
-# CVKit
+# CCV
 
-Computer Vision Kit 
+Chenguang Computer Vision
 
 <!-- <p align=center>
   <img src="./data/cv_overview.jpg"/>
 </p> -->
 
------
+---
 
 ## Overview
 
@@ -64,10 +64,10 @@ Computer Vision Kit
 
   * [x] Camera calib & rectify utils
 
-* [x] [CVApp](https://github.com/cggos/CVApp): GUI App with Qt for Computer Vision :sunny:
+* [x] [CVStudio](https://github.com/cggos/CVStudio): GUI App with Qt for Computer Vision :sunny:
 
   <p align="center">
-    <img src="https://github.com/cggos/CVApp/raw/master/imgs/dip_demo.jpg"/>
+    <img src="https://github.com/cggos/CVStudio/raw/master/imgs/dip_demo.jpg"/>
   </p>
 
 * [x] DIP Demo with Java
