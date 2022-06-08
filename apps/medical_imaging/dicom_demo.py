@@ -2,67 +2,90 @@
 # -*- coding: utf-8 -*-
 
 import os
-import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+
+# pip install --user pydicom
 import pydicom as pdicom
 
-folder_input = '/home/cg/Downloads/SE10/'
-
-files = os.listdir(folder_input)
-files.sort()
-
-# print files
-
-dcm_lst = []
 
 def load_scan2(dir):
-  for dir_name, subdir_lst, file_lst in os.walk(dir):
-    for file_name in file_lst:
-      dcm_lst.append(os.path.join(dir_name, file_name))
+    ds_list = []
+    for dir_name, subdir_lst, file_lst in os.walk(dir):
+        for file_name in file_lst:
+            ds_list.append(os.path.join(dir_name, file_name))
+    return ds_list
 
-load_scan2(folder_input)
+
+def get_dcm_info(dcm):
+    info = {}
+    # 通过字典关键字来获取图像的数据元信息（当然也可以根据TAG号）
+    # 这里获取几种常用信息
+    info["UID"] = dcm.SOPInstanceUID  # 获取图像唯一标识符UID
+    info["PatientID"] = dcm.PatientID  # 患者ID
+    info["PatientName"] = dcm.PatientName  # 患者姓名
+    # info["PatientBirthData"] = dcm.PatientBirthData  # 患者出生日期
+    info["PatientAge"] = dcm.PatientAge  # 患者年龄
+    info['PatientSex'] = dcm.PatientSex  # 患者性别
+    info['StudyID'] = dcm.StudyID  # 检查ID
+    info['StudyDate'] = dcm.StudyDate  # 检查日期
+    info['StudyTime'] = dcm.StudyTime  # 检查时间
+    info['InstitutionName'] = dcm.InstitutionName  # 机构名称
+    info['Manufacturer'] = dcm.Manufacturer  # 设备制造商
+    info['StudyDescription'] = dcm.StudyDescription  # 检查项目描述
+    return info
+
+
+data_dir = '/home/cg/Downloads/SE10/'
+
+# files = os.listdir(data_dir)
+# files.sort()
+# print(files)
+
+dcm_lst = load_scan2(data_dir)
 
 dcm_ref = pdicom.read_file(dcm_lst[0])
 
-plt.imshow(dcm_ref.pixel_array, cmap=plt.cm.bone)
-plt.show()
+dcm_info = get_dcm_info(dcm_ref)
 
-print dcm_ref.Rows
-print dcm_ref.Columns
-print len(dcm_lst)
+print("dcm info: {}".format(dcm_info))
 
 # 建立三维数组,分别记录长、宽、层数(也就是dicom数据个数)
 pixel_dims = (int(dcm_ref.Rows), int(dcm_ref.Columns), len(dcm_lst))
+print("DICOM img 长、宽、层数: {}".format(pixel_dims))
 
 # 得到spacing值 (mm为单位)
 # PixelSpacing - 每个像素点实际的长度与宽度,单位(mm)
 # SliceThickness - 每层切片的厚度,单位(mm)
 pixel_spacing = (float(dcm_ref.PixelSpacing[0]), float(dcm_ref.PixelSpacing[1]), float(dcm_ref.SliceThickness))
 
-print pixel_spacing
+print("pixel_spacing: {}".format(pixel_spacing))
 
-x = np.arange(0.0, (pixel_dims[0]+1)*pixel_spacing[0], pixel_spacing[0]) # 0到（第一个维数加一*像素间的间隔），步长为constpixelSpacing
-y = np.arange(0.0, (pixel_dims[1]+1)*pixel_spacing[1], pixel_spacing[1])
-z = np.arange(0.0, (pixel_dims[2]+1)*pixel_spacing[2], pixel_spacing[2])
+x = np.arange(0.0, (pixel_dims[0] + 1) * pixel_spacing[0], pixel_spacing[0])  # 0到（第一个维数加一*像素间的间隔），步长为constpixelSpacing
+y = np.arange(0.0, (pixel_dims[1] + 1) * pixel_spacing[1], pixel_spacing[1])
+z = np.arange(0.0, (pixel_dims[2] + 1) * pixel_spacing[2], pixel_spacing[2])
 
 dcm_data = np.zeros(pixel_dims, dtype=dcm_ref.pixel_array.dtype)
 
 for file_name in dcm_lst:
-  dcm = pdicom.read_file(file_name)
-  dcm_data[:,:,dcm_lst.index(file_name)] = dcm.pixel_array
+    dcm = pdicom.read_file(file_name)
+    dcm_data[:, :, dcm_lst.index(file_name)] = dcm.pixel_array
 
-# 轴状面显示
-# plt.figure(dpi=500)
+plt.figure()
+plt.title("dcm0")
+plt.imshow(dcm_ref.pixel_array, cmap=plt.cm.bone)
+
+plt.figure()  # dpi=500
+plt.title("轴状面")
 plt.axes().set_aspect('equal')
 plt.set_cmap(plt.gray())
-plt.pcolormesh(x,y,np.flipud(dcm_data[:,:,88]))
+plt.pcolormesh(x, y, np.flipud(dcm_data[:, :, 88]))
 # plt.imshow(dcm_data[:,:,88])
-plt.show()
 
-# 冠状面显示
-# plt.figure(dpi=500)
+plt.figure()
+plt.title("冠状面")
 plt.axes().set_aspect('equal', 'datalim')
 plt.set_cmap(plt.gray())
-plt.imshow(dcm_data[:,90,:])
+plt.imshow(dcm_data[:, 90, :])
+
 plt.show()
