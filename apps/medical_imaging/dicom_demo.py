@@ -46,11 +46,17 @@ dcm_lst = load_scan2(data_dir)
 
 dcm_ref = pdicom.read_file(dcm_lst[0])
 
-dcm_info = get_dcm_info(dcm_ref)
+print("图片中存在的属性： ", dcm_ref.dir("pat"))
 
-print("dcm info: {}".format(dcm_info))
+print(dcm_ref)
 
-# 建立三维数组,分别记录长、宽、层数(也就是dicom数据个数)
+print("dcm info: {}".format(get_dcm_info(dcm_ref)))
+
+print("Patient Position", dcm_ref.PatientPosition)
+# print("病人方位： ", dcm_ref.PatientOrientation)
+print("图像病人方向： ", dcm_ref.ImageOrientationPatient)
+print("图像病人位置： ", dcm_ref.ImagePositionPatient)
+
 pixel_dims = (int(dcm_ref.Rows), int(dcm_ref.Columns), len(dcm_lst))
 print("DICOM img 长、宽、层数: {}".format(pixel_dims))
 
@@ -79,7 +85,7 @@ plt.figure()  # dpi=500
 plt.title("轴状面")
 plt.axes().set_aspect('equal')
 plt.set_cmap(plt.gray())
-plt.pcolormesh(x, y, np.flipud(dcm_data[:, :, 88]))
+plt.pcolormesh(x, y, np.flipud(dcm_data[:, :, 10]))
 # plt.imshow(dcm_data[:,:,88])
 
 plt.figure()
