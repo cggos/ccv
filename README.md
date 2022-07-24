@@ -2,10 +2,6 @@
 
 Chenguang Computer Vision
 
-<!-- <p align=center>
-  <img src="./data/cv_overview.jpg"/>
-</p> -->
-
 ---
 
 ## Overview
@@ -87,6 +83,15 @@ Chenguang Computer Vision
 
 ## Scripts
 
-* Python
+### Python
 
-* Matlab
+* View Image Matches with **GraphViz**
+  ```sh
+  scripts/cv_py/img_match.py
+  ```
+
+  <p align="center">
+    <img src="./scripts/cv_py/imgs/imgmatch_graphviz.png" style="width: 80%"/>
+  </p>
+
+### Matlab
