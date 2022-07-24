@@ -1,10 +1,12 @@
 # PyCV
 
-based on [***Programming Computer Vision with Python***](http://programmingcomputervision.com/)
+based on [***Programming Computer Vision with Python***](http://programmingcomputervision.com/) (code: [PCV](https://github.com/jesolem/PCV)).
 
 <p align="center">
     <img src="./imgs/cv_py.jpg" style="width:40%;"/>
 </p>
+
+
 
 ---
 

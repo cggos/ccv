@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 from sys import intern
 
 import cv2
@@ -9,8 +10,8 @@ from numpy import *
 import numpy as np
 
 
-def get_imlist(path):
-    return [os.path.join(path, f) for f in os.listdir(path) if f.endswith('.jpg')]
+def get_imlist(path, ext='.jpg'):
+    return [os.path.join(path, f) for f in os.listdir(path) if f.endswith(ext)]
 
 
 def imresize(im, sz):

@@ -61,3 +61,4 @@ tum_data_rgbd.h
 .vscode/
 
 out-*
+out_*
