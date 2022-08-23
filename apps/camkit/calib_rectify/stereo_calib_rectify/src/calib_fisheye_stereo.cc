@@ -122,7 +122,9 @@ void StereoFisheyeCalib::rectify(const cv::Mat &img_l, const cv::Mat &img_r,
         }
 
         if (key == 'm') {
+#if WITH_MATCH
             math_flann_surf(img_rect_l, img_rect_r);
+#endif            
         }
     }
 }

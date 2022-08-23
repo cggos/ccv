@@ -5,7 +5,11 @@
 #include <opencv2/core/eigen.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/features2d.hpp>
+
+#define WITH_MATCH 0
+#if WITH_MATCH
 #include <opencv2/xfeatures2d.hpp>
+#endif
 
 #include "camodocal/camera_models/Camera.h"
 #include "camodocal/camera_models/EquidistantCamera.h"
@@ -469,6 +473,7 @@ public:
         }
     }
 
+#if WITH_MATCH
     inline void math_flann_surf(const cv::Mat &img_1, const cv::Mat &img_2) {
 
         if( !img_1.data || !img_2.data ) {
@@ -533,6 +538,7 @@ public:
 
         std::cout << "-- Mean Error (y): " << mean_error << std::endl;
     }
+#endif    
 
 private:
     std::string str_param_dir_;

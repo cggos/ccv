@@ -13,7 +13,7 @@ find_package(catkin REQUIRED
       camera_info_manager
       tf)
 
-find_package(OpenCV REQUIRED core imgproc highgui)
+find_package(OpenCV REQUIRED core imgproc highgui videoio)
 
 generate_dynamic_reconfigure_options(
     cfg/Camera.cfg

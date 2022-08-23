@@ -9,7 +9,11 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/features2d.hpp>
+
+#define WITH_MATCH 0
+#if WITH_MATCH
 #include <opencv2/xfeatures2d.hpp>
+#endif
 
 using namespace std;
 using namespace cv;
@@ -122,6 +126,7 @@ private:
         cv::fisheye::initUndistortRectifyMap(K2_, D2_, R2_, P2_, new_size, CV_16SC2, rect_map_[1][0], rect_map_[1][1]);
     }
 
+#if WITH_MATCH
     inline void math_flann_surf(const cv::Mat &img_1, const cv::Mat &img_2) {
 
         if( !img_1.data || !img_2.data ) {
@@ -186,6 +191,7 @@ private:
 
         std::cout << "-- Mean Error (y): " << mean_error << std::endl;
     }
+#endif
 
 public:
     cv::Size board_sz_;

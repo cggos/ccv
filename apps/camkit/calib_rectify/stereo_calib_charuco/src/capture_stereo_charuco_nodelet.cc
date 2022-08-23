@@ -101,7 +101,9 @@ namespace capture_imgs {
             cv::imshow("rect", img_concat);
 
             if (key == 'm') {
+#if WITH_MATCH
                 coc_stereo_rectify_.math_flann_surf(img_rect_l_, img_rect_r_);
+#endif                
             }
             if (key == 's') {
                 static int n = 0;
