@@ -1,4 +1,4 @@
-#include "cvkit/cv/stereo_camera.h"
+#include "ccv/cv/stereo_camera.h"
 
 #include <iostream>
 #include <opencv2/calib3d/calib3d.hpp>
@@ -8,11 +8,11 @@ namespace cg {
     void StereoCamera::compute_disparity_map(const cv::Mat &mat_l, const cv::Mat &mat_r, cv::Mat &mat_disp) {
 
         if (mat_l.empty() || mat_r.empty()) {
-            std::cerr << "[cvkit] " << __FUNCTION__ << " : mat_l or mat_r is empty !" << std::endl;
+            std::cerr << "[ccv] " << __FUNCTION__ << " : mat_l or mat_r is empty !" << std::endl;
             return;
         }
         if (mat_l.channels() != 1 || mat_r.channels() != 1) {
-            std::cerr << "[cvkit] " << __FUNCTION__ << " : mat_l or mat_r is NOT single-channel image !" << std::endl;
+            std::cerr << "[ccv] " << __FUNCTION__ << " : mat_l or mat_r is NOT single-channel image !" << std::endl;
             return;
         }
 

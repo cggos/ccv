@@ -2,12 +2,12 @@
 // Created by cg on 10/30/19.
 //
 
-#include "cvkit/cv/visual_tracking.h"
+#include "ccv/cv/visual_tracking.h"
 
 #include <Eigen/Core>
 #include <Eigen/Dense>
 
-#include "cvkit/maths/vector.h"
+#include "ccv/maths/vector.h"
 
 namespace cg {
 

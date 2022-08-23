@@ -2,10 +2,10 @@
 // Created by cg on 10/17/19.
 //
 
-#include "cvkit/cv/calib3d.h"
+#include "ccv/cv/calib3d.h"
 
-#include "cvkit/kinematics/convertor.h"
-#include "cvkit/kinematics/transform.h"
+#include "ccv/kinematics/convertor.h"
+#include "ccv/kinematics/transform.h"
 
 namespace cg {
 

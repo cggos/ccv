@@ -20,9 +20,9 @@
 
 #include <pcl_conversions/pcl_conversions.h>
 
-#include "cvkit/cv/image_ocv.h"
-#include "cvkit/cv/stereo_camera.h"
-#include "cvkit/cv/pointcloud3d.h"
+#include "ccv/cv/image_ocv.h"
+#include "ccv/cv/stereo_camera.h"
+#include "ccv/cv/pointcloud3d.h"
 
 namespace stereo_reconstruct {
 

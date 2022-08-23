@@ -2,7 +2,7 @@
 // Created by cg on 10/24/19.
 //
 
-#include "cvkit/cv/corner_detector.h"
+#include "ccv/cv/corner_detector.h"
 
 #include <cmath>
 

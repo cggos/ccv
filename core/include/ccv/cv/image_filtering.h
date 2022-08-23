@@ -5,7 +5,7 @@
 #ifndef MSCKF_IMAGE_FILTERING_H
 #define MSCKF_IMAGE_FILTERING_H
 
-#include "cvkit/cv/yimg.h"
+#include "ccv/cv/yimg.h"
 
 namespace cg {
 

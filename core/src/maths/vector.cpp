@@ -2,7 +2,7 @@
 // Created by cg on 9/24/19.
 //
 
-#include "cvkit/maths/vector.h"
+#include "ccv/maths/vector.h"
 
 namespace cg {
 

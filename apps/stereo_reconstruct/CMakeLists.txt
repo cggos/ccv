@@ -29,14 +29,14 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   tf2_ros
   tf_conversions
-  cvkit
+  ccv
 )
 
 catkin_package(
   # INCLUDE_DIRS include
   LIBRARIES stereo_reconstruct 
   CATKIN_DEPENDS 
-    cvkit
+    ccv
     roscpp rospy sensor_msgs std_msgs std_srvs
     cv_bridge dynamic_reconfigure geometry_msgs image_geometry image_transport message_filters nodelet 
     pcl_conversions pcl_ros  tf tf2_ros tf_conversions

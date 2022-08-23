@@ -5,7 +5,7 @@
 #ifndef CGOCV_NONMAX_SUPPRESSION_H
 #define CGOCV_NONMAX_SUPPRESSION_H
 
-#include "cvkit/cv/image.h"
+#include "ccv/cv/image.h"
 
 namespace cg {
 

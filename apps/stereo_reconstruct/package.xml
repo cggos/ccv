@@ -99,8 +99,8 @@
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>tf_conversions</exec_depend>
 
-  <build_depend>cvkit</build_depend>
-  <exec_depend>cvkit</exec_depend>
+  <build_depend>ccv</build_depend>
+  <exec_depend>ccv</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

@@ -2,7 +2,7 @@
 // Created by cg on 9/21/19.
 //
 
-#include "cvkit/maths/math_basics.h"
+#include "ccv/maths/math_basics.h"
 
 #include <cmath>
 #include <random>

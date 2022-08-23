@@ -5,7 +5,7 @@
 #ifndef MSCKF_MAT_H
 #define MSCKF_MAT_H
 
-#include "cvkit/maths/matrix.h"
+#include "ccv/maths/matrix.h"
 
 namespace cg {
 

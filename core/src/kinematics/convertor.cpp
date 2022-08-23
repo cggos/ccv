@@ -2,7 +2,7 @@
 // Created by cg on 9/27/19.
 //
 
-#include "cvkit/kinematics/convertor.h"
+#include "ccv/kinematics/convertor.h"
 
 namespace cg {
 

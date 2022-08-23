@@ -2,7 +2,7 @@
 // Created by cg on 11/2/19.
 //
 
-#include "cvkit/cv/image_filtering.h"
+#include "ccv/cv/image_filtering.h"
 
 #include <cmath>
 

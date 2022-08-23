@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(cvkit)
+project(ccv)
 
 set(CGOCV_VERSION_MAJOR 1)
 set(CGOCV_VERSION_MINOR 0)
@@ -146,12 +146,12 @@ if(WITH_ROS)
         LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
     install(FILES ${PROJECT_BINARY_DIR}/cvkit_config.h 
-        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/cvkit)
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/ccv)
     install(DIRECTORY 
-        include/cvkit/common
-        include/cvkit/cv
-        include/cvkit/maths 
-        include/cvkit/kinematics
+        include/ccv/common
+        include/ccv/cv
+        include/ccv/maths 
+        include/ccv/kinematics
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
         PATTERN ".cc" EXCLUDE)
 else()
@@ -160,12 +160,12 @@ else()
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib)
     install(FILES ${PROJECT_BINARY_DIR}/cvkit_config.h 
-        DESTINATION include/cvkit)
+        DESTINATION include/ccv)
     install(DIRECTORY 
-        include/cvkit/common
-        include/cvkit/cv
-        include/cvkit/maths 
-        include/cvkit/kinematics
+        include/ccv/common
+        include/ccv/cv
+        include/ccv/maths 
+        include/ccv/kinematics
         DESTINATION include
         PATTERN ".cc" EXCLUDE)
 endif()

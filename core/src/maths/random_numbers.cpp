@@ -34,7 +34,7 @@
 
 /* Author: Ioan Sucan */
 
-#include "cvkit/maths/random_numbers.h"
+#include "ccv/maths/random_numbers.h"
 
 #include <boost/random/lagged_fibonacci.hpp>
 #include <boost/random/uniform_int.hpp>

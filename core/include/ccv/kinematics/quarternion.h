@@ -8,7 +8,7 @@
 #include <assert.h>
 #include <cmath>
 
-#include "cvkit/kinematics/angle_axis.h"
+#include "ccv/kinematics/angle_axis.h"
 
 namespace cg {
 

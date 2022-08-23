@@ -5,7 +5,7 @@
 #ifndef MSCKF_CONVERTOR_H
 #define MSCKF_CONVERTOR_H
 
-#include "cvkit/kinematics/rotation_matrix.h"
+#include "ccv/kinematics/rotation_matrix.h"
 
 namespace cg {
 

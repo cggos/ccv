@@ -1,4 +1,4 @@
-#include "cvkit/maths/matrix.h"
+#include "ccv/maths/matrix.h"
 
 #include <math.h>
 

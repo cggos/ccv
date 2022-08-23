@@ -1,9 +1,9 @@
 //
 // Created by gordon on 17-12-19.
 //
-#include "cvkit/cv/image.h"
-#include "cvkit/cv/features2d_fast.h"
-#include "cvkit/cv/nonmax_suppression.h"
+#include "ccv/cv/image.h"
+#include "ccv/cv/features2d_fast.h"
+#include "ccv/cv/nonmax_suppression.h"
 
 #include "foo_environment.h"
 

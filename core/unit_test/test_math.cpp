@@ -15,11 +15,11 @@
 
 #include <random>
 
-#include "cvkit/maths/math_basics.h"
-#include "cvkit/maths/vector.h"
+#include "ccv/maths/math_basics.h"
+#include "ccv/maths/vector.h"
 //#include "maths/random_numbers.h"
 
-#include "cvkit/maths/svd_fulluv.h"
+#include "ccv/maths/svd_fulluv.h"
 
 TEST(maths, random_number)
 {

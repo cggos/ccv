@@ -8,8 +8,8 @@
 #include <vector>
 #include <memory>
 
-#include "cvkit/common/common.h"
-#include "cvkit/common/types.h"
+#include "ccv/common/common.h"
+#include "ccv/common/types.h"
 
 namespace cg {
 

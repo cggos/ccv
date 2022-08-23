@@ -7,8 +7,8 @@
 #include <float.h>
 #include <cmath>
 
-#include "cvkit/maths/math_basics.h"
-#include "cvkit/maths/matrix.h"
+#include "ccv/maths/math_basics.h"
+#include "ccv/maths/matrix.h"
 
 namespace cg {
 

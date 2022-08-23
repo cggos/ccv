@@ -5,7 +5,7 @@
 #ifndef MSCKF_ANGLE_AXIS_H
 #define MSCKF_ANGLE_AXIS_H
 
-#include "cvkit/maths/vector.h"
+#include "ccv/maths/vector.h"
 
 namespace cg {
 

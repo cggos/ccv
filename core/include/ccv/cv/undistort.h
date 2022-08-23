@@ -5,9 +5,9 @@
 #ifndef MSCKF_UNDISTORT_H
 #define MSCKF_UNDISTORT_H
 
-#include "cvkit/common/types.h"
-#include "cvkit/maths/vector.h"
-#include "cvkit/maths/mat.h"
+#include "ccv/common/types.h"
+#include "ccv/maths/vector.h"
+#include "ccv/maths/mat.h"
 
 namespace cg {
 

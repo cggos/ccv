@@ -1,7 +1,7 @@
 #ifndef CGOCV_Features2D_H
 #define CGOCV_Features2D_H
 
-#include "cvkit/cv/image.h"
+#include "ccv/cv/image.h"
 
 namespace cg {
 

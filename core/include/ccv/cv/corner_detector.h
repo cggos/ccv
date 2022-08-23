@@ -7,8 +7,8 @@
 
 #include <fast/fast.h>
 
-#include "cvkit/common/types.h"
-#include "cvkit/cv/yimg.h"
+#include "ccv/common/types.h"
+#include "ccv/cv/yimg.h"
 
 namespace cg {
 

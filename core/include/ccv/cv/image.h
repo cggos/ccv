@@ -9,9 +9,9 @@
 #include <cstring>
 #include <cmath>
 
-#include "cvkit/common/common.h"
-#include "cvkit/common/types.h"
-#include "cvkit/cv/camera.h"
+#include "ccv/common/common.h"
+#include "ccv/common/types.h"
+#include "ccv/cv/camera.h"
 
 namespace cg {
 

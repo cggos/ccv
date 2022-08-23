@@ -2,7 +2,7 @@
 // Created by cg on 9/20/19.
 //
 
-#include "cvkit/kinematics/quarternion.h"
+#include "ccv/kinematics/quarternion.h"
 
 namespace cg {
 

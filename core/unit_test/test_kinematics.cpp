@@ -8,10 +8,10 @@
 
 #include <opencv2/calib3d/calib3d.hpp>
 
-#include "cvkit/kinematics/rotation_matrix.h"
-#include "cvkit/kinematics/transform.h"
-#include "cvkit/kinematics/angle_axis.h"
-#include "cvkit/kinematics/convertor.h"
+#include "ccv/kinematics/rotation_matrix.h"
+#include "ccv/kinematics/transform.h"
+#include "ccv/kinematics/angle_axis.h"
+#include "ccv/kinematics/convertor.h"
 #include "math_utils.hpp"
 
 TEST(kinematics, Quarternion)

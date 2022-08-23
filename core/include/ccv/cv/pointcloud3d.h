@@ -15,7 +15,7 @@
 
 #include <opencv2/core/core.hpp>
 
-#include "cvkit/cv/camera.h"
+#include "ccv/cv/camera.h"
 
 namespace cg {
     class PointCloud3D {

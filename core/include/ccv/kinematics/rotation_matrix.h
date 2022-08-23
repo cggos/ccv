@@ -5,8 +5,8 @@
 #ifndef VIKIT_CG_ROTATION_MATRIX_H
 #define VIKIT_CG_ROTATION_MATRIX_H
 
-#include "cvkit/kinematics/quarternion.h"
-#include "cvkit/kinematics/angle_axis.h"
+#include "ccv/kinematics/quarternion.h"
+#include "ccv/kinematics/angle_axis.h"
 
 namespace cg {
 

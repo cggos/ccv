@@ -13,11 +13,11 @@
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/video/tracking.hpp>
 
-#include "cvkit/common/types.h"
-#include "cvkit/cv/yimg.h"
-#include "cvkit/cv/corner_detector.h"
-#include "cvkit/cv/image_filtering.h"
-#include "cvkit/cv/visual_tracking.h"
+#include "ccv/common/types.h"
+#include "ccv/cv/yimg.h"
+#include "ccv/cv/corner_detector.h"
+#include "ccv/cv/image_filtering.h"
+#include "ccv/cv/visual_tracking.h"
 
 TEST(cv, Size)
 {
