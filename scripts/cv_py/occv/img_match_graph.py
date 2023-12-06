@@ -8,6 +8,7 @@
 @Date    : 7/24/22 7:40 AM 
 """
 
+import sys
 import imtools as imt
 import numpy as np
 from PIL import Image
@@ -69,14 +70,14 @@ def matches_graphviz(match_scores, out_img='out_imgmatch_graphviz.png', th=30):
 
 
 def main():
+    img_dir = sys.argv[1]
+    img_ext = sys.argv[2]
+
     global imlist
-
-    imlist = imt.get_imlist("/dev_sdb/datasets/TUM/RGBD-SLAM-Dataset/datatest", ".png")
-
+    imlist = imt.get_imlist(img_dir, "." + img_ext)
     if len(imlist) == 0:
         print("ERROR: imlist EMPTY!!!")
         exit(-1)
-
     n = len(imlist)
 
     orb = cv.ORB_create()
