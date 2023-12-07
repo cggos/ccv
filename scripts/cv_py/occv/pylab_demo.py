@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
+import argparse
 from PIL import Image
 import matplotlib.pylab as pl
 
 
 def main():
-    img_path = sys.argv[1]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('img_in', help='input image')
+    args = parser.parse_args()
+
+    img_path = args.img_in
 
     img = Image.open(img_path)
 

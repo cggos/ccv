@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
+import argparse
 from PIL import Image
 
 
 def main():
-    img_path = sys.argv[1]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('img_in', help='input image')
+    args = parser.parse_args()
+
+    img_path = args.img_in
     pil_im = Image.open(img_path).convert('L')
 
     box = (50, 50, 400, 400)

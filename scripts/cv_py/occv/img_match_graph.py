@@ -8,7 +8,7 @@
 @Date    : 7/24/22 7:40 AM 
 """
 
-import sys
+import argparse
 import imtools as imt
 import numpy as np
 from PIL import Image
@@ -70,8 +70,13 @@ def matches_graphviz(match_scores, out_img='out_imgmatch_graphviz.png', th=30):
 
 
 def main():
-    img_dir = sys.argv[1]
-    img_ext = sys.argv[2]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('img_dir', help='input image directory')
+    parser.add_argument('-e', '--img_ext', default='png', help='image ext')
+    args = parser.parse_args()
+
+    img_dir = args.img_dir
+    img_ext = args.img_ext
 
     global imlist
     imlist = imt.get_imlist(img_dir, "." + img_ext)

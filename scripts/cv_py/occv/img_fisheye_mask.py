@@ -7,13 +7,17 @@
 @Date    ：3/9/22 4:58 PM 
 '''
 
-import sys
 import cv2
 import numpy as np
+import argparse
 
 
 def main():
-    img_path = sys.argv[1]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('img_in', help='input image')
+    args = parser.parse_args()
+
+    img_path = args.img_in
     img = cv2.imread(img_path)
     print(img.shape)
     rows, cols = img.shape[:2]

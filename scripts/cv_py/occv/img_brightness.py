@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
 import cv2
 import imtools
+import argparse
 
 
 def main():
-    img_path = sys.argv[1]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('img_in', help='input image')
+    args = parser.parse_args()
+
+    img_path = args.img_in
     img_raw = cv2.imread(img_path)
 
     bright0 = imtools.brightness_by_gray(img_raw)
