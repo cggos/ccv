@@ -7,7 +7,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 setup(
-    name='occv',
+    name='libccv',
     version='1.0.0',
     description='Open Chenguang Computer Vision library',
 
@@ -21,14 +21,14 @@ setup(
     python_requires='>3.6',
     entry_points={
         'console_scripts': [
-            'occv_img_stat = occv.img_statistic:main',
-            'occv_img_brightness = occv.img_brightness:main',
-            'occv_img_to_bin = occv.img_to_bin:main',
-            'occv_img_fisheye_mask = occv.img_fisheye_mask:main',
-            'occv_img_match_graph = occv.img_match_graph:main',
-            'occv_pil_demo = occv.pil_demo:main',
-            'occv_pylab_demo = occv.pylab_demo:main',
-            'occv_hough_detect_line = occv.hough_detect_line:main'
+            'ccv_img_stat = libccv.img_statistic:main',
+            'ccv_img_brightness = libccv.img_brightness:main',
+            'ccv_img_to_bin = libccv.img_to_bin:main',
+            'ccv_img_fisheye_mask = libccv.img_fisheye_mask:main',
+            'ccv_img_match_graph = libccv.img_match_graph:main',
+            'ccv_pil_demo = libccv.pil_demo:main',
+            'ccv_pylab_demo = libccv.pylab_demo:main',
+            'ccv_hough_detect_line = libccv.hough_detect_line:main'
         ]
     }
 )
