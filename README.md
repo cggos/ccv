@@ -9,20 +9,19 @@ Chenguang Computer Vision
 * **core**: core computer vision library with C++ or OpenCV
 * **libs**: cv demos with OpenCV, FFTW, PCL, OpenGL, Pangolin
 * **apps**: cv demos with the core library or with opencv using C++, Qt, C#, Java
-* **scripts**: cv demos with Python and Matlab
 
-* build
+## Build
 
-  ```bash
-  # for CMake Plain Project (No ROS)
-  mkdir build 
-  cd build
-  cmake .. [-DBUILD_TEST=ON | -DBUILD_DOCS=ON]
-  make -j$(nproc)
-  
-  # for ROS Project, use catkin_tools
-  catkin build -j$(nproc) -DWITH_ROS=ON [-DWITH_PCL=ON] <package-name>
-  ```
+```bash
+# for CMake Plain Project (No ROS)
+mkdir build 
+cd build
+cmake .. [-DBUILD_TEST=ON | -DBUILD_DOCS=ON]
+make -j$(nproc)
+
+# for ROS Project, use catkin_tools
+catkin build -j$(nproc) -DWITH_ROS=ON [-DWITH_PCL=ON] <package-name>
+```
 
 ## Core
 
@@ -63,7 +62,7 @@ Chenguang Computer Vision
 * [x] [CVStudio](https://github.com/cggos/CVStudio): GUI App with Qt for Computer Vision :sunny:
 
   <p align="center">
-    <img src="https://github.com/cggos/CVStudio/raw/master/imgs/dip_demo.jpg"/>
+    <img src="https://mirror.ghproxy.com/https://raw.githubusercontent.com/cggos/CVStudio/master/imgs/dip_demo.jpg"/>
   </p>
 
 * [x] DIP Demo with Java
@@ -71,7 +70,7 @@ Chenguang Computer Vision
 
 * [x] DIP Demo with C#
 
-  ![dip_csharp_ubuntu.png](apps/DIPDemoCSharp/images/dip_csharp_ubuntu.png)
+  ![dip_csharp_ubuntu.png](csharp/images/dip_csharp_ubuntu.png)
 
 * [x] Face Detection
 
@@ -91,7 +90,7 @@ Chenguang Computer Vision
   ```
 
   <p align="center">
-    <img src="./scripts/cv_py/imgs/imgmatch_graphviz.png" style="width: 80%"/>
+    <img src="./python/imgs/imgmatch_graphviz.png" style="width: 80%"/>
   </p>
 
 ### Matlab
