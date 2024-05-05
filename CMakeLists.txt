@@ -5,15 +5,14 @@ set(CCV_VERSION_MAJOR 1)
 set(CCV_VERSION_MINOR 0)
 
 configure_file(
-  ${PROJECT_SOURCE_DIR}/cmake_modules/cvkit_config.h.in
-  ${PROJECT_BINARY_DIR}/cvkit_config.h)
+  ${PROJECT_SOURCE_DIR}/cmake/ccv_config.h.in
+  ${PROJECT_BINARY_DIR}/ccv_config.h)
 
 option(BUILD_DOCS "Create and install the HTML based API documentation (requires Doxygen)" OFF)
 option(BUILD_TEST "Build Unit Test Program for the project (requires GTest)" OFF)
 option(WITH_OPENCV "Build with OpenCV" ON)
 option(WITH_PCL "Build with PCL" OFF)
 option(WITH_GL "Build with OpenGL and Pangolin" ON)
-option(WITH_ROS "Build with ROS" OFF)
 
 set(CMAKE_CXX_STANDARD 17) # -std=gnu++11
 
@@ -25,21 +24,13 @@ endif()
 
 if(CMAKE_BUILD_TYPE MATCHES "Release")
   set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3")
-else(CMAKE_BUILD_TYPE MATCHES "Debug")
+elseif(CMAKE_BUILD_TYPE MATCHES "Debug")
   set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O0 -g -Wall")
   add_definitions(-D__USER_DEBUG__)
-endif(CMAKE_BUILD_TYPE MATCHES "Release")
+endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL Clang OR CMAKE_CXX_COMPILER_ID STREQUAL AppleClang)
   string(APPEND CMAKE_CXX_FLAGS " -Wno-c++11-narrowing")
-endif()
-
-if(WITH_ROS)
-  find_package(catkin REQUIRED)
-  catkin_package(
-    INCLUDE_DIRS include
-    LIBRARIES cv_cg)
-  include_directories(${catkin_INCLUDE_DIRS})
 endif()
 
 include_directories(include ${PROJECT_BINARY_DIR})
@@ -120,14 +111,8 @@ target_link_libraries(kinematics_cg maths_cg)
 # # computer vision
 include_directories(/usr/local/include/eigen3) # will be removed !!!!!!!!!!!!
 
-if(NOT WITH_ROS)
-  add_library(cv_cg SHARED ${CV_SRC_LIST})
-  target_link_libraries(cv_cg kinematics_cg)
-else()
-  add_library(cv_cg SHARED ${CV_SRC_LIST})
-  target_link_libraries(cv_cg ${catkin_LIBRARIES} kinematics_cg)
-  add_dependencies(cv_cg ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-endif()
+add_library(cv_cg SHARED ${CV_SRC_LIST})
+target_link_libraries(cv_cg kinematics_cg)
 
 # ############################## unit test ###############################
 if(BUILD_TEST)
@@ -142,36 +127,19 @@ endif()
 
 # ############################## api docs ###############################
 if(BUILD_DOCS)
-  include(cmake_modules/build_doxyfile.cmake)
+  include(cmake/build_doxyfile.cmake)
 endif()
 
 # ############################## install ###############################
-if(WITH_ROS)
-  install(TARGETS cv_cg maths_cg kinematics_cg
-    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-  install(FILES ${PROJECT_BINARY_DIR}/cvkit_config.h
-    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/ccv)
-  install(DIRECTORY
-    include/ccv/common
-    include/ccv/cv
-    include/ccv/maths
-    include/ccv/kinematics
-    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-    PATTERN ".cc" EXCLUDE)
-else()
-  install(TARGETS cv_cg maths_cg kinematics_cg
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib)
-  install(FILES ${PROJECT_BINARY_DIR}/cvkit_config.h
-    DESTINATION include/ccv)
-  install(DIRECTORY
-    include/ccv/common
-    include/ccv/cv
-    include/ccv/maths
-    include/ccv/kinematics
-    DESTINATION include
-    PATTERN ".cc" EXCLUDE)
-endif()
+install(TARGETS cv_cg maths_cg kinematics_cg
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib)
+install(FILES ${PROJECT_BINARY_DIR}/ccv_config.h DESTINATION include/ccv)
+install(DIRECTORY
+  include/ccv/common
+  include/ccv/cv
+  include/ccv/maths
+  include/ccv/kinematics
+  DESTINATION include
+  PATTERN ".cc" EXCLUDE)
