@@ -19,6 +19,8 @@
 #include "ccv/cv/image_filtering.h"
 #include "ccv/cv/visual_tracking.h"
 
+using namespace cv;
+
 TEST(cv, Size)
 {
     cg::Size sz = cg::Size();
@@ -67,7 +69,7 @@ TEST(YImg, copy)
 
     cv::Mat mat_dst;
     mat_dst.create(mat_src.rows, mat_src.cols, CV_8UC1);
-    mempcpy(mat_dst.data, yimg_dst.data(), yimg_dst.size().area());
+    memcpy(mat_dst.data, yimg_dst.data(), yimg_dst.size().area());
 
     cv::imshow("YImg copy test", mat_dst);
     cv::waitKey(1000);
@@ -86,7 +88,7 @@ TEST(CornerDetector, detect_features)
     detector.detect_features(yimg_src, new_features, nm_scores);
 
     cv::Mat mat_dst(mat_src.rows, mat_src.cols, CV_8UC3);
-    cv::cvtColor(mat_src, mat_dst, CV_GRAY2BGR);
+    cv::cvtColor(mat_src, mat_dst, COLOR_GRAY2BGR);
     for (const auto &pt : new_features) {
         cv::circle(mat_dst, cv::Point2f(pt.x, pt.y), 3, cv::Scalar(0, 255, 0), -1);
     }
@@ -107,14 +109,14 @@ TEST(ImageFiltering, gaussian_blur) {
 
     cv::Mat mat_dst_01;
     mat_dst_01.create(mat_src.rows, mat_src.cols, CV_8UC1);
-    mempcpy(mat_dst_01.data, yimg_dst.data(), yimg_dst.size().area());
+    memcpy(mat_dst_01.data, yimg_dst.data(), yimg_dst.size().area());
 
     cv::Mat mat_dst_02;
     cv::GaussianBlur(mat_src, mat_dst_02, cv::Size(5, 5), 0.84089642);
 
     cg::pyr_down(yimg_src, yimg_dst);
     cv::Mat mat_dst_03(yimg_dst.rows(), yimg_dst.cols(), CV_8UC1);
-    mempcpy(mat_dst_03.data, yimg_dst.data(), yimg_dst.size().area());
+    memcpy(mat_dst_03.data, yimg_dst.data(), yimg_dst.size().area());
 
     cv::imshow("GaussianBlur YImg", mat_dst_01);
     cv::imshow("GaussianBlur OCV", mat_dst_02);
@@ -189,7 +191,7 @@ TEST(VisualTracking, optical_flow) {
 
     /// draw
     cv::Mat cv_img2_multi;
-    cv::cvtColor(mat_src_02, cv_img2_multi, CV_GRAY2BGR);
+    cv::cvtColor(mat_src_02, cv_img2_multi, COLOR_GRAY2BGR);
     for (int i = 0; i < cv_pt2_multi.size(); i++) {
         if (status_multi[i]) {
             cv::circle(cv_img2_multi, cv_pt2_multi[i], 2, cv::Scalar(0, 250, 0), 2);
@@ -198,7 +200,7 @@ TEST(VisualTracking, optical_flow) {
     }
 
     cv::Mat img2_multi;
-    cv::cvtColor(mat_src_02, img2_multi, CV_GRAY2BGR);
+    cv::cvtColor(mat_src_02, img2_multi, COLOR_GRAY2BGR);
     for (int i = 0; i < kp2_multi.size(); i++) {
         if (success_multi[i]) {
             cv::circle(img2_multi, cv::Point2f(kp2_multi[i].x, kp2_multi[i].y), 2, cv::Scalar(0, 250, 0), 2);
