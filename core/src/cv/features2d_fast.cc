@@ -160,9 +160,9 @@ namespace cg {
         int flag[32] = {0};
         for (unsigned int y = margin_; y < height - margin_; y++) {
             for (unsigned int x = margin_; x < width - margin_; x++) {
-                register const unsigned char *const ptr = img_data + y * width + x;
-                register const int cb = *ptr + threshold;
-                register const int c_b = *ptr - threshold;
+                const unsigned char *const ptr = img_data + y * width + x;
+                const int cb = *ptr + threshold;
+                const int c_b = *ptr - threshold;
                 for (int k = 0; k < 16; k++) {
                     if (ptr[offset[k]] > cb) {
                         flag[k] = 1;
