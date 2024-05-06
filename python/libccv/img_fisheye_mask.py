@@ -33,7 +33,7 @@ def main():
     # draw filled circles in white on black background as masks
     # mask = np.zeros_like(img)
     mask = np.zeros((rows, cols), np.uint8)
-    cv2.circle(mask, (xc,yc), radius, 255, -1)
+    cv2.circle(mask, (xc, yc), radius, 255, -1)
 
     # put mask into alpha channel of input
     # result = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)

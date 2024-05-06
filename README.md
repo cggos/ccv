@@ -135,7 +135,7 @@ catkin build -j$(nproc) -DWITH_ROS=ON [-DWITH_PCL=ON] <package-name>
 
 * View Image Matches with **GraphViz**
   ```sh
-  scripts/cv_py/img_match.py
+  python/libccv/img_match_graph.py
   ```
 
   <p align="center">

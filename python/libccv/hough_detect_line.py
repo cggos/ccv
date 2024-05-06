@@ -15,7 +15,7 @@ def create_img(data, row=240, col=320):
 
 def hough_detect_line(img):
     rows, cols = img.shape
-    diag_len = np.ceil(np.sqrt(rows ** 2 + cols ** 2))
+    diag_len = np.ceil(np.sqrt(rows**2 + cols**2))
 
     thetas = np.deg2rad(np.arange(0, 180))
     rhos = np.linspace(-diag_len, diag_len, int(2 * diag_len))

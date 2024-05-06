@@ -64,7 +64,14 @@ def matches_graphviz(match_scores, out_img='out_imgmatch_graphviz.png', th=30):
                     pil_im.thumbnail((128, 128))
                     im_path = '/tmp/' + str(x) + '.png'
                     pil_im.save(im_path)
-                    g.add_node(pydot.Node(str(x), fontcolor='transparent', shape='rectangle', image=im_path))
+                    g.add_node(
+                        pydot.Node(
+                            str(x),
+                            fontcolor='transparent',
+                            shape='rectangle',
+                            image=im_path,
+                        )
+                    )
                 g.add_edge(pydot.Edge(str(i), str(j)))
     g.write_png(out_img)
 

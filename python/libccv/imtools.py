@@ -20,7 +20,7 @@ def imresize(im, sz):
 
 
 def histeq(im, nbr_bins=256):
-    """ 对一幅图像进行直方图均衡化 """
+    """对一幅图像进行直方图均衡化"""
 
     # 计算图像的直方图
     imhist, bins = histogram(im.flatten(), nbr_bins, normed=True)
@@ -32,7 +32,7 @@ def histeq(im, nbr_bins=256):
 
 
 def compute_average(imlist):
-    """ 计算图像列表的平均图像 """
+    """计算图像列表的平均图像"""
 
     averageim = array(Image.open(imlist[0]), 'f')
 
@@ -46,9 +46,9 @@ def compute_average(imlist):
 
 
 def pca(X):
-    """ 主成分分析：
-        输入：矩阵X， 其中该矩阵中存储训练数据，每一行为一条训练数据
-        返回：投影矩阵（按照维度的重要性排序），方差和均值 """
+    """主成分分析：
+    输入：矩阵X， 其中该矩阵中存储训练数据，每一行为一条训练数据
+    返回：投影矩阵（按照维度的重要性排序），方差和均值"""
 
     num_data, dim = X.shape
 
