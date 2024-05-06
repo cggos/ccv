@@ -2,8 +2,8 @@
 // Created by cg on 10/24/19.
 //
 
-#ifndef MSCKF_CORNER_DETECTOR_H
-#define MSCKF_CORNER_DETECTOR_H
+#ifndef CCV_CV_CORNER_DETECTOR_H
+#define CCV_CV_CORNER_DETECTOR_H
 
 #ifdef USE_LIBCVD_FAST
 #include <fast/fast.h>
@@ -45,8 +45,8 @@ class CornerDetector {
   // Threshold for corner score
   double detection_threshold_;
   double fast_threshold_;
+};
 
-};  // CornerDetector class
 }  // namespace cg
 
-#endif  // MSCKF_CORNER_DETECTOR_H
+#endif  // CCV_CV_CORNER_DETECTOR_H

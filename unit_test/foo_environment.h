@@ -2,8 +2,8 @@
 // Created by gordon on 17-12-20.
 //
 
-#ifndef CGOCV_FOOENVIRONMENT_H
-#define CGOCV_FOOENVIRONMENT_H
+#ifndef CCV_FOOENVIRONMENT_H
+#define CCV_FOOENVIRONMENT_H
 
 #include <gtest/gtest.h>
 
@@ -48,4 +48,4 @@ public:
 
 extern FooEnvironment* foo_env;
 
-#endif //CGOCV_FOOENVIRONMENT_H
+#endif //CCV_FOOENVIRONMENT_H

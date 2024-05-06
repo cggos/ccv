@@ -2,108 +2,94 @@
 // Created by cg on 9/17/19.
 //
 
-#ifndef VIKIT_CG_YIMG_H
-#define VIKIT_CG_YIMG_H
+#ifndef CCV_CV_YIMG_H
+#define CCV_CV_YIMG_H
 
-#include <string.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "ccv/common/types.h"
 
 namespace cg {
 
-    template<class _T>
-    class YImg {
-    public:
-        YImg() : size_(0, 0), data_(nullptr) {}
+template <class _T>
+class YImg {
+ public:
+  YImg() : size_(0, 0), data_(nullptr) {}
 
-        YImg(unsigned int rows, unsigned int cols) {
-            allocate_memory(rows, cols);
-        }
+  YImg(unsigned int rows, unsigned int cols) { allocate_memory(rows, cols); }
 
-        YImg(const Size &size) {
-            allocate_memory(size.height, size.width);
-        }
+  YImg(const Size &size) { allocate_memory(size.height, size.width); }
 
-        YImg(const YImg &img) {
-            allocate_memory(img.rows(), img.cols());
-            for(int i=0; i<img.rows(); ++i)
-                memcpy(data_[i], img.data_[i], img.cols() * sizeof(_T));
-        }
+  YImg(const YImg &img) {
+    allocate_memory(img.rows(), img.cols());
+    for (int i = 0; i < img.rows(); ++i) memcpy(data_[i], img.data_[i], img.cols() * sizeof(_T));
+  }
 
-        ~YImg() {
-            release_memory();
-        }
+  ~YImg() { release_memory(); }
 
-        YImg &operator=(const YImg &rhs) {
-            if (this == &rhs)
-                return *this;
+  YImg &operator=(const YImg &rhs) {
+    if (this == &rhs) return *this;
 
-            if(!rhs.empty())
-                release_memory();
+    if (!rhs.empty()) release_memory();
 
-            allocate_memory(rhs.rows(), rhs.cols());
-            for(int i=0; i<rhs.rows(); ++i)
-                memcpy(data_[i], rhs.data_[i], rhs.cols() * sizeof(_T));
-            
-            return *this;
-        }
+    allocate_memory(rhs.rows(), rhs.cols());
+    for (int i = 0; i < rhs.rows(); ++i) memcpy(data_[i], rhs.data_[i], rhs.cols() * sizeof(_T));
 
-        _T &operator()(const int i, const int j) const { return data_[i][j]; }
+    return *this;
+  }
 
-        _T &operator[](const Point2D<int> &pt) const { return data_[pt.y][pt.x]; }
+  _T &operator()(const int i, const int j) const { return data_[i][j]; }
 
-        inline _T *data() const { return data_[0]; }
+  _T &operator[](const Point2D<int> &pt) const { return data_[pt.y][pt.x]; }
 
-        inline bool empty() const { return data_ == nullptr; }
+  inline _T *data() const { return data_[0]; }
 
-        inline Size size() const { return size_; }
+  inline bool empty() const { return data_ == nullptr; }
 
-        inline int rows() const { return size().height; }
+  inline Size size() const { return size_; }
 
-        inline int cols() const { return size().width; }
+  inline int rows() const { return size().height; }
 
-        bool copy(YImg &img_dst) {
-            if (img_dst.empty())
-                return false;
-            if (img_dst.size() != size())
-                return false;
-            for (int i = 0; i < rows(); ++i)
-                memcpy(img_dst.data_[i], data_[i], cols() * sizeof(_T));
-            return true;
-        }
+  inline int cols() const { return size().width; }
 
-    private:
-        void allocate_memory(const int rows, const int cols) {
-            size_.height = rows;
-            size_.width = cols;
+  bool copy(YImg &img_dst) {
+    if (img_dst.empty()) return false;
+    if (img_dst.size() != size()) return false;
+    for (int i = 0; i < rows(); ++i) memcpy(img_dst.data_[i], data_[i], cols() * sizeof(_T));
+    return true;
+  }
 
-            if (cols == 0 || rows == 0) {
-                data_ = nullptr;
-                return;
-            }
+ private:
+  void allocate_memory(const int rows, const int cols) {
+    size_.height = rows;
+    size_.width = cols;
 
-            data_ = new _T*[size_.height];
-            data_[0] = new _T[size_.area()]();
-            for (int i = 1; i < size_.height; i++)
-                data_[i] = data_[i - 1] + size_.width;
-        }
+    if (cols == 0 || rows == 0) {
+      data_ = nullptr;
+      return;
+    }
 
-        void release_memory() {
-            if (data_ != nullptr) {
-                delete[] data_[0];
-                delete[] data_;
-            }
-        }
+    data_ = new _T *[size_.height];
+    data_[0] = new _T[size_.area()]();
+    for (int i = 1; i < size_.height; i++) data_[i] = data_[i - 1] + size_.width;
+  }
 
-    private:
-        Size size_;
-        _T **data_;
-    };
+  void release_memory() {
+    if (data_ != nullptr) {
+      delete[] data_[0];
+      delete[] data_;
+    }
+  }
 
-    typedef YImg<unsigned char> YImg8;
-    typedef YImg<unsigned short> YImg16;
-    typedef YImg<float> YImg32f;
-}
+ private:
+  Size size_;
+  _T **data_;
+};
 
-#endif //VIKIT_CG_YIMG_H
+typedef YImg<unsigned char> YImg8;
+typedef YImg<unsigned short> YImg16;
+typedef YImg<float> YImg32f;
+}  // namespace cg
+
+#endif  // CCV_CV_YIMG_H

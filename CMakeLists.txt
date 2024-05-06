@@ -4,10 +4,6 @@ project(ccv)
 set(CCV_VERSION_MAJOR 1)
 set(CCV_VERSION_MINOR 0)
 
-configure_file(
-  ${PROJECT_SOURCE_DIR}/cmake/ccv_config.h.in
-  ${PROJECT_BINARY_DIR}/ccv_config.h)
-
 option(BUILD_DOCS "Create and install the HTML based API documentation (requires Doxygen)" OFF)
 option(BUILD_TEST "Build Unit Test Program for the project (requires GTest)" OFF)
 option(WITH_OPENCV "Build with OpenCV" ON)
@@ -33,7 +29,6 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL Clang OR CMAKE_CXX_COMPILER_ID STREQUAL AppleC
   string(APPEND CMAKE_CXX_FLAGS " -Wno-c++11-narrowing")
 endif()
 
-include_directories(include ${PROJECT_BINARY_DIR})
 
 # find_package(OpenMP)
 # if(OpenMP_FOUND)
@@ -47,8 +42,28 @@ include_directories(include ${PROJECT_BINARY_DIR})
 # include_directories(${Boost_INCLUDE_DIR})
 # link_directories(${Boost_LIBRARY_DIR})
 # endif()
-set(CV_SRC_LIST
+include_directories(/usr/local/include/eigen3) # will be removed !!!!!!!!!!!!
+
+set(CMAKE_INSTALL_PREFIX "/opt/ccv")
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+include_directories(include)
+
+configure_file(
+  ${PROJECT_SOURCE_DIR}/cmake/ccv_config.h.in
+  ${PROJECT_BINARY_DIR}/ccv_config.h)
+
+# maths
+add_library(${PROJECT_NAME}_maths SHARED
+  src/maths/math_basics.cpp
   src/maths/mathtools.cc
+  src/maths/matrix.cpp
+  src/maths/vector.cpp
+  src/maths/svd_fulluv.cpp)
+
+set(CV_SRC_LIST
   src/cv/image.cc
   src/cv/features2d.cc
   src/cv/features2d_fast.cc
@@ -60,7 +75,7 @@ set(CV_SRC_LIST
 )
 
 if(WITH_OPENCV)
-  find_package(OpenCV REQUIRED)
+  find_package(OpenCV REQUIRED core highgui imgproc features2d video calib3d)
 
   if(OpenCV_FOUND)
     include_directories(${OpenCV_INCLUDE_DIRS})
@@ -94,25 +109,15 @@ if(WITH_GL)
   endif()
 endif()
 
-# # maths
-add_library(maths_cg SHARED
-  src/maths/math_basics.cpp
-  src/maths/matrix.cpp
-  src/maths/vector.cpp
-  src/maths/svd_fulluv.cpp)
-
-# # kinematics
-add_library(kinematics_cg SHARED
+# kinematics
+add_library(${PROJECT_NAME}_kinematics SHARED
   src/kinematics/rotation_matrix.cpp
   src/kinematics/quarternion.cpp
   src/kinematics/convertor.cpp)
-target_link_libraries(kinematics_cg maths_cg)
+target_link_libraries(${PROJECT_NAME}_kinematics ${PROJECT_NAME}_maths)
 
-# # computer vision
-include_directories(/usr/local/include/eigen3) # will be removed !!!!!!!!!!!!
-
-add_library(cv_cg SHARED ${CV_SRC_LIST})
-target_link_libraries(cv_cg kinematics_cg)
+add_library(${PROJECT_NAME} SHARED ${CV_SRC_LIST})
+target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_kinematics)
 
 # ############################## unit test ###############################
 if(BUILD_TEST)
@@ -132,15 +137,12 @@ if(BUILD_DOCS)
 endif()
 
 # ############################## install ###############################
-install(TARGETS cv_cg maths_cg kinematics_cg
+install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_maths ${PROJECT_NAME}_kinematics
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib)
-install(FILES ${PROJECT_BINARY_DIR}/ccv_config.h DESTINATION include/ccv)
 install(DIRECTORY
-  include/ccv/common
-  include/ccv/cv
-  include/ccv/maths
-  include/ccv/kinematics
+  include/ccv
   DESTINATION include
   PATTERN ".cc" EXCLUDE)
+install(FILES ${PROJECT_BINARY_DIR}/ccv_config.h DESTINATION include/ccv)

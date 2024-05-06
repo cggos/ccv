@@ -6,7 +6,7 @@
 
 FooEnvironment* foo_env = nullptr;
 
-GTEST_API_ int main(int argc, char **argv) {
+GTEST_API_ int main(int argc, char** argv) {
   foo_env = new FooEnvironment;
   testing::AddGlobalTestEnvironment(foo_env);
   testing::InitGoogleTest(&argc, argv);
