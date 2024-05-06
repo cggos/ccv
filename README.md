@@ -133,14 +133,17 @@ catkin build -j$(nproc) -DWITH_ROS=ON [-DWITH_PCL=ON] <package-name>
 
 ### Python
 
-* View Image Matches with **GraphViz**
-  ```sh
-  python/libccv/img_match_graph.py
-  ```
+- https://pypi.org/project/libccv/
 
-  <p align="center">
-    <img src="./python/imgs/imgmatch_graphviz.png" style="width: 80%"/>
-  </p>
+e.g. View Image Matches with **GraphViz**
+
+```sh
+python/libccv/img_match_graph.py
+```
+
+<p align="center">
+  <img src="./python/imgs/imgmatch_graphviz.png" style="width: 80%"/>
+</p>
 
 ### Matlab
 
