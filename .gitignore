@@ -52,6 +52,7 @@ build/
 devel/
 logs/
 build-*/
+build_*/
 .catkin_tools/
 camera_relates/cam_calib_rectify/capture_imgs/params_out/
 tum_data_rgbd.h
