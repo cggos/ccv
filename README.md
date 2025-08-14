@@ -6,7 +6,7 @@ Chenguang Computer Vision
 
 ## Overview
 
-* **core**: core computer vision library with C++ or OpenCV
+* **core**: core computer vision library, including maths, kinematics and dynamics, estimation, etc.
 * **libs**: cv demos with OpenCV, FFTW, PCL, OpenGL, Pangolin
 * **apps**: cv demos with the core library or with opencv using C++, Qt, C#, Java
 
@@ -36,6 +36,33 @@ catkin build -j$(nproc) -DWITH_ROS=ON [-DWITH_PCL=ON] <package-name>
 * Data Structures & Methods
   - [x] Matrix
   - [x] Vector
+
+<p align="center">
+  <img src="docs/maths/img/maths_map.png" style="width:80%;"/>
+</p>
+
+- https://github.com/cggos/suitesparse_android
+
+### Kinematics and Dynamics
+
+**Note**: approximate treatment about **small angle**.
+
+* [x] Rotation Matrix
+* [x] Quarternion (Hamilton)
+* [x] Euler Angle
+* [x] Convertor
+
+### Estimation
+
+State Estimation for SLAM: Filter(EKF, Particle Filter), MAP(GN, LM), Solver(Ceres-Solver, G2O, GTSAM), Bundle Adjustment
+
+#### Bundle Adjustment
+
+Sparse Hessian matrix
+
+<p align="center">
+  <img src="docs/estimation/img/mat_H.png" style="width:60%"/>
+</p>
 
 ### Computer Vision
 
@@ -69,15 +96,6 @@ catkin build -j$(nproc) -DWITH_ROS=ON [-DWITH_PCL=ON] <package-name>
   - [ ] Disparity Compute
   - [ ] Disparity --> Depth
   - [ ] Depth --> PointCloud
-
-### Kinematics
-
-**Note**: approximate treatment about **small angle**.
-
-* [x] Rotation Matrix
-* [x] Quarternion (Hamilton)
-* [x] Euler Angle
-* [x] Convertor
 
 
 ## Libs
