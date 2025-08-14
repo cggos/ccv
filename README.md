@@ -14,10 +14,10 @@ Chenguang Computer Vision
 
 ```bash
 # for CMake Plain Project (No ROS)
-mkdir build 
-cd build
-cmake .. [-DBUILD_TEST=ON | -DBUILD_DOCS=ON]
-make -j$(nproc)
+cmake -S ./ -B build [-DBUILD_TEST=ON | -DBUILD_DOCS=ON]
+cmake --build build --target install/strip --parallel $(($(nproc) / 4))
+# after cmake 3.15
+# cmake --install build --prefix ${INSTALL_DIR}
 
 # for ROS Project, use catkin_tools
 catkin build -j$(nproc) -DWITH_ROS=ON [-DWITH_PCL=ON] <package-name>

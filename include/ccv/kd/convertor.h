@@ -5,7 +5,7 @@
 #ifndef CCV_KD_CONVERTOR_H
 #define CCV_KD_CONVERTOR_H
 
-#include "ccv/kinematics/rotation_matrix.h"
+#include "ccv/kd/rotation_matrix.h"
 
 namespace cg {
 

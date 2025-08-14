@@ -9,7 +9,7 @@
 
 #include <cmath>
 
-#include "ccv/kinematics/angle_axis.h"
+#include "ccv/kd/angle_axis.h"
 
 namespace cg {
 

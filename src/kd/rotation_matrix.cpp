@@ -2,7 +2,7 @@
 // Created by cg on 9/21/19.
 //
 
-#include "ccv/kinematics/rotation_matrix.h"
+#include "ccv/kd/rotation_matrix.h"
 
 #include <assert.h>
 

@@ -7,10 +7,10 @@
 #include <Eigen/Geometry>
 #include <opencv2/calib3d/calib3d.hpp>
 
-#include "ccv/kinematics/angle_axis.h"
-#include "ccv/kinematics/convertor.h"
-#include "ccv/kinematics/rotation_matrix.h"
-#include "ccv/kinematics/transform.h"
+#include "ccv/kd/angle_axis.h"
+#include "ccv/kd/convertor.h"
+#include "ccv/kd/rotation_matrix.h"
+#include "ccv/kd/transform.h"
 #include "math_utils.hpp"
 
 TEST(kinematics, Quarternion) {

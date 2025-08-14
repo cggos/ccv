@@ -4,8 +4,8 @@
 
 #include "ccv/cv/calib3d.h"
 
-#include "ccv/kinematics/convertor.h"
-#include "ccv/kinematics/transform.h"
+#include "ccv/kd/convertor.h"
+#include "ccv/kd/transform.h"
 
 namespace cg {
 

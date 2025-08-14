@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 project(ccv)
 
 set(CCV_VERSION_MAJOR 1)
@@ -110,14 +110,14 @@ if(WITH_GL)
 endif()
 
 # kinematics
-add_library(${PROJECT_NAME}_kinematics SHARED
-  src/kinematics/rotation_matrix.cpp
-  src/kinematics/quarternion.cpp
-  src/kinematics/convertor.cpp)
-target_link_libraries(${PROJECT_NAME}_kinematics ${PROJECT_NAME}_maths)
+add_library(${PROJECT_NAME}_kd SHARED
+  src/kd/rotation_matrix.cpp
+  src/kd/quarternion.cpp
+  src/kd/convertor.cpp)
+target_link_libraries(${PROJECT_NAME}_kd ${PROJECT_NAME}_maths)
 
 add_library(${PROJECT_NAME} SHARED ${CV_SRC_LIST})
-target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_kinematics)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_kd)
 
 # ############################## unit test ###############################
 if(BUILD_TEST)
@@ -137,12 +137,14 @@ if(BUILD_DOCS)
 endif()
 
 # ############################## install ###############################
-install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_maths ${PROJECT_NAME}_kinematics
+install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_maths ${PROJECT_NAME}_kd
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib)
+
 install(DIRECTORY
   include/ccv
   DESTINATION include
   PATTERN ".cc" EXCLUDE)
+
 install(FILES ${PROJECT_BINARY_DIR}/ccv_config.h DESTINATION include/ccv)

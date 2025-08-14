@@ -5,8 +5,8 @@
 #ifndef CCV_KD_ROTATION_MATRIX_H
 #define CCV_KD_ROTATION_MATRIX_H
 
-#include "ccv/kinematics/angle_axis.h"
-#include "ccv/kinematics/quarternion.h"
+#include "ccv/kd/angle_axis.h"
+#include "ccv/kd/quarternion.h"
 
 namespace cg {
 
