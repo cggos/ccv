@@ -1,0 +1,35 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${env:CG_THIRDPARTY}/x86-64/spdlog/include",
+                "${env:CG_THIRDPARTY}/x86-64/eigen3/include/eigen3",
+                "${env:CG_THIRDPARTY}/x86-64/sophus/include",
+                "${env:CG_THIRDPARTY}/x86-64/ceres_solver/include",
+                "${env:CG_THIRDPARTY}/x86-64/ceres_solver/include/ceres/internal/miniglog",
+                "${env:CG_THIRDPARTY}/x86-64/opencv/include/opencv4",
+                "${env:CG_THIRDPARTY}/x86-64/pcl/include/pcl-1.13",
+                "${env:CG_THIRDPARTY}/x86-64/libsvm/include",
+                "${env:CG_THIRDPARTY}/x86-64/dbow3/include",
+                "${env:CG_THIRDPARTY}/x86-64/fast_dds/include",
+                "${env:CG_THIRDPARTY}/x86-64/libtorch/include",
+                "${env:CG_THIRDPARTY}/x86-64/libtorch/include/torch/csrc/api/include",
+                "${env:CG_THIRDPARTY}/aarch64/librknn_api/include",
+                "${env:CG_THIRDPARTY}/aarch64/rga/include",
+                // "/opt/ros/noetic/include",
+                "/opt/ros/foxy/include/"
+            ],
+            "defines": [
+                "SOPHUS_USE_BASIC_LOGGING",
+                "USE_TORCH"
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "intelliSenseMode": "linux-gcc-x64",
+            "cppStandard": "c++17",
+            "cStandard": "c11"
+        }
+    ],
+    "version": 4
+}

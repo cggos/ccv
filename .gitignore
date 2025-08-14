@@ -59,8 +59,6 @@ tum_data_rgbd.h
 
 *.swo
 
-.vscode/
-
 out-*
 out_*
 
