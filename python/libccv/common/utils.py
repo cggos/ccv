@@ -63,9 +63,7 @@ def transform_invert(img_, transform_train):
         img_ = Image.fromarray(img_.astype("uint8").squeeze())
     else:
         raise Exception(
-            "Invalid img shape, expected 1 or 3 in axis 2, but got {}!".format(
-                img_.shape[2]
-            )
+            f"Invalid img shape, expected 1 or 3 in axis 2, but got {img_.shape[2]}!"
         )
 
     return img_

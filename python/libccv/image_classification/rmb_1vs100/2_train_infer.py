@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 """
 # @file name  : 2_train_lenet.py
 # @author     : Jimeng Shi
 # @date       : 2020-01-18 23:05:00
 # @brief      : train classification model of RMB
 """
+
 import os
 import numpy as np
 from matplotlib import pyplot as plt
@@ -77,7 +77,7 @@ train_curve = list()
 valid_curve = list()
 
 for epoch in range(MAX_EPOCH):
-    print("Epoch[{:0>3}/{:0>3}]".format(epoch, MAX_EPOCH))
+    print(f"Epoch[{epoch:0>3}/{MAX_EPOCH:0>3}]")
 
     loss_mean = 0.0
     correct = 0.0
@@ -108,9 +108,8 @@ for epoch in range(MAX_EPOCH):
         if (i + 1) % log_interval == 0:
             loss_mean = loss_mean / log_interval
             print(
-                "Training: Iteration[{:0>3}/{:0>3}] Loss: {:.4f} Acc:{:.2%}".format(
-                    i + 1, len(train_loader), loss_mean, correct / total
-                )
+                f"Training: Iteration[{i + 1:0>3}/{len(train_loader):0>3}] Loss: {loss_mean:.4f} "
+                f"Acc:{correct / total:.2%}"
             )
             loss_mean = 0.0
 
@@ -136,9 +135,8 @@ for epoch in range(MAX_EPOCH):
 
             valid_curve.append(loss_val / valid_loader.__len__())
             print(
-                "Valid:    Iteration[{:0>3}/{:0>3}] Loss: {:.4f} Acc:{:.2%}".format(
-                    j + 1, len(valid_loader), loss_val, correct_val / total_val
-                )
+                f"Valid:    Iteration[{j + 1:0>3}/{len(valid_loader):0>3}] Loss: {loss_val:.4f} "
+                f"Acc:{correct_val / total_val:.2%}"
             )
 
 train_x = range(len(train_curve))
@@ -172,4 +170,4 @@ for i, data in enumerate(test_loader):
     _, predicted = torch.max(outputs.data, 1)
 
     rmb = 1 if predicted.numpy()[0] == 0 else 100
-    print("模型获得{}元".format(rmb))
+    print(f"模型获得{rmb}元")

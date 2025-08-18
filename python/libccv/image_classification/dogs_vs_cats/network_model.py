@@ -38,7 +38,8 @@ def fit(model, optimizer, data_loader, phase="training", volatile=False):
     accuracy = 100.0 * running_correct / len(data_loader.dataset)
 
     print(
-        f"{phase} loss is {loss:{5}.{2}} and {phase} accuracy is {running_correct}/{len(data_loader.dataset)}{accuracy:{10}.{4}}"
+        f"{phase} loss is {loss:{5}.{2}} and {phase} accuracy is "
+        f"{running_correct}/{len(data_loader.dataset)}{accuracy:{10}.{4}}"
     )
     return loss, accuracy
 
@@ -74,7 +75,8 @@ def fit_vgg(model, optimizer, data_loader, phase="training", volatile=False):
     accuracy = 100.0 * running_correct / len(data_loader.dataset)
 
     print(
-        f"{phase} loss is {loss:{5}.{2}} and {phase} accuracy is {running_correct}/{len(data_loader.dataset)}{accuracy:{10}.{4}}"
+        f"{phase} loss is {loss:{5}.{2}} and {phase} accuracy is "
+        f"{running_correct}/{len(data_loader.dataset)}{accuracy:{10}.{4}}"
     )
     return loss, accuracy
 
@@ -111,7 +113,8 @@ def fit_numpy(model, optimizer, data_loader, phase="training", volatile=False):
     accuracy = 100.0 * running_correct / len(data_loader.dataset)
 
     print(
-        f"{phase} loss is {loss:{5}.{2}} and {phase} accuracy is {running_correct}/{len(data_loader.dataset)}{accuracy:{10}.{4}}"
+        f"{phase} loss is {loss:{5}.{2}} and {phase} accuracy is "
+        f"{running_correct}/{len(data_loader.dataset)}{accuracy:{10}.{4}}"
     )
     return loss, accuracy
 
@@ -133,7 +136,7 @@ def train_model(
     best_acc = 0.0
 
     for epoch in range(num_epochs):
-        print("Epoch {}/{}".format(epoch, num_epochs - 1))
+        print(f"Epoch {epoch}/{num_epochs - 1}")
         print("-" * 10)
 
         # Each epoch has a training and validation phase
@@ -182,7 +185,7 @@ def train_model(
             epoch_loss = running_loss / dataset_sizes[phase]
             epoch_acc = running_corrects / dataset_sizes[phase]
 
-            print("{} Loss: {:.4f} Acc: {:.4f}".format(phase, epoch_loss, epoch_acc))
+            print(f"{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}")
 
             # deep copy the model
             if phase == "valid" and epoch_acc > best_acc:
@@ -192,12 +195,8 @@ def train_model(
         print()
 
     time_elapsed = time.time() - since
-    print(
-        "Training complete in {:.0f}m {:.0f}s".format(
-            time_elapsed // 60, time_elapsed % 60
-        )
-    )
-    print("Best val Acc: {:4f}".format(best_acc))
+    print(f"Training complete in {time_elapsed // 60:.0f}m {time_elapsed % 60:.0f}s")
+    print(f"Best val Acc: {best_acc:4f}")
 
     # load best model weights
     model.load_state_dict(best_model_wts)

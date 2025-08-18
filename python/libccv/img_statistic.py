@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import argparse
 from PIL import Image
@@ -10,11 +9,11 @@ import matplotlib.pyplot as plt
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('img_in', help='input image')
+    parser.add_argument("img_in", help="input image")
     args = parser.parse_args()
 
     img_path = args.img_in
-    img = Image.open(img_path).convert('L')
+    img = Image.open(img_path).convert("L")
     im = np.asarray(img)
 
     im_blur = ndimage.gaussian_filter(im, 4)
@@ -23,9 +22,9 @@ def main():
 
     print(a)
 
-    plt.subplot(121), plt.imshow(im, plt.cm.gray), plt.title('origin gray')
+    plt.subplot(121), plt.imshow(im, plt.cm.gray), plt.title("origin gray")
     plt.xticks([]), plt.yticks([])
-    plt.subplot(122), plt.imshow(im_blur, plt.cm.gray), plt.title('gauss blur')
+    plt.subplot(122), plt.imshow(im_blur, plt.cm.gray), plt.title("gauss blur")
     plt.xticks([]), plt.yticks([])
 
     plt.show()

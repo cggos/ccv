@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-@Project : dl_with_pytorch 
+@Project : dl_with_pytorch
 @File    : train_seg_net.py
 @Site    : Vector-LabPics dataset: https://zenodo.org/record/3697452
 @Author  : Gavin Gao
-@Date    : 12/24/22 10:19 PM 
+@Date    : 12/24/22 10:19 PM
 """
 
 import os

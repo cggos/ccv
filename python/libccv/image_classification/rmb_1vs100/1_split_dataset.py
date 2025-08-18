@@ -44,10 +44,6 @@ if __name__ == "__main__":
                 shutil.copy(src_path, target_path)
 
             print(
-                "Class:{}, train:{}, valid:{}, test:{}".format(
-                    sub_dir,
-                    train_point,
-                    valid_point - train_point,
-                    img_count - valid_point,
-                )
+                f"Class:{sub_dir}, train:{train_point}, valid:{valid_point - train_point}, "
+                f"test:{img_count - valid_point}"
             )

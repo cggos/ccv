@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*-coding:utf-8 -*-
 """
 @Ref
     * https://blog.csdn.net/u011922698/article/details/123268070

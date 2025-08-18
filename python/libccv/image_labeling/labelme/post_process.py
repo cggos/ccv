@@ -22,11 +22,20 @@ def copy_Data_label(P_dataset, out_path, Pimg, Plabel, Pviz):
         if not os.path.isdir(os.path.join(P_dataset, file)):
             continue
         try:
-            shutil.copy(os.path.join(P_dataset, file, "img.png"), os.path.join(Pimg, file[:-5] + ".png"))
-            shutil.copy(os.path.join(P_dataset, file, "label.png"), os.path.join(Plabel, file[:-5] + ".png"))
-            shutil.copy(os.path.join(P_dataset, file, "label_viz.png"), os.path.join(Pviz, file[:-5] + ".png"))
-        except:
-            None
+            shutil.copy(
+                os.path.join(P_dataset, file, "img.png"),
+                os.path.join(Pimg, file[:-5] + ".png"),
+            )
+            shutil.copy(
+                os.path.join(P_dataset, file, "label.png"),
+                os.path.join(Plabel, file[:-5] + ".png"),
+            )
+            shutil.copy(
+                os.path.join(P_dataset, file, "label_viz.png"),
+                os.path.join(Pviz, file[:-5] + ".png"),
+            )
+        except Exception as e:
+            print(e)
 
 
 def convert_PIL_cv(out_path, Pinput, Poutput):
@@ -62,12 +71,15 @@ def gen_TrainValTest_file(root, image_path, label_path, txt_path):
     for i in range(len(namelist)):
         img_file = os.path.join(image_path, namelist[i])
         label_file = os.path.join(label_path, namelist[i])
-        string = "{} {}\n".format(img_file, label_file)
+        string = f"{img_file} {label_file}\n"
         """=============================================="""
 
-        if i in range(6500): ftrain.write(string)
-        if i in range(6500, 7000): fval.write(string)
-        if i in range(7000, len(namelist)): ftest.write(string)
+        if i in range(6500):
+            ftrain.write(string)
+        if i in range(6500, 7000):
+            fval.write(string)
+        if i in range(7000, len(namelist)):
+            ftest.write(string)
 
 
 if __name__ == "__main__":

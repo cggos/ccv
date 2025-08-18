@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import os
 import zipfile
 from glob import glob
@@ -10,7 +9,7 @@ if __name__ == "__main__":
 
     train_zip = os.path.join(data_root, "train.zip")
     if not os.path.exists(train_zip):
-        os.system("mkdir -p {}".format(data_root))
+        os.system(f"mkdir -p {data_root}")
         local_zip = os.path.join("/dev_sdb/", "datasets/dogs-vs-cats.zip")
         zip_ref = zipfile.ZipFile(local_zip, "r")
         zip_ref.extractall(data_root)
@@ -21,9 +20,9 @@ if __name__ == "__main__":
     train_dir = os.path.join(data_root, "train/")
     valid_dir = os.path.join(data_root, "valid/")
     if os.path.exists(train_dir):
-        os.system("rm -fr {}".format(train_dir))
+        os.system(f"rm -fr {train_dir}")
     if os.path.exists(valid_dir):
-        os.system("rm -fr {}".format(valid_dir))
+        os.system(f"rm -fr {valid_dir}")
     os.mkdir(valid_dir)
 
     zip_ref = zipfile.ZipFile(train_zip, "r")

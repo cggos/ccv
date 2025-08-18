@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-@Project : dl_with_pytorch 
+@Project : dl_with_pytorch
 @File    : seg_img.py
 @Site    : ref: https://learnopencv.com/pytorch-for-beginners-semantic-segmentation-using-torchvision/
 @Author  : Gavin Gao
-@Date    : 12/24/22 4:30 PM 
+@Date    : 12/24/22 4:30 PM
 """
 
 import numpy as np
@@ -53,7 +52,8 @@ model = models.segmentation.fcn_resnet101(
 # model = models.segmentation.deeplabv3_mobilenet_v3_large(pretrained=True).eval()
 
 # try load local model
-# model = torch.hub.load('../../', 'fcn_resnet101', '/home/ghc/projects/ml/models/fcn_resnet101_coco-7ecb50ca.pth', source='local')
+# model = torch.hub.load('../../', 'fcn_resnet101', '/home/ghc/projects/ml/models/fcn_resnet101_coco-7ecb50ca.pth',
+# source='local')
 # model = model.load_state_dict(torch.load('/home/ghc/projects/ml/models/fcn_resnet101_coco-7ecb50ca.pth'))
 
 seg_rgb = segment(model, img)

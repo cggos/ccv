@@ -10,7 +10,7 @@ def gen_trainval_test(root, annotated_path, txt_path):
     namelist = os.listdir(os.path.join(root, annotated_path))
     random.shuffle(namelist)
     N = len(namelist)
-    print("len: {}".format(N))
+    print(f"len: {N}")
 
     makedir(os.path.join(root, txt_path))
     ftrain = open(os.path.join(root, txt_path, "train.txt"), "w")
@@ -23,10 +23,13 @@ def gen_trainval_test(root, annotated_path, txt_path):
     n_trainval = n_train + n_val
 
     for i in range(N):
-        string = "{}\n".format(namelist[i][:-5])
-        if i in range(n_train): ftrain.write(string)
-        if i in range(n_train, n_trainval): fval.write(string)
-        if i in range(n_trainval, N): ftest.write(string)
+        string = f"{namelist[i][:-5]}\n"
+        if i in range(n_train):
+            ftrain.write(string)
+        if i in range(n_train, n_trainval):
+            fval.write(string)
+        if i in range(n_trainval, N):
+            ftest.write(string)
 
 
 if __name__ == "__main__":

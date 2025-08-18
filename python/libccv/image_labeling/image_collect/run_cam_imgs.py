@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*-coding:utf-8 -*-
 
 import sys
 import cv2
@@ -22,8 +21,8 @@ if __name__ == '__main__':
         if k == 27:
             break
         elif k == ord('s'):
-            img_name = img_dir + "/rs_{:0>5d}.jpg".format(i)  # jpg for PASCAL VOC dataset format
-            print("saved {}".format(img_name))
+            img_name = img_dir + f"/rs_{i:0>5d}.jpg"  # jpg for PASCAL VOC dataset format
+            print(f"saved {img_name}")
             cv2.imwrite(img_name, frame)
             i += 1
         cv2.imshow("capture", frame)

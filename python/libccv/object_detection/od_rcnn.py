@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-@Project : dl_with_pytorch 
+@Project : dl_with_pytorch
 @File    : od_rcnn.py
 @Site    : ref: https://learnopencv.com/faster-r-cnn-object-detection-with-pytorch
 @Author  : Gavin Gao
-@Date    : 12/24/22 5:46 PM 
+@Date    : 12/24/22 5:46 PM
 """
 
 import os

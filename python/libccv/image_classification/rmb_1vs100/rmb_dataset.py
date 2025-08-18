@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 # @file name  : dataset.py
 # @author     : Jimeng Shi

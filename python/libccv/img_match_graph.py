@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-@Project : ccv 
+@Project : ccv
 @File    : img_match.py
-@Site    : 
+@Site    :
 @Author  : Gavin Gao
-@Date    : 7/24/22 7:40 AM 
+@Date    : 7/24/22 7:40 AM
 """
 
 import argparse
@@ -42,10 +41,10 @@ def get_good_matches(matches):
         if x.distance > max_distance:
             max_distance = x.distance
 
-    '''
+    """
         当描述子之间的距离大于两倍的最小距离时，认为匹配有误。
         但有时候最小距离会非常小，所以设置一个经验值30作为下限。
-    '''
+    """
     good_match = []
     for x in matches:
         if x.distance <= max(2 * min_distance, 10):
@@ -53,8 +52,8 @@ def get_good_matches(matches):
     return good_match
 
 
-def matches_graphviz(match_scores, out_img='out_imgmatch_graphviz.png', th=30):
-    g = pydot.Dot(graph_type='graph')
+def matches_graphviz(match_scores, out_img="out_imgmatch_graphviz.png", th=30):
+    g = pydot.Dot(graph_type="graph")
     n = len(imlist)
     for i in range(n):
         for j in range(i + 1, n):
@@ -62,13 +61,13 @@ def matches_graphviz(match_scores, out_img='out_imgmatch_graphviz.png', th=30):
                 for x in [i, j]:
                     pil_im = Image.open(imlist[x])
                     pil_im.thumbnail((128, 128))
-                    im_path = '/tmp/' + str(x) + '.png'
+                    im_path = "/tmp/" + str(x) + ".png"
                     pil_im.save(im_path)
                     g.add_node(
                         pydot.Node(
                             str(x),
-                            fontcolor='transparent',
-                            shape='rectangle',
+                            fontcolor="transparent",
+                            shape="rectangle",
                             image=im_path,
                         )
                     )
@@ -78,8 +77,8 @@ def matches_graphviz(match_scores, out_img='out_imgmatch_graphviz.png', th=30):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('img_dir', help='input image directory')
-    parser.add_argument('-e', '--img_ext', default='png', help='image ext')
+    parser.add_argument("img_dir", help="input image directory")
+    parser.add_argument("-e", "--img_ext", default="png", help="image ext")
     args = parser.parse_args()
 
     img_dir = args.img_dir

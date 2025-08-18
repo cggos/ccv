@@ -1,16 +1,15 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import os
 from sys import intern
 
 import cv2
 from PIL import Image
-from numpy import *
+from numpy import dot, uint8, array, histogram, sqrt, linalg
 import numpy as np
 
 
-def get_imlist(path, ext='.jpg'):
+def get_imlist(path, ext=".jpg"):
     return [os.path.join(path, f) for f in os.listdir(path) if f.endswith(ext)]
 
 
@@ -34,15 +33,15 @@ def histeq(im, nbr_bins=256):
 def compute_average(imlist):
     """计算图像列表的平均图像"""
 
-    averageim = array(Image.open(imlist[0]), 'f')
+    averageim = array(Image.open(imlist[0]), "f")
 
     for imname in imlist[1:]:
         try:
             averageim += array(Image.open(imname))
-        except:
-            print(imname + '...skipped')
+        except Exception as e:
+            print(imname + "...skipped, ERROR: " + str(e))
     averageim /= len(imlist)
-    return array(averageim, 'uint8')
+    return array(averageim, "uint8")
 
 
 def pca(X):

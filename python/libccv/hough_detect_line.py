@@ -77,7 +77,7 @@ def main():
 
     k, b = longest_line(vote, rhos, thetas)
 
-    print("k = {}, b = {}".format(k, b))
+    print(f"k = {k}, b = {b}")
 
 
 if __name__ == "__main__":

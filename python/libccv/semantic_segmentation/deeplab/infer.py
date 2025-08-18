@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-@Project : dl_with_pytorch 
+@Project : dl_with_pytorch
 @File    : infer.py
-@Site    : 
+@Site    :
 @Author  : Gavin Gao
-@Date    : 12/24/22 11:56 PM 
+@Date    : 12/24/22 11:56 PM
 """
 
 import cv2

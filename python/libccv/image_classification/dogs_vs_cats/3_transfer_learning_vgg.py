@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,7 +11,7 @@ from torch.utils.data import DataLoader
 from torchvision import models
 from torchvision import transforms, datasets
 
-from common import utils
+from libccv.common import utils
 import network_model
 
 
@@ -135,7 +134,7 @@ def main():
     print("Adjusting dropout")
 
     for layer in vgg.classifier.children():
-        if type(layer) == nn.Dropout:
+        if layer.isinstance(nn.Dropout):
             layer.p = 0.2
 
     train_losses, train_accuracy = [], []

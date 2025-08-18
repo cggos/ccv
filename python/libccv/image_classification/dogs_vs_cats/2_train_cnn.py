@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import matplotlib.pyplot as plt
 
@@ -17,7 +16,7 @@ import network_model
 
 def main():
     torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    print("Using gpu: %s \n" % torch.cuda.is_available())
+    print(f"Using gpu: {torch.cuda.is_available()}")
 
     print("Load data into PyTorch tensors\n")
 
@@ -92,7 +91,7 @@ def train02(train_data_loader, valid_data_loader):
     valid_loss_list, valid_accuracy_list = [], []
     num_epochs = 10
     for epoch in range(1, num_epochs):
-        print("Epoch {}/{}".format(epoch, num_epochs - 1))
+        print(f"Epoch {epoch}/{num_epochs - 1}")
         print("-" * 10)
         train_loss, train_accuracy = network_model.fit(
             model, optimizer, train_data_loader, phase="training"
