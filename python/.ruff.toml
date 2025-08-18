@@ -1,0 +1,60 @@
+exclude = [
+    ".venv/",
+    "**/__pycache__/",
+    "libccv.egg-info"
+]
+
+line-length = 120
+indent-width = 4
+
+target-version = "py310"
+
+#fix = true
+
+
+[lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`) codes by default.
+# Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
+# McCabe complexity (`C901`) by default.
+select = ["F", "E", "W", "UP"]
+#select = ["ALL"]
+ignore = ["F401"]
+#ignore = [
+#    "E501", # 忽略行太长（PEP 8 限 79 字符，但现代项目可放宽）
+#    "D", # 忽略 pydocstyle（文档字符串检查）
+#    "ERA001", # 忽略多余注释
+#    "ANN001", # Missing type annotation for function argument
+#    "ANN201", # 忽略缺少返回类型注解
+#    "ANN202", # 忽略缺少参数类型注解
+#    "N802", # 忽略函数名称
+#    "N803", # 忽略变量名称
+#    "RUF001", # String contains ambiguous
+#    "RUF002", # Docstring contains ambiguous
+#    "RUF003", # Comment contains ambiguous
+#    "TD002", # Missing author in TODO
+#    "TD003", # Missing issue link for this TODO
+#    "TD004", # Missing colon in TODO
+#    "TD005", # Missing issue description after `TODO`
+#    "FIX002", # Line contains TODO
+#]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+#fixable = ["ALL"]
+#unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+
+[format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
