@@ -10,8 +10,8 @@ from torch.optim import lr_scheduler
 from torch.utils.data import DataLoader
 from torchvision import transforms, datasets
 
-from common import utils
-from models_diy import net_binary_classification
+from libccv.common import utils
+from libccv.base_models import net_binary_classification
 import network_model
 
 
