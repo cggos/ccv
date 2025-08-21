@@ -8,7 +8,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "ccv/common/types.h"
+#include "type.h"
 
 namespace cg {
 

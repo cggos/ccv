@@ -17,9 +17,9 @@ RotationMatrix::RotationMatrix(const Matrix &mat) : Matrix(mat) {
   assert(mat.rows() == 3 && mat.cols() == 3);
 }
 
-RotationMatrix RotationMatrix::rot_mat_x(const FLOAT &angle) {
-  FLOAT s = sin(angle);
-  FLOAT c = cos(angle);
+RotationMatrix RotationMatrix::rot_mat_x(const hpc::TScalarF &angle) {
+  hpc::TScalarF s = sin(angle);
+  hpc::TScalarF c = cos(angle);
   Matrix R(3, 3);
   R(0, 0) = +1;
   R(1, 1) = +c;
@@ -29,9 +29,9 @@ RotationMatrix RotationMatrix::rot_mat_x(const FLOAT &angle) {
   return R;
 }
 
-RotationMatrix RotationMatrix::rot_mat_y(const FLOAT &angle) {
-  FLOAT s = sin(angle);
-  FLOAT c = cos(angle);
+RotationMatrix RotationMatrix::rot_mat_y(const hpc::TScalarF &angle) {
+  hpc::TScalarF s = sin(angle);
+  hpc::TScalarF c = cos(angle);
   Matrix R(3, 3);
   R(0, 0) = +c;
   R(0, 2) = +s;
@@ -41,9 +41,9 @@ RotationMatrix RotationMatrix::rot_mat_y(const FLOAT &angle) {
   return R;
 }
 
-RotationMatrix RotationMatrix::rot_mat_z(const FLOAT &angle) {
-  FLOAT s = sin(angle);
-  FLOAT c = cos(angle);
+RotationMatrix RotationMatrix::rot_mat_z(const hpc::TScalarF &angle) {
+  hpc::TScalarF s = sin(angle);
+  hpc::TScalarF c = cos(angle);
   Matrix R(3, 3);
   R(0, 0) = +c;
   R(0, 1) = -s;
@@ -155,8 +155,8 @@ const Quarternion RotationMatrix::quarternion_hamilton() const {
 }
 
 const AngleAxis RotationMatrix::angle_axis() const {
-  FLOAT angle = std::acos((this->trace() - 1) * 0.5);
-  FLOAT s = std::sin(angle);
+  hpc::TScalarF angle = std::acos((this->trace() - 1) * 0.5);
+  hpc::TScalarF s = std::sin(angle);
   RotationMatrix R = (*this - this->transpose()) * 0.5;
   Matrix v3_skew = R / s;
   Vector3 v3;

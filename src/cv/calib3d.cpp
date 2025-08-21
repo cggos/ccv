@@ -20,15 +20,15 @@ void project_points(const std::vector<cg::Point2f> &pts_in,
     return;
   }
 
-  FLOAT fx = camera_matrix(0, 0);
-  FLOAT fy = camera_matrix(1, 1);
-  FLOAT cx = camera_matrix(0, 2);
-  FLOAT cy = camera_matrix(1, 2);
+  hpc::TScalarF fx = camera_matrix(0, 0);
+  hpc::TScalarF fy = camera_matrix(1, 1);
+  hpc::TScalarF cx = camera_matrix(0, 2);
+  hpc::TScalarF cy = camera_matrix(1, 2);
 
-  FLOAT k1 = distortion_coeffs[0];
-  FLOAT k2 = distortion_coeffs[1];
-  FLOAT p1 = distortion_coeffs[2];
-  FLOAT p2 = distortion_coeffs[3];
+  hpc::TScalarF k1 = distortion_coeffs[0];
+  hpc::TScalarF k2 = distortion_coeffs[1];
+  hpc::TScalarF p1 = distortion_coeffs[2];
+  hpc::TScalarF p2 = distortion_coeffs[3];
 
   cg::RotationMatrix R = cg::rodrigues(rvec);
 
@@ -41,8 +41,8 @@ void project_points(const std::vector<cg::Point2f> &pts_in,
     cg::Vector3 pt_homogeneous({pt_in.x, pt_in.y, 1.0});
 
     cg::Vector3 pt_3d = R * pt_homogeneous + tvec;
-    FLOAT x = pt_3d[0] / pt_3d[2];
-    FLOAT y = pt_3d[1] / pt_3d[2];
+    hpc::TScalarF x = pt_3d[0] / pt_3d[2];
+    hpc::TScalarF y = pt_3d[1] / pt_3d[2];
 
     double x2 = x * x, y2 = y * y, xy = x * y, r2 = x2 + y2;
     double x_radial = x * (1 + k1 * r2 + k2 * r2 * r2);

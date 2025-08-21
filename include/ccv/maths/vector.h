@@ -25,9 +25,9 @@ class VectorX : public Matrix {
 
   VectorX(const Matrix &mat) : Matrix(mat) { assert(mat.cols() == 1); }
 
-  FLOAT &operator[](int idx) { return (*this)(idx, 0); }
+  hpc::TScalarF &operator[](int idx) { return (*this)(idx, 0); }
 
-  const FLOAT &operator[](int idx) const { return (*this)(idx, 0); }
+  const hpc::TScalarF &operator[](int idx) const { return (*this)(idx, 0); }
 
   inline unsigned int size() const { return rows(); }
 
@@ -63,7 +63,7 @@ class Vector : public Matrix {
  public:
   Vector() : Matrix(_N, 1) {}
 
-  Vector(std::initializer_list<FLOAT> vlist) : Matrix(_N, 1) {
+  Vector(std::initializer_list<hpc::TScalarF> vlist) : Matrix(_N, 1) {
     int i = 0;
     for (auto a : vlist) {
       if (i == _N) break;
@@ -73,37 +73,37 @@ class Vector : public Matrix {
     for (; i < _N; ++i) (*this)(i, 0) = 0.0;
   }
 
-  Vector(const FLOAT *val) : Matrix(_N, 1, val) {}
+  Vector(const hpc::TScalarF *val) : Matrix(_N, 1, val) {}
 
   Vector(const Matrix &mat) : Matrix(mat) { assert(mat.rows() == _N && mat.cols() == 1); }
 
-  FLOAT &operator[](int idx) { return (*this)(idx, 0); }
+  hpc::TScalarF &operator[](int idx) { return (*this)(idx, 0); }
 
-  const FLOAT &operator[](int idx) const { return (*this)(idx, 0); }
+  const hpc::TScalarF &operator[](int idx) const { return (*this)(idx, 0); }
 
   inline unsigned int size() const { return _N; }
 
-  Vector operator*(const FLOAT &m) const { return Matrix(*this) * m; }
+  Vector operator*(const hpc::TScalarF &m) const { return Matrix(*this) * m; }
 
   Matrix operator*(const Vector &v) const { return Matrix(*this) * Matrix(v); }
 
-  Vector operator/(const FLOAT &m) const { return Matrix(*this) / m; }
+  Vector operator/(const hpc::TScalarF &m) const { return Matrix(*this) / m; }
 
   void operator+=(const Vector &v) { *this = Matrix(*this) + Matrix(v); }
 
-  void operator*=(const FLOAT &m) { *this = Matrix(*this) * m; }
+  void operator*=(const hpc::TScalarF &m) { *this = Matrix(*this) * m; }
 
-  inline FLOAT l1norm() const {
-    FLOAT norm = 0;
+  inline hpc::TScalarF l1norm() const {
+    hpc::TScalarF norm = 0;
     for (int i = 0; i < _N; ++i) norm += (*this)(i, 0);
     return norm;
   }
 
-  inline FLOAT squared_l2norm() const { return std::pow(l2norm(), 2); }
+  inline hpc::TScalarF squared_l2norm() const { return std::pow(l2norm(), 2); }
 
-  inline FLOAT dot(const Vector &v) {
+  inline hpc::TScalarF dot(const Vector &v) {
     assert(_N == v.size());
-    FLOAT sum = 0.0;
+    hpc::TScalarF sum = 0.0;
     for (int i = 0; i < v.size(); ++i) sum += (*this)[i] * v[i];
     return sum;
   }
@@ -113,8 +113,8 @@ class Vector : public Matrix {
     return this->get_mat(idx, 0, idx + _M - 1, 0);
   }
 
-  inline FLOAT max_coeff(int &i_max) {
-    FLOAT max = 0.0;
+  inline hpc::TScalarF max_coeff(int &i_max) {
+    hpc::TScalarF max = 0.0;
     i_max = 0;
     for (int i = 0; i < size(); ++i) {
       if ((*this)[i] > max) {
@@ -149,7 +149,7 @@ Matrix skew_symmetric(const Vector<3> &w);
  * @param M
  * @return
  */
-Matrix operator*(FLOAT s, Matrix M);
+Matrix operator*(hpc::TScalarF s, Matrix M);
 
 /**
  * @brief s * V
@@ -158,7 +158,7 @@ Matrix operator*(FLOAT s, Matrix M);
  * @return
  */
 template <unsigned int _M>
-Vector<_M> operator*(FLOAT s, Vector<_M> V) {
+Vector<_M> operator*(hpc::TScalarF s, Vector<_M> V) {
   return Matrix(V) * s;
 }
 
@@ -173,7 +173,7 @@ static Vector<_M> operator*(const Matrix &M, const Vector<_N> &V) {
   assert(M.cols() == V.size() && M.rows() == _M);
   Vector<_M> v;
   for (int i = 0; i < M.rows(); ++i) {
-    FLOAT sum_i = 0.0;
+    hpc::TScalarF sum_i = 0.0;
     for (int j = 0; j < M.cols(); ++j) sum_i += M(i, j) * V[j];
     v[i] = sum_i;
   }

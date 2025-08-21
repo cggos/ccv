@@ -11,8 +11,8 @@
 
 #include <vector>
 
-#include "ccv/common/types.h"
 #include "ccv/cv/yimg.h"
+#include "type.h"
 
 namespace cg {
 

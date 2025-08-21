@@ -7,9 +7,9 @@
 
 #include <vector>
 
-#include "ccv/common/types.h"
 #include "ccv/maths/mat.h"
 #include "ccv/maths/vector.h"
+#include "type.h"
 
 namespace cg {
 

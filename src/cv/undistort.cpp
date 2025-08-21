@@ -19,18 +19,18 @@ void undistort_points(const std::vector<cg::Point2f> &pts_in,
     return;
   }
 
-  FLOAT fx = camera_matrix(0, 0);
-  FLOAT fy = camera_matrix(1, 1);
-  FLOAT cx = camera_matrix(0, 2);
-  FLOAT cy = camera_matrix(1, 2);
+  hpc::TScalarF fx = camera_matrix(0, 0);
+  hpc::TScalarF fy = camera_matrix(1, 1);
+  hpc::TScalarF cx = camera_matrix(0, 2);
+  hpc::TScalarF cy = camera_matrix(1, 2);
 
   double ifx = 1. / fx;
   double ify = 1. / fy;
 
-  FLOAT k1 = distortion_coeffs[0];
-  FLOAT k2 = distortion_coeffs[1];
-  FLOAT p1 = distortion_coeffs[2];
-  FLOAT p2 = distortion_coeffs[3];
+  hpc::TScalarF k1 = distortion_coeffs[0];
+  hpc::TScalarF k2 = distortion_coeffs[1];
+  hpc::TScalarF p1 = distortion_coeffs[2];
+  hpc::TScalarF p2 = distortion_coeffs[3];
 
   cg::Mat3 RR = P * R;
 

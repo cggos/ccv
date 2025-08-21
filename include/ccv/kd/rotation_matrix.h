@@ -16,8 +16,8 @@ class RotationMatrix : public Matrix {
 
   RotationMatrix(const Matrix &mat);
 
-  inline const FLOAT trace() const {
-    FLOAT tr = 0.0;
+  inline const hpc::TScalarF trace() const {
+    hpc::TScalarF tr = 0.0;
     for (int i = 0; i < 3; ++i) tr += (*this)(i, i);
     return tr;
   }
@@ -25,11 +25,11 @@ class RotationMatrix : public Matrix {
   RotationMatrix transpose() const { return Matrix(*this).transpose(); }
 
   // create 3x3 rotation matrices (convention: http://en.wikipedia.org/wiki/Rotation_matrix)
-  static RotationMatrix rot_mat_x(const FLOAT &angle);
+  static RotationMatrix rot_mat_x(const hpc::TScalarF &angle);
 
-  static RotationMatrix rot_mat_y(const FLOAT &angle);
+  static RotationMatrix rot_mat_y(const hpc::TScalarF &angle);
 
-  static RotationMatrix rot_mat_z(const FLOAT &angle);
+  static RotationMatrix rot_mat_z(const hpc::TScalarF &angle);
 
   /**
    * @brief Convert a rotation matrix to a quaternion.

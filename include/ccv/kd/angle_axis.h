@@ -13,11 +13,11 @@ class AngleAxis {
  public:
   AngleAxis() {}
 
-  AngleAxis(const FLOAT &angle, const Vector3 &axis) : angle_(angle), axis_(axis) {}
+  AngleAxis(const hpc::TScalarF &angle, const Vector3 &axis) : angle_(angle), axis_(axis) {}
 
-  const FLOAT angle() const { return angle_; }
+  const hpc::TScalarF angle() const { return angle_; }
 
-  FLOAT &angle() { return angle_; }
+  hpc::TScalarF &angle() { return angle_; }
 
   const Vector3 axis() const { return axis_; }
 
@@ -29,7 +29,7 @@ class AngleAxis {
   }
 
  private:
-  FLOAT angle_;
+  hpc::TScalarF angle_;
   Vector3 axis_;
 };
 }  // namespace cg

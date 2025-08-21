@@ -1,26 +1,20 @@
 #ifndef CCV_MATH_MATRIX_H
 #define CCV_MATH_MATRIX_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <iostream>
 #include <memory>
 #include <vector>
 
-#include "ccv/common/common.h"
-#include "ccv/common/types.h"
+#include "hpc/common/type.h"
 
 namespace cg {
 
 class Matrix {
  public:
-  Matrix();                                                     // init empty 0x0 matrix
-  Matrix(const int32_t m, const int32_t n);                     // init empty mxn matrix
-  Matrix(const int32_t m, const int32_t n, const FLOAT *val_);  // init mxn matrix with values from array 'val'
-  Matrix(const Matrix &M);                                      // creates deepcopy of M
-  Matrix(const int32_t m, const int32_t n, const float *val_);  // init mxn matrix with values from array 'val'
+  Matrix();                                                             // init empty 0x0 matrix
+  Matrix(const int32_t m, const int32_t n);                             // init empty mxn matrix
+  Matrix(const int32_t m, const int32_t n, const hpc::TScalarF *val_);  // init mxn matrix with values from array 'val'
+  Matrix(const Matrix &M);                                              // creates deepcopy of M
+  Matrix(const int32_t m, const int32_t n, const float *val_);          // init mxn matrix with values from array 'val'
 
   virtual ~Matrix();
 
@@ -34,9 +28,9 @@ class Matrix {
    */
   Matrix &operator=(const Matrix &M);
 
-  FLOAT &operator()(const int row, const int col);
+  hpc::TScalarF &operator()(const int row, const int col);
 
-  const FLOAT &operator()(const int row, const int col) const;
+  const hpc::TScalarF &operator()(const int row, const int col) const;
 
   // TODO
   //        Matrix &block(int i1, int j1, int mm, int nn) {}
@@ -83,7 +77,7 @@ class Matrix {
    * @param i1
    * @param i2
    */
-  void set_diag(FLOAT s, int32_t i1 = 0, int32_t i2 = -1);
+  void set_diag(hpc::TScalarF s, int32_t i1 = 0, int32_t i2 = -1);
 
   /**
    * @brief create diagonal matrix with nx1 or 1xn matrix M as elements
@@ -110,28 +104,28 @@ class Matrix {
   void conservative_resize(int32_t p, int32_t q);
 
   // simple arithmetic operations
-  const Matrix operator+(const Matrix &M) const;  // add matrix
-  const Matrix operator-(const Matrix &M) const;  // subtract matrix
-  const Matrix operator*(const Matrix &M) const;  // multiply with matrix
-  const Matrix operator*(const FLOAT &s) const;   // multiply with scalar
-  const Matrix operator/(const Matrix &M) const;  // divide elementwise by matrix (or vector)
-  const Matrix operator/(const FLOAT &s) const;   // divide by scalar
+  const Matrix operator+(const Matrix &M) const;         // add matrix
+  const Matrix operator-(const Matrix &M) const;         // subtract matrix
+  const Matrix operator*(const Matrix &M) const;         // multiply with matrix
+  const Matrix operator*(const hpc::TScalarF &s) const;  // multiply with scalar
+  const Matrix operator/(const Matrix &M) const;         // divide elementwise by matrix (or vector)
+  const Matrix operator/(const hpc::TScalarF &s) const;  // divide by scalar
 
   void operator+=(const Matrix &M) { *this = (*this) + M; }
   const Matrix operator-() const;  // negative matrix
 
   const Matrix transpose() const;
-  virtual FLOAT l2norm() const;  // euclidean norm (vectors) / frobenius norm (matrices)
-  FLOAT mean();                  // mean of all elements in matrix
+  virtual hpc::TScalarF l2norm() const;  // euclidean norm (vectors) / frobenius norm (matrices)
+  hpc::TScalarF mean();                  // mean of all elements in matrix
 
   // complex arithmetic operations
-  static Matrix cross(const Matrix &a, const Matrix &b);  // cross product of two vectors
-  const Matrix inv(const Matrix &M) const;                // invert matrix M
-  const Matrix inv() const;                               // invert this matrix
-  FLOAT det();                                            // returns determinant of matrix
-  bool solve(const Matrix &M, FLOAT eps = 1e-20);         // solve linear system M*x=B, replaces *this and M
-  bool lu(int32_t *idx, FLOAT &d, FLOAT eps = 1e-20);     // replace *this by lower upper decomposition
-  void svd(Matrix &U, Matrix &W, Matrix &V);              // singular value decomposition *this = U*diag(W)*V^T
+  static Matrix cross(const Matrix &a, const Matrix &b);   // cross product of two vectors
+  const Matrix inv(const Matrix &M) const;                 // invert matrix M
+  const Matrix inv() const;                                // invert this matrix
+  hpc::TScalarF det();                                     // returns determinant of matrix
+  bool solve(const Matrix &M, hpc::TScalarF eps = 1e-20);  // solve linear system M*x=B, replaces *this and M
+  bool lu(int32_t *idx, hpc::TScalarF &d, hpc::TScalarF eps = 1e-20);  // replace *this by lower upper decomposition
+  void svd(Matrix &U, Matrix &W, Matrix &V);  // singular value decomposition *this = U*diag(W)*V^T
   void ldlt01(Matrix &L, Matrix &D);
   void ldlt(Matrix &L, Matrix &D) const;  // ref: https://blog.csdn.net/zhangchao3322218/article/details/7412688
 
@@ -147,10 +141,10 @@ class Matrix {
   void allocate_memory(const int32_t m_, const int32_t n_);
   void release_memory();
 
-  inline FLOAT pythag(FLOAT a, FLOAT b);
+  inline hpc::TScalarF pythag(hpc::TScalarF a, hpc::TScalarF b);
 
  private:
-  FLOAT **val_;
+  hpc::TScalarF **val_;
   int32_t m_, n_;
 };
 }  // namespace cg

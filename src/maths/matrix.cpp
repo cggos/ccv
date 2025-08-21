@@ -2,6 +2,8 @@
 
 #include <math.h>
 
+#include <iostream>
+
 using namespace std;
 
 namespace cg {
@@ -13,9 +15,9 @@ namespace cg {
     b = temp;      \
   }
 #define SIGN(a, b) ((b) >= 0.0 ? fabs(a) : -fabs(a))
-static FLOAT sqrarg;
+static hpc::TScalarF sqrarg;
 #define SQR(a) ((sqrarg = (a)) == 0.0 ? 0.0 : sqrarg * sqrarg)
-static FLOAT maxarg1, maxarg2;
+static hpc::TScalarF maxarg1, maxarg2;
 #define FMAX(a, b) (maxarg1 = (a), maxarg2 = (b), (maxarg1) > (maxarg2) ? (maxarg1) : (maxarg2))
 static int32_t iminarg1, iminarg2;
 #define IMIN(a, b) (iminarg1 = (a), iminarg2 = (b), (iminarg1) < (iminarg2) ? (iminarg1) : (iminarg2))
@@ -24,7 +26,7 @@ Matrix::Matrix() : m_(0), n_(0), val_(0) {}
 
 Matrix::Matrix(const int32_t m, const int32_t n) { allocate_memory(m, n); }
 
-Matrix::Matrix(const int32_t m, const int32_t n, const FLOAT *val) {
+Matrix::Matrix(const int32_t m, const int32_t n, const hpc::TScalarF *val) {
   allocate_memory(m, n);
   int32_t k = 0;
   for (int32_t i = 0; i < m; i++)
@@ -40,7 +42,7 @@ Matrix::Matrix(const int32_t m, const int32_t n, const float *val) {
 
 Matrix::Matrix(const Matrix &M) {
   allocate_memory(M.m_, M.n_);
-  for (int32_t i = 0; i < M.m_; i++) memcpy(val_[i], M.val_[i], M.n_ * sizeof(FLOAT));
+  for (int32_t i = 0; i < M.m_; i++) memcpy(val_[i], M.val_[i], M.n_ * sizeof(hpc::TScalarF));
 }
 
 Matrix::~Matrix() { release_memory(); }
@@ -52,12 +54,12 @@ Matrix &Matrix::operator=(const Matrix &M) {
       allocate_memory(M.m_, M.n_);
     }
     if (M.n_ > 0)
-      for (int32_t i = 0; i < M.m_; i++) memcpy(val_[i], M.val_[i], M.n_ * sizeof(FLOAT));
+      for (int32_t i = 0; i < M.m_; i++) memcpy(val_[i], M.val_[i], M.n_ * sizeof(hpc::TScalarF));
   }
   return *this;
 }
 
-FLOAT &Matrix::operator()(const int i, const int j) {
+hpc::TScalarF &Matrix::operator()(const int i, const int j) {
   if (i < 0 || i >= m_ || j < 0 || j >= n_) {
     std::cerr << "ERROR: Cannot get value from a (" << m_ << "x" << n_ << ") matrix." << endl;
     exit(0);
@@ -65,7 +67,7 @@ FLOAT &Matrix::operator()(const int i, const int j) {
   return val_[i][j];
 }
 
-const FLOAT &Matrix::operator()(const int i, const int j) const {
+const hpc::TScalarF &Matrix::operator()(const int i, const int j) const {
   if (i < 0 || i >= m_ || j < 0 || j >= n_) {
     std::cerr << "ERROR: Cannot get value from a (" << m_ << "x" << n_ << ") matrix." << endl;
     exit(0);
@@ -97,7 +99,7 @@ void Matrix::set_mat(const int32_t i1, const int32_t j1, const Matrix &M) {
     for (int32_t j = 0; j < M.n_; j++) val_[i1 + i][j1 + j] = M.val_[i][j];
 }
 
-void Matrix::set_diag(FLOAT s, int32_t i1, int32_t i2) {
+void Matrix::set_diag(hpc::TScalarF s, int32_t i1, int32_t i2) {
   if (i2 == -1) i2 = min(m_ - 1, n_ - 1);
   for (int32_t i = i1; i <= i2; i++) val_[i][i] = s;
 }
@@ -204,7 +206,7 @@ const Matrix Matrix::operator*(const Matrix &M) const {
   return C;
 }
 
-const Matrix Matrix::operator*(const FLOAT &s) const {
+const Matrix Matrix::operator*(const hpc::TScalarF &s) const {
   Matrix C(m_, n_);
   for (int32_t i = 0; i < m_; i++)
     for (int32_t j = 0; j < n_; j++) C.val_[i][j] = val_[i][j] * s;
@@ -243,7 +245,7 @@ const Matrix Matrix::operator/(const Matrix &M) const {
   }
 }
 
-const Matrix Matrix::operator/(const FLOAT &s) const {
+const Matrix Matrix::operator/(const hpc::TScalarF &s) const {
   if (fabs(s) < 1e-20) {
     cerr << "ERROR: Trying to divide by zero!" << endl;
     exit(0);
@@ -268,18 +270,18 @@ const Matrix Matrix::transpose() const {
   return C;
 }
 
-FLOAT Matrix::l2norm() const {
-  FLOAT norm = 0;
+hpc::TScalarF Matrix::l2norm() const {
+  hpc::TScalarF norm = 0;
   for (int32_t i = 0; i < m_; i++)
     for (int32_t j = 0; j < n_; j++) norm += val_[i][j] * val_[i][j];
   return sqrt(norm);
 }
 
-FLOAT Matrix::mean() {
-  FLOAT mean = 0;
+hpc::TScalarF Matrix::mean() {
+  hpc::TScalarF mean = 0;
   for (int32_t i = 0; i < m_; i++)
     for (int32_t j = 0; j < n_; j++) mean += val_[i][j];
-  return mean / (FLOAT)(m_ * n_);
+  return mean / (hpc::TScalarF)(m_ * n_);
 }
 
 Matrix Matrix::cross(const Matrix &a, const Matrix &b) {
@@ -313,7 +315,7 @@ const Matrix Matrix::inv() const {
   return inv(*this);
 }
 
-FLOAT Matrix::det() {
+hpc::TScalarF Matrix::det() {
   if (m_ != n_) {
     cerr << "ERROR: Trying to compute determinant of a matrix of size (" << m_ << "x" << n_ << ")" << endl;
     exit(0);
@@ -321,14 +323,14 @@ FLOAT Matrix::det() {
 
   Matrix A(*this);
   int32_t *idx = (int32_t *)malloc(m_ * sizeof(int32_t));
-  FLOAT d = 1;
+  hpc::TScalarF d = 1;
   A.lu(idx, d);
   for (int32_t i = 0; i < m_; i++) d *= A.val_[i][i];
   free(idx);
   return d;
 }
 
-bool Matrix::solve(const Matrix &M, FLOAT eps) {
+bool Matrix::solve(const Matrix &M, hpc::TScalarF eps) {
   // substitutes
   const Matrix &A = M;
   Matrix &B = *this;
@@ -346,7 +348,7 @@ bool Matrix::solve(const Matrix &M, FLOAT eps) {
 
   // loop variables
   int32_t i, icol, irow, j, k, l, ll;
-  FLOAT big, dum, pivinv, temp;
+  hpc::TScalarF big, dum, pivinv, temp;
 
   // initialize pivots to zero
   for (j = 0; j < m_; j++) ipiv[j] = 0;
@@ -421,15 +423,16 @@ bool Matrix::solve(const Matrix &M, FLOAT eps) {
 // pivoting; d is output as ±1 depending on whether the number of row interchanges was even
 // or odd, respectively. This routine is used in combination with lubksb to solve linear equations
 // or invert a matrix.
-bool Matrix::lu(int32_t *idx, FLOAT &d, FLOAT eps) {
+bool Matrix::lu(int32_t *idx, hpc::TScalarF &d, hpc::TScalarF eps) {
   if (m_ != n_) {
     cerr << "ERROR: Trying to LU decompose a matrix of size (" << m_ << "x" << n_ << ")" << endl;
     exit(0);
   }
 
   int32_t i, imax, j, k;
-  FLOAT big, dum, sum, temp;
-  FLOAT *vv = (FLOAT *)malloc(n_ * sizeof(FLOAT));  // vv stores the implicit scaling of each row.
+  hpc::TScalarF big, dum, sum, temp;
+  hpc::TScalarF *vv =
+      (hpc::TScalarF *)malloc(n_ * sizeof(hpc::TScalarF));  // vv stores the implicit scaling of each row.
   d = 1.0;
   for (i = 0; i < n_; i++) {  // Loop over rows to get the implicit scaling information.
     big = 0.0;
@@ -486,11 +489,11 @@ void Matrix::svd(Matrix &U2, Matrix &W, Matrix &V) {
   U2 = Matrix(m_, m_);
   V = Matrix(n_, n_);
 
-  FLOAT *w = (FLOAT *)malloc(n_ * sizeof(FLOAT));
-  FLOAT *rv1 = (FLOAT *)malloc(n_ * sizeof(FLOAT));
+  hpc::TScalarF *w = (hpc::TScalarF *)malloc(n_ * sizeof(hpc::TScalarF));
+  hpc::TScalarF *rv1 = (hpc::TScalarF *)malloc(n_ * sizeof(hpc::TScalarF));
 
   int32_t flag, i, its, j, jj, k, l, nm;
-  FLOAT anorm, c, f, g, h, s, scale, x, y, z;
+  hpc::TScalarF anorm, c, f, g, h, s, scale, x, y, z;
 
   g = scale = anorm = 0.0;  // Householder reduction to bidiagonal form.
   for (i = 0; i < n_; i++) {
@@ -576,11 +579,11 @@ void Matrix::svd(Matrix &U2, Matrix &W, Matrix &V) {
       flag = 1;
       for (l = k; l >= 0; l--) {  // Test for splitting.
         nm = l - 1;
-        if ((FLOAT)(fabs(rv1[l]) + anorm) == anorm) {
+        if ((hpc::TScalarF)(fabs(rv1[l]) + anorm) == anorm) {
           flag = 0;
           break;
         }
-        if ((FLOAT)(fabs(w[nm]) + anorm) == anorm) {
+        if ((hpc::TScalarF)(fabs(w[nm]) + anorm) == anorm) {
           break;
         }
       }
@@ -590,7 +593,7 @@ void Matrix::svd(Matrix &U2, Matrix &W, Matrix &V) {
         for (i = l; i <= k; i++) {
           f = s * rv1[i];
           rv1[i] = c * rv1[i];
-          if ((FLOAT)(fabs(f) + anorm) == anorm) break;
+          if ((hpc::TScalarF)(fabs(f) + anorm) == anorm) break;
           g = w[i];
           h = pythag(f, g);
           w[i] = h;
@@ -669,9 +672,9 @@ void Matrix::svd(Matrix &U2, Matrix &W, Matrix &V) {
   // by decreasing magnitude. Also, signs of corresponding columns are
   // flipped so as to maximize the number of positive elements.
   int32_t s2, inc = 1;
-  FLOAT sw;
-  FLOAT *su = (FLOAT *)malloc(m_ * sizeof(FLOAT));
-  FLOAT *sv = (FLOAT *)malloc(n_ * sizeof(FLOAT));
+  hpc::TScalarF sw;
+  hpc::TScalarF *su = (hpc::TScalarF *)malloc(m_ * sizeof(hpc::TScalarF));
+  hpc::TScalarF *sv = (hpc::TScalarF *)malloc(n_ * sizeof(hpc::TScalarF));
   do {
     inc *= 3;
     inc++;
@@ -726,15 +729,15 @@ void Matrix::ldlt01(cg::Matrix &L, cg::Matrix &D) {
   Matrix A = *this;
   int n = A.rows();
 
-  FLOAT v[n];
-  FLOAT d[n];
+  hpc::TScalarF v[n];
+  hpc::TScalarF d[n];
 
   L = Matrix(n, n);
   D = Matrix(n, n);
 
   for (int i = 0; i < n; i++) {
     if (i > 0) {
-      FLOAT tmp = 0.0;
+      hpc::TScalarF tmp = 0.0;
       for (int j = 0; j < i - 1; j++) {
         v[j] = L(i, j) * d[j];
         tmp += L(i, j) * v[j];
@@ -821,13 +824,13 @@ void Matrix::allocate_memory(const int32_t m, const int32_t n) {
     val_ = 0;
     return;
   }
-  //        val = (FLOAT **) malloc(m * sizeof(FLOAT *));
-  //        val[0] = (FLOAT *) calloc(m * n, sizeof(FLOAT));
+  //        val = (hpc::TScalarF **) malloc(m * sizeof(hpc::TScalarF *));
+  //        val[0] = (hpc::TScalarF *) calloc(m * n, sizeof(hpc::TScalarF));
   //        for (int32_t i = 1; i < m; i++)
   //            val[i] = val[i - 1] + n;
 
-  val_ = new FLOAT *[m_];
-  val_[0] = new FLOAT[m_ * n_]();
+  val_ = new hpc::TScalarF *[m_];
+  val_[0] = new hpc::TScalarF[m_ * n_]();
   for (int32_t i = 1; i < m_; i++) val_[i] = val_[i - 1] + n_;
 }
 
@@ -841,8 +844,8 @@ void Matrix::release_memory() {
   }
 }
 
-FLOAT Matrix::pythag(FLOAT a, FLOAT b) {
-  FLOAT absa, absb;
+hpc::TScalarF Matrix::pythag(hpc::TScalarF a, hpc::TScalarF b) {
+  hpc::TScalarF absa, absb;
   absa = fabs(a);
   absb = fabs(b);
   if (absa > absb)

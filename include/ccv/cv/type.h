@@ -226,23 +226,6 @@ typedef Point3D<int> Point3i;
 typedef Point3D<float> Point3f;
 typedef Point3D<double> Point3d;
 
-struct RGB {
-  float r;
-  float g;
-  float b;
-
-  RGB() {}
-
-  RGB(float red, float green, float blue) : r(red), g(green), b(blue) {}
-
-  RGB &operator=(const RGB &rhs) {
-    if (this == &rhs) return *this;
-    r = rhs.r;
-    g = rhs.g;
-    b = rhs.b;
-    return *this;
-  }
-};
 
 }  // namespace cg
 

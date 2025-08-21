@@ -3,32 +3,27 @@ project(ccv)
 
 set(CCV_VERSION_MAJOR 1)
 set(CCV_VERSION_MINOR 0)
+set(CCV_VERSION_PATCH 0)
 
 option(BUILD_DOCS "Create and install the HTML based API documentation (requires Doxygen)" OFF)
 option(BUILD_TEST "Build Unit Test Program for the project (requires GTest)" OFF)
+
 option(WITH_OPENCV "Build with OpenCV" ON)
 option(WITH_PCL "Build with PCL" OFF)
 option(WITH_GL "Build with OpenGL and Pangolin" ON)
 
-set(CMAKE_CXX_STANDARD 17) # -std=gnu++11
+add_subdirectory(hpc)
 
-add_definitions(-w)
+include_directories(hpc/include)
 
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release")
+set(Eigen3_DIR "$ENV{CG_THIRDPARTY}/${PLATFORM_ARCH}/eigen3/share/eigen3/cmake/")
+find_package(Eigen3 REQUIRED)
+
+if(Eigen3_FOUND)
+  include_directories(${EIGEN3_INCLUDE_DIR})
 endif()
 
-if(CMAKE_BUILD_TYPE MATCHES "Release")
-  set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3")
-elseif(CMAKE_BUILD_TYPE MATCHES "Debug")
-  set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O0 -g -Wall")
-  add_definitions(-D__USER_DEBUG__)
-endif()
-
-if(CMAKE_CXX_COMPILER_ID STREQUAL Clang OR CMAKE_CXX_COMPILER_ID STREQUAL AppleClang)
-  string(APPEND CMAKE_CXX_FLAGS " -Wno-c++11-narrowing")
-endif()
-
+message("================== " ${EIGEN3_INCLUDE_DIR})
 
 # find_package(OpenMP)
 # if(OpenMP_FOUND)
@@ -42,12 +37,8 @@ endif()
 # include_directories(${Boost_INCLUDE_DIR})
 # link_directories(${Boost_LIBRARY_DIR})
 # endif()
-include_directories(/usr/local/include/eigen3) # will be removed !!!!!!!!!!!!
 
 set(CMAKE_INSTALL_PREFIX "/opt/ccv")
-
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 include_directories(include)
 

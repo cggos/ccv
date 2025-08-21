@@ -7,11 +7,10 @@
 
 #include <cmath>
 #include <cstring>
-#include <fstream>
 
-#include "ccv/common/common.h"
-#include "ccv/common/types.h"
 #include "ccv/cv/camera.h"
+#include "ccv/maths/type.h"
+#include "type.h"
 
 namespace cg {
 

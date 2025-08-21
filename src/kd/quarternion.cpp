@@ -20,7 +20,7 @@ Quarternion::Quarternion() {
 #endif
 }
 
-Quarternion::Quarternion(FLOAT w, FLOAT x, FLOAT y, FLOAT z) {
+Quarternion::Quarternion(hpc::TScalarF w, hpc::TScalarF x, hpc::TScalarF y, hpc::TScalarF z) {
 #if Q_HAMILTON
   v4_[0] = w;
   v4_[1] = x;
@@ -86,13 +86,13 @@ const Matrix Quarternion::rotation_matrix() const {
 }
 
 const AngleAxis Quarternion::angle_axis() const {
-  FLOAT angle;
+  hpc::TScalarF angle;
   Vector3 v3;
 
   //        angle = 2 * std::acos(w());
   //        v3  = vec() / std::sin(angle * 0.5);
 
-  FLOAT norm = vec().l2norm();
+  hpc::TScalarF norm = vec().l2norm();
   angle = 2 * std::atan2(norm, w());
   v3 = vec() / norm;
 

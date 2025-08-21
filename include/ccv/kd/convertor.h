@@ -24,7 +24,7 @@ RotationMatrix rodrigues(const Vector3 &v3);
  * @param c cos theta
  * @return
  */
-RotationMatrix rodrigues(const Vector3 &v3_hat, FLOAT s, FLOAT c);
+RotationMatrix rodrigues(const Vector3 &v3_hat, hpc::TScalarF s, hpc::TScalarF c);
 
 /**
  * @brief get a rotation matrix between two arbitrary vectors

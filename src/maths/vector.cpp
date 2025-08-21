@@ -35,7 +35,7 @@ Matrix skew_symmetric(const Vector<3> &w) {
  * @param M
  * @return
  */
-Matrix operator*(FLOAT s, Matrix M) { return M * s; }
+Matrix operator*(hpc::TScalarF s, Matrix M) { return M * s; }
 
 Matrix vec2mat(const Vector2 &v1, const Vector2 &v2) {
   assert(v1.size() == v2.size());

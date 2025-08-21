@@ -22,11 +22,11 @@ class Quarternion {
  public:
   Quarternion();
 
-  Quarternion(FLOAT w, FLOAT x, FLOAT y, FLOAT z);
+  Quarternion(hpc::TScalarF w, hpc::TScalarF x, hpc::TScalarF y, hpc::TScalarF z);
 
   Quarternion(const Vector<4> &v4);
 
-  const FLOAT w() const {
+  const hpc::TScalarF w() const {
 #if Q_HAMILTON
     return v4_[0];
 #else
@@ -34,7 +34,7 @@ class Quarternion {
 #endif
   }
 
-  FLOAT &w() {
+  hpc::TScalarF &w() {
 #if Q_HAMILTON
     return v4_[0];
 #else
@@ -42,7 +42,7 @@ class Quarternion {
 #endif
   }
 
-  const FLOAT x() const {
+  const hpc::TScalarF x() const {
 #if Q_HAMILTON
     return v4_[1];
 #else
@@ -50,7 +50,7 @@ class Quarternion {
 #endif
   }
 
-  FLOAT &x() {
+  hpc::TScalarF &x() {
 #if Q_HAMILTON
     return v4_[1];
 #else
@@ -58,7 +58,7 @@ class Quarternion {
 #endif
   }
 
-  const FLOAT y() const {
+  const hpc::TScalarF y() const {
 #if Q_HAMILTON
     return v4_[2];
 #else
@@ -66,7 +66,7 @@ class Quarternion {
 #endif
   }
 
-  FLOAT &y() {
+  hpc::TScalarF &y() {
 #if Q_HAMILTON
     return v4_[2];
 #else
@@ -74,7 +74,7 @@ class Quarternion {
 #endif
   }
 
-  const FLOAT z() const {
+  const hpc::TScalarF z() const {
 #if Q_HAMILTON
     return v4_[3];
 #else
@@ -82,7 +82,7 @@ class Quarternion {
 #endif
   }
 
-  FLOAT &z() {
+  hpc::TScalarF &z() {
 #if Q_HAMILTON
     return v4_[3];
 #else
@@ -111,7 +111,7 @@ class Quarternion {
    * @brief Normalize the given quaternion to unit quaternion
    */
   inline Quarternion normalized() {
-    FLOAT l2norm = v4_.l2norm();
+    hpc::TScalarF l2norm = v4_.l2norm();
     return this->v4_ / l2norm;
   }
 
@@ -152,7 +152,7 @@ class Quarternion {
 
   Matrix left_product_matrix() const;
 
-  FLOAT &operator[](int n) { return v4_[n]; }
+  hpc::TScalarF &operator[](int n) { return v4_[n]; }
 
   const Quarternion &operator-() {
     v4_ = -v4_;
@@ -165,7 +165,7 @@ class Quarternion {
     return Quarternion(v4).normalized();
   }
 
-  Quarternion operator/(const FLOAT &s) {
+  Quarternion operator/(const hpc::TScalarF &s) {
     Quarternion q;
     q.v4_ = this->v4_ / s;
     return q;
