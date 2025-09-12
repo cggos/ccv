@@ -16,7 +16,7 @@ add_subdirectory(hpc)
 
 include_directories(hpc/include)
 
-set(Eigen3_DIR "$ENV{CG_THIRDPARTY}/${PLATFORM_ARCH}/eigen3/share/eigen3/cmake/")
+set(Eigen3_DIR "$ENV{CG_APP_RELEASE}/${PLATFORM_ARCH}/eigen3/share/eigen3/cmake/")
 find_package(Eigen3 REQUIRED)
 
 if(Eigen3_FOUND)
