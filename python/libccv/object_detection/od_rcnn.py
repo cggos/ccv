@@ -19,8 +19,8 @@ import torchvision
 import torchvision.transforms as T
 from torchvision import models
 
-from vision.common import dataset
-from vision.common import utils
+from libccv.common import dataset
+from libccv.common import utils
 
 # 把当前文件所在文件夹的父文件夹路径加入到 PYTHONPATH
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

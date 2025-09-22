@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import torchvision
 from torchvision import transforms as T
 
-from vision.common import utils
+from libccv.common import utils
 
 
 def draw_keypoints_per_person(

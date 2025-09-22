@@ -18,9 +18,12 @@ classifiers = [
 ]
 
 dependencies = [
+    "pydot",
+    "scipy",
+    "matplotlib",
     "opencv-python",
     #    "opencv-python-headless",
-
+    "dlib",
 ]
 
 [project.optional-dependencies]
@@ -29,7 +32,7 @@ torch = [
     "torchvision==0.21.0+cpu",
     "torchinfo",
 ]
-ultr = [
+yolo = [
     "inference",
     "inference[transformers]",
     "ultralytics",

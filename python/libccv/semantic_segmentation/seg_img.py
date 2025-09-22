@@ -9,13 +9,12 @@
 
 import numpy as np
 from PIL import Image
-import matplotlib.pyplot as plt
 import torch
 from torchvision import models
 import torchvision.transforms as T
 
-from vision.common import dataset
-from vision.common import utils
+from libccv.common import dataset
+from libccv.common import utils
 
 
 def segment(model, image):

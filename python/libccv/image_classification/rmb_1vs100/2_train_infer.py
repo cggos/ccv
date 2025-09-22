@@ -15,8 +15,8 @@ from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 import torch.optim as optim
 
-from common import utils
-from models_diy import LeNet5_01
+from libccv.common import utils
+from libccv.base_models.lenet import LeNet5_01
 from rmb_dataset import RMBDataset
 
 

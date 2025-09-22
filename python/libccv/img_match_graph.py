@@ -8,7 +8,7 @@
 """
 
 import argparse
-import imtools as imt
+from libccv.common import imtools as imt
 import numpy as np
 from PIL import Image
 import cv2 as cv

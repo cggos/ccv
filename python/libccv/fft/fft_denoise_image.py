@@ -2,10 +2,6 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import cm
-# import matplotlib.image as mpimg
-from matplotlib.ticker import LinearLocator, FormatStrFormatter
-from mpl_toolkits.mplot3d import Axes3D
 from scipy import fftpack
 from scipy import ndimage
 from PIL import Image
@@ -13,12 +9,13 @@ from PIL import Image
 
 def plot_spectrum(im_fft):
     from matplotlib.colors import LogNorm
+
     # A logarithmic colormap
     plt.imshow(np.abs(im_fft), norm=LogNorm(vmin=5))
     plt.colorbar()
 
 
-img = Image.open('../../data/lena.bmp').convert('L')
+img = Image.open("../../data/lena.bmp").convert("L")
 im = np.asarray(img)
 
 im_blur = ndimage.gaussian_filter(im, 4)
@@ -48,13 +45,13 @@ phase_c = np.angle(im_f_filter_c)
 
 # ===========================================
 plt.figure()
-plt.subplot(221), plt.imshow(im, cmap='gray'), plt.title('origin image')
-plt.subplot(222), plot_spectrum(im_f_filter_c), plt.title('Fourier transform')
-plt.subplot(223), plt.imshow(abs(im_new), plt.cm.gray), plt.title('Reconstructed Image')
-plt.subplot(224), plt.imshow(np.log10(im_f_c_2)), plt.title('Power Spectrum')
+plt.subplot(221), plt.imshow(im, cmap="gray"), plt.title("origin image")
+plt.subplot(222), plot_spectrum(im_f_filter_c), plt.title("Fourier transform")
+plt.subplot(223), plt.imshow(abs(im_new), plt.cm.gray), plt.title("Reconstructed Image")
+plt.subplot(224), plt.imshow(np.log10(im_f_c_2)), plt.title("Power Spectrum")
 
 plt.figure()
 plt.imshow(im_blur, plt.cm.gray)
-plt.title('Gauss Blurred image')
+plt.title("Gauss Blurred image")
 
 plt.show()

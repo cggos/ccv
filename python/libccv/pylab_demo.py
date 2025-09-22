@@ -7,10 +7,10 @@ import matplotlib.pylab as pl
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("img_in", help="input image")
+    parser.add_argument("img", help="input image")
     args = parser.parse_args()
 
-    img_path = args.img_in
+    img_path = args.img
 
     img = Image.open(img_path)
 
