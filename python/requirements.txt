@@ -1,6 +1,0 @@
-opencv-python
-# opencv-python-headless
-
-inference
-inference[transformers]
-ultralytics

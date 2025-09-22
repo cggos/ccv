@@ -16,7 +16,24 @@ classifiers = [
     #    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
 ]
-dynamic = ["dependencies", "optional-dependencies"]
+
+dependencies = [
+    "opencv-python",
+    #    "opencv-python-headless",
+
+]
+
+[project.optional-dependencies]
+torch = [
+    "torch==2.6.0+cpu",
+    "torchvision==0.21.0+cpu",
+    "torchinfo",
+]
+ultr = [
+    "inference",
+    "inference[transformers]",
+    "ultralytics",
+]
 
 [project.urls]
 "Homepage" = "https://github.com/cggos/ccv"

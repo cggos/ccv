@@ -1,0 +1,7 @@
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+extra-index-url = [
+    "https://pypi.org/simple",
+    "https://download.pytorch.org/whl/cpu",
+]
+
+index-strategy = "unsafe-best-match"
