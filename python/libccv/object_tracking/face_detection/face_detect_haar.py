@@ -1,41 +1,72 @@
+#!/usr/bin/env python
 """
-    pip install opencv-contrib-python
+Face detection using Haar cascades - refactored to use the new HaarFaceDetector class.
 """
 
 import cv2
 import matplotlib.pyplot as plt
+import argparse
+import logging
+from libccv.object_tracking.face_detection.haar_face_detector import HaarFaceDetector
+from libccv.common.image_processor import ImageProcessor
+from libccv.common.logger import init_logger
 
-font = cv2.FONT_HERSHEY_SIMPLEX
 
-# haarcascades_path = os.path.dirname(cv2.__file__) + "../haarcascade_frontalface_default.xml"
-# face_cascade = cv2.CascadeClassifier(haarcascades_path)
+def main():
+    """
+    Main function to detect faces using Haar cascades.
+    """
+    init_logger()
+    parser = argparse.ArgumentParser(description="Face detection using Haar cascades")
+    parser.add_argument("-i", "--image", required=True, help="Path to the input image")
+    parser.add_argument(
+        "-s",
+        "--scale-factor",
+        type=float,
+        default=1.1,
+        help="Scale factor for detection",
+    )
+    parser.add_argument(
+        "-n",
+        "--min-neighbors",
+        type=int,
+        default=5,
+        help="Minimum neighbors for detection",
+    )
+    args = parser.parse_args()
 
-print(cv2.data)
+    # Load the image
+    img = ImageProcessor.load_image(args.image)
+    if img is None:
+        logging.error(f"Could not load image from {args.image}")
+        return
 
-face_cascade = cv2.CascadeClassifier(
-    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-)
-eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_eye.xml")
+    # Convert to grayscale
+    gray = ImageProcessor.convert_to_grayscale(img)
 
-# Load the image
-gray = cv2.imread(
-    "/home/cg/Downloads/WIDER_train/images/13--Interview/13_Interview_Interview_Sequences_13_900.jpg",
-    0,
-)
-plt.figure(figsize=(12, 8))
-plt.imshow(gray, cmap="gray")
-plt.show()
+    # Show original image
+    plt.figure(figsize=(12, 8))
+    plt.imshow(gray, cmap="gray")
+    plt.title("Original Image")
+    plt.show()
 
-# Detect faces
-faces = face_cascade.detectMultiScale(
-    gray, scaleFactor=1.1, minNeighbors=5, flags=cv2.CASCADE_SCALE_IMAGE
-)
+    # Initialize detector
+    detector = HaarFaceDetector(
+        scaleFactor=args.scale_factor, minNeighbors=args.min_neighbors
+    )
 
-# For each face
-for x, y, w, h in faces:
-    # Draw rectangle around the face
-    cv2.rectangle(gray, (x, y), (x + w, y + h), (255, 255, 255), 3)
+    # Detect faces
+    faces = detector.detect_faces(gray)
 
-plt.figure(figsize=(12, 8))
-plt.imshow(gray, cmap="gray")
-plt.show()
+    # Draw faces on image
+    result_img = detector.draw_faces(gray, faces)
+
+    # Show result
+    plt.figure(figsize=(12, 8))
+    plt.imshow(result_img, cmap="gray")
+    plt.title(f"Detected {len(faces)} faces")
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()

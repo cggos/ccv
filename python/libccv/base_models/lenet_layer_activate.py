@@ -8,4 +8,3 @@ x = torch.randn(2, 1, 32, 32)
 la = LayerActivations(net.C3)
 _ = net(x)
 la.remove()
-

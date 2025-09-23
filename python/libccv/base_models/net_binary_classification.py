@@ -2,6 +2,9 @@ import torch.nn.functional as F
 from torch import nn
 
 
+import torch
+
+
 class Net00(nn.Module):
     def __init__(self) -> None:
         super().__init__()
@@ -13,6 +16,12 @@ class Net00(nn.Module):
         self.fc3 = nn.Linear(50, 2)
 
     def forward(self, x):
+        # Validate inputs
+        if x is None:
+            raise ValueError("Input tensor cannot be None")
+        if not isinstance(x, torch.Tensor):
+            raise TypeError("Input must be a torch.Tensor")
+
         x = F.relu(F.max_pool2d(self.conv1(x), 2))
         x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
         x = x.view(x.size(0), -1)

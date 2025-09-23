@@ -1,56 +1,76 @@
 #!/usr/bin/env python
 """
-@Project ：cv_py
-@File    ：fisheye_mask.py
-@Author  ：Hongchen Gao
-@Date    ：3/9/22 4:58 PM
+Fisheye mask generation tool.
+Creates a circular mask for fisheye images and applies it to the input image.
 """
 
 import cv2
 import numpy as np
 import argparse
+import logging
+from libccv.common.logger import init_logger
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("img", help="input image")
+def main() -> None:
+    """
+    Main function to generate a fisheye mask and apply it to an input image.
+    """
+    init_logger()
+    parser = argparse.ArgumentParser(
+        description="Generate a circular mask for fisheye images"
+    )
+    parser.add_argument("-i", "--img", required=True, type=str, help="input image path")
+    parser.add_argument(
+        "-o",
+        "--output",
+        default="/tmp/fisheye_mask.png",
+        type=str,
+        help="output mask image path",
+    )
+    parser.add_argument(
+        "-r",
+        "--radius-offset",
+        default=10,
+        type=int,
+        help="offset to subtract from radius",
+    )
     args = parser.parse_args()
 
-    img_path = args.img
+    img_path: str = args.img
+    output_path: str = args.output
+    radius_offset: int = args.radius_offset
+
+    # Load image
     img = cv2.imread(img_path)
-    print(img.shape)
+
+    # Check if image was loaded successfully
+    if img is None:
+        logging.error(f"Could not load image from {img_path}")
+        return
+
+    print(f"Image shape: {img.shape}")
     rows, cols = img.shape[:2]
 
-    # rows = 800
-    # cols = 848
-
+    # Calculate center and radius for the circular mask
     xc = cols // 2
     yc = rows // 2
-    radius = rows // 2
-    radius -= 10
+    radius = rows // 2 - radius_offset
 
-    # draw filled circles in white on black background as masks
-    # mask = np.zeros_like(img)
+    # Create circular mask
     mask = np.zeros((rows, cols), np.uint8)
     cv2.circle(mask, (xc, yc), radius, 255, -1)
 
-    # put mask into alpha channel of input
-    # result = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    # result[:, :, 1] = mask[:,:,0]
-
-    # result = cv2.add(img, mask)
-
+    # Apply mask to image
     result = cv2.bitwise_and(img, img, mask=mask)
 
-    # plt.figure()
-    # plt.imshow(masked)
-    # plt.title('circle mask')
-    # plt.show()
+    # Save mask and display result
+    cv2.imwrite(output_path, mask)
+    print(f"Mask saved to {output_path}")
 
-    cv2.imwrite("out-fisheye_mask_848_800.png", mask)
-
-    cv2.imshow("masked image", result)
+    cv2.imshow("Masked image", result)
+    print("Press any key to close the image window...")
     cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 
 if __name__ == "__main__":

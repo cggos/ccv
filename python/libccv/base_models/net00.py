@@ -2,6 +2,9 @@ import torch.nn.functional as F
 from torch import nn
 
 
+import torch
+
+
 class Net00(nn.Module):
     def __init__(self) -> None:
         super().__init__()
@@ -13,6 +16,12 @@ class Net00(nn.Module):
         self.bn3 = nn.BatchNorm2d(10)
 
     def forward(self, x):
+        # Validate inputs
+        if x is None:
+            raise ValueError("Input tensor cannot be None")
+        if not isinstance(x, torch.Tensor):
+            raise TypeError("Input must be a torch.Tensor")
+
         x = self.bn1(self.conv1(x))
         x = F.relu(x)
         x = self.bn2(self.conv2(x))

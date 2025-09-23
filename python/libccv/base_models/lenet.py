@@ -11,6 +11,9 @@ import torch.nn.functional as F
 from torch import nn
 
 
+import torch
+
+
 class LeNet5_00(nn.Module):
     def __init__(self) -> None:
         super().__init__()
@@ -23,6 +26,12 @@ class LeNet5_00(nn.Module):
         self.OUTPUT = nn.Linear(84, 10)
 
     def forward(self, x):
+        # Validate inputs
+        if x is None:
+            raise ValueError("Input tensor cannot be None")
+        if not isinstance(x, torch.Tensor):
+            raise TypeError("Input must be a torch.Tensor")
+
         # 2x2 Max pooling
         x = F.max_pool2d(F.relu(self.C1(x)), (2, 2))
         # 如果是方阵,则可以只使用一个数字进行定义
@@ -50,6 +59,12 @@ class LeNet5_01(nn.Module):
         self.fc3 = nn.Linear(84, classes)
 
     def forward(self, x):
+        # Validate inputs
+        if x is None:
+            raise ValueError("Input tensor cannot be None")
+        if not isinstance(x, torch.Tensor):
+            raise TypeError("Input must be a torch.Tensor")
+
         out = F.relu(self.conv1(x))
         out = F.max_pool2d(out, 2)
         out = F.relu(self.conv2(out))
@@ -93,6 +108,12 @@ class LeNet5_02(nn.Module):
         )
 
     def forward(self, x):
+        # Validate inputs
+        if x is None:
+            raise ValueError("Input tensor cannot be None")
+        if not isinstance(x, torch.Tensor):
+            raise TypeError("Input must be a torch.Tensor")
+
         x = self.features(x)
         x = x.view(x.size()[0], -1)
         return self.classifier(x)

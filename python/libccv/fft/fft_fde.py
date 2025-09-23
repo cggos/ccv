@@ -4,8 +4,11 @@ import cv2
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+import logging
 from scipy import ndimage
 from PIL import Image
+from libccv.common.logger import init_logger
 
 
 def frequency_domain_entropy(im_gray):
@@ -26,13 +29,19 @@ def frequency_domain_entropy(im_gray):
 
 
 def main():
+    init_logger()
     parser = argparse.ArgumentParser()
     parser.add_argument("--img", default="../../data/lena.bmp", help="the image path")
     args = parser.parse_args()
 
+    # Check if image file exists
+    if not os.path.exists(args.img):
+        logging.error(f"Image file {args.img} not found.")
+        return
+
     # img = cv2.imread('lena.bmp', 0)
 
-    img = Image.open(args.img).convert('L')
+    img = Image.open(args.img).convert("L")
     im_gray = np.asarray(img)
     im_gray = ndimage.gaussian_filter(im_gray, 3)
     # cv2.imwrite("lena_00.png", im_gray)
@@ -42,11 +51,19 @@ def main():
     text = f"fde: {np.sum(fde)}   (maximize this for focus)"
     print(text)
     img_out = cv2.cvtColor(im_gray, cv2.COLOR_GRAY2BGR)
-    cv2.putText(img_out, text, (20, 20), cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(0, 0, 255), thickness=2)
+    cv2.putText(
+        img_out,
+        text,
+        (20, 20),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        fontScale=0.5,
+        color=(0, 0, 255),
+        thickness=2,
+    )
 
     plt.figure()
     plt.imshow(img_out)
-    plt.title('FDE')
+    plt.title("FDE")
     plt.xticks([]), plt.yticks([])
     plt.show()
 

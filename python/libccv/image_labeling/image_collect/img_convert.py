@@ -10,8 +10,8 @@ def convert_img_to_jpg():
     os.makedirs(path_out) if not os.path.exists(path_out) else None
     files = os.listdir(path_in)
     for file in files:
-        ext = file.split('.')[-1]
-        img_out = os.path.join(path_out, file[:-len(ext) - 1] + ".jpg")
+        ext = file.split(".")[-1]
+        img_out = os.path.join(path_out, file[: -len(ext) - 1] + ".jpg")
         print(img_out)
         img_np = cv2.imread(os.path.join(path_in, file), -1)
         cv2.imwrite(img_out, img_np)

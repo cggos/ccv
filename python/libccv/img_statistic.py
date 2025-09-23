@@ -1,32 +1,67 @@
 #!/usr/bin/env python
+"""
+Image statistics calculation tool.
+Calculates correlation between original and Gaussian blurred images.
+"""
 
 import argparse
-from PIL import Image
-from scipy import ndimage
 import numpy as np
 import matplotlib.pyplot as plt
 
+from libccv.common.image_processor import ImageProcessor
+from libccv.common.statistics_processor import StatisticsProcessor
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("img_in", help="input image")
+
+import logging
+from libccv.common.logger import init_logger
+
+
+def main() -> None:
+    """
+    Main function to calculate image statistics and display Gaussian blur effect.
+    """
+    init_logger()
+    parser = argparse.ArgumentParser(
+        description="Calculate correlation between original and Gaussian blurred images"
+    )
+    parser.add_argument("-i", "--img", required=True, type=str, help="input image path")
+    parser.add_argument(
+        "-s", "--sigma", default=4.0, type=float, help="Gaussian filter sigma value"
+    )
     args = parser.parse_args()
 
-    img_path = args.img_in
-    img = Image.open(img_path).convert("L")
-    im = np.asarray(img)
+    img_path: str = args.img
+    sigma: float = args.sigma
 
-    im_blur = ndimage.gaussian_filter(im, 4)
+    # Load image
+    img = ImageProcessor.load_image(img_path, mode="gray")
+    if img is None:
+        logging.error(f"Could not load image from {img_path}")
+        return
 
-    a = np.corrcoef(im.flatten(), im_blur.flatten())
+    # Apply Gaussian filter
+    im_blur = StatisticsProcessor.apply_gaussian_filter(img, sigma)
 
-    print(a)
+    # Calculate correlation coefficient
+    correlation = StatisticsProcessor.calculate_correlation(img, im_blur)
 
-    plt.subplot(121), plt.imshow(im, plt.cm.gray), plt.title("origin gray")
+    print(
+        f"Correlation coefficient between original and blurred image: {correlation:.4f}"
+    )
+
+    # Display images
+    plt.figure(figsize=(10, 5))
+    plt.subplot(121)
+    plt.imshow(img, plt.cm.gray)
+    plt.title("Original grayscale")
     plt.xticks([]), plt.yticks([])
-    plt.subplot(122), plt.imshow(im_blur, plt.cm.gray), plt.title("gauss blur")
+
+    plt.subplot(122)
+    plt.imshow(im_blur, plt.cm.gray)
+    plt.title(f"Gaussian blur (σ={sigma})")
     plt.xticks([]), plt.yticks([])
 
+    plt.tight_layout()
     plt.show()
 
 

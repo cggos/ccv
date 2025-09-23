@@ -8,33 +8,77 @@
 """
 
 import cv2
-import torchvision.models.segmentation
 import torch
-import torchvision.transforms as tf
-import matplotlib.pyplot as plt
+import argparse
+import os
+from libccv.semantic_segmentation import SegmentationModelLoader, SegmentationProcessor
 
-modelPath = "3000.torch"  # Path to trained model
-imagePath = "test.jpg"  # Test image
-height = width = 900
-transformImg = tf.Compose([tf.ToPILImage(), tf.Resize((height, width)), tf.ToTensor(),
-                           tf.Normalize((0.485, 0.456, 0.406),
-                                        (0.229, 0.224, 0.225))])  # tf.Resize((300,600)),tf.RandomRotation(145)])#
 
-device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-Net = torchvision.models.segmentation.deeplabv3_resnet50(pretrained=True)  # Load net
-Net.classifier[4] = torch.nn.Conv2d(256, 3, kernel_size=(1, 1), stride=(1, 1))  # Change final layer to 3 classes
-Net = Net.to(device)  # Set net to GPU or CPU
-Net.load_state_dict(torch.load(modelPath))  # Load trained model
-Net.eval()  # Set to evaluation mode
-Img = cv2.imread(imagePath)  # load test image
-height_orgin, widh_orgin, d = Img.shape  # Get image original size
-plt.imshow(Img[:, :, ::-1])  # Show image
-plt.show()
-Img = transformImg(Img)  # Transform to pytorch
-Img = torch.autograd.Variable(Img, requires_grad=False).to(device).unsqueeze(0)
-with torch.no_grad():
-    Prd = Net(Img)['out']  # Run net
-Prd = tf.Resize((height_orgin, widh_orgin))(Prd[0])  # Resize to origninal size
-seg = torch.argmax(Prd, 0).cpu().detach().numpy()  # Get  prediction classes
-plt.imshow(seg)  # display image
-plt.show()
+def main():
+    parser = argparse.ArgumentParser(
+        description="Semantic segmentation inference with refactored code"
+    )
+    parser.add_argument(
+        "--model_path", type=str, default="3000.torch", help="Path to trained model"
+    )
+    parser.add_argument(
+        "--image_path", type=str, default="test.jpg", help="Test image path"
+    )
+    parser.add_argument(
+        "--height", type=int, default=900, help="Image height for processing"
+    )
+    parser.add_argument(
+        "--width", type=int, default=900, help="Image width for processing"
+    )
+    parser.add_argument(
+        "--num_classes", type=int, default=3, help="Number of classes for the model"
+    )
+
+    args = parser.parse_args()
+
+    modelPath = args.model_path
+    imagePath = args.image_path
+    height = args.height
+    width = args.width
+    num_classes = args.num_classes
+
+    # Check if files exist
+    if not os.path.exists(modelPath):
+        raise FileNotFoundError(f"Model file not found: {modelPath}")
+    if not os.path.exists(imagePath):
+        raise FileNotFoundError(f"Image file not found: {imagePath}")
+
+    # Load custom trained model
+    model = SegmentationModelLoader.load_custom(
+        "deeplabv3_resnet50", modelPath, num_classes
+    )
+
+    # Create segmentation processor
+    processor = SegmentationProcessor(model)
+
+    # Load and process image
+    Img = cv2.imread(imagePath)  # load test image
+    if Img is None:
+        raise ValueError(f"Could not load image from {imagePath}")
+    height_orgin, widh_orgin, d = Img.shape  # Get image original size
+
+    # Preprocess image
+    input_tensor = processor.preprocess(Img, target_size=(height, width))
+
+    # Run inference
+    Prd = processor.infer(input_tensor)
+
+    # Postprocess output
+    seg_map = processor.postprocess(Prd, (height_orgin, widh_orgin))
+
+    # Visualize result
+    import matplotlib.pyplot as plt
+
+    plt.imshow(Img[:, :, ::-1])  # Show image
+    plt.show()
+    plt.imshow(seg_map)  # display segmentation map
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()
