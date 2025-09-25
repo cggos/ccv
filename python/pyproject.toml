@@ -32,6 +32,9 @@ torch = [
     "torchvision==0.21.0+cpu",
     "torchinfo",
 ]
+mp = [
+    "mediapipe"
+]
 yolo = [
     "inference",
     "inference[transformers]",
