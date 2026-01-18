@@ -1,21 +1,30 @@
 import cv2
 import zmq
 import time
-import base64
+import argparse
 from camera import Camera
+
+# Parse command line arguments
+parser = argparse.ArgumentParser(description='ZMQ Video Streamer')
+parser.add_argument('--port', type=int, default=5555, help='Port to bind to')
+parser.add_argument('--topic', type=str, default='video', help='Topic name for ZMQ PUB')
+parser.add_argument('--camera', type=int, default=0, help='Camera Index')
+args = parser.parse_args()
 
 # 1. Initialize ZeroMQ Context and Publisher
 context = zmq.Context()
 publisher = context.socket(zmq.PUB)
-# Bind to all interfaces on port 5555 using TCP
-publisher.bind("tcp://0.0.0.0:5555")
+# Bind to all interfaces on specified port
+publisher.bind(f"tcp://0.0.0.0:{args.port}")
 
-print("Streamer (ZMQ) initialized at tcp://0.0.0.0:5555")
+topic_bytes = args.topic.encode('utf-8')
+print(f"Streamer (ZMQ) initialized at tcp://0.0.0.0:{args.port}")
+print(f"Publishing with topic: '{args.topic}'")
 
 # 2. Initialize Camera
 try:
-    camera = Camera(0)
-    print("Camera initialized.")
+    camera = Camera(args.camera)
+    print(f"Camera {args.camera} initialized.")
 except Exception as e:
     print(f"Error opening camera: {e}")
     exit(1)
@@ -26,19 +35,14 @@ hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 
 
 def image_processing(frame):
-    # --- Algorithm: Pedestrian Detection ---
     # Resize for faster processing if needed
     # frame = cv2.resize(frame, (640, 480))
     
-    # Detect people
-    # weights, boxes via detectMultiScale
     boxes, weights = hog.detectMultiScale(frame, winStride=(8, 8), padding=(8, 8), scale=1.05)
     
-    # Draw bounding boxes
     for (x, y, w, h) in boxes:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
     
-    # Add text
     cv2.putText(frame, f'People Count: {len(boxes)}', (10, 30), 
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
     
@@ -56,15 +60,11 @@ def main_loop():
             
             frame = image_processing(frame)
             
-            # --- Network: Publish Frame via ZMQ ---
-            # Encode frame to JPEG
             ret, buffer = cv2.imencode('.jpg', frame)
             if not ret:
                 continue
-            
-            # Publish data
-            # Topic: "video", Payload: bytes
-            publisher.send_multipart([b"video", buffer.tobytes()])
+
+            publisher.send_multipart([topic_bytes, buffer.tobytes()])
             
             # Control framerate (optional, prevents flooding)
             # time.sleep(0.01)            
