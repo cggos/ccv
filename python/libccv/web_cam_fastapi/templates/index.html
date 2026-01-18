@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Gaussian Blur Stream</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #bb86fc;
+            --btn-start: #03dac6;
+            --btn-stop: #cf6679;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #bb86fc, #8146f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #333;
+            width: 80%;
+            max-width: 1000px; 
+        }
+
+        .video-box {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            position: relative;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            display: flex; /* Although pseudo-elements handle centering usually, this might help legacy */
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            z-index: 2; /* Sit on top of placeholder */
+            background-color: black;
+        }
+        
+        img.hidden {
+            display: none;
+        }
+
+        /* Placeholder Styling */
+        .placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1; /* Behind image */
+            color: #444;
+        }
+
+        .placeholder svg {
+            width: 100px;
+            height: 100px;
+            fill: currentColor;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            border: none;
+            padding: 10px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #121212;
+            min-width: 160px;
+        }
+
+        button:active {
+            transform: scale(0.96);
+        }
+
+        button.start {
+            background-color: var(--btn-start);
+            box-shadow: 0 0 10px rgba(3, 218, 198, 0.3);
+        }
+        
+        button.stop {
+            background-color: var(--btn-stop);
+            box-shadow: 0 0 10px rgba(207, 102, 121, 0.3);
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Webcam Live Preview</h1>
+        <p>Real-time Gaussian Blur Processing with FastAPI & OpenCV</p>
+    </header>
+
+    <div class="container">
+        <div class="video-box">
+            <!-- Placeholder Icon (Camera) -->
+            <div class="placeholder">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" opacity="0"/> <!-- Clear old path -->
+                    <path d="M20 4h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 11.5V13H9v2.5L5.5 12 9 8.5V11h6V8.5l3.5 3.5-3.5 3.5z" display="none"/> <!-- Alternative Video Cam -->
+                    <!-- Material UI Camera Alt Icon Style path -->
+                    <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm7.77-5.59l-1.99-3.32C17.5 4.54 16.81 4 16 4H8c-.81 0-1.5.54-1.78 1.09L4.23 8.41C4.09 8.68 4 9 4 9.5V18c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V9.5c0-.5-.09-.82-.23-1.09zM18 18H6v-8.08l1.71-2.92h8.58l1.71 2.92V18z"/>
+                </svg>
+            </div>
+            
+            <img id="videoStream" src="" alt="Video Stream" />
+        </div>
+
+        <div class="controls">
+            <button id="toggleBtn" onclick="togglePreview()" class="start">Start Preview</button>
+        </div>
+    </div>
+
+    <footer>
+        Powered by libccv & FastAPI
+    </footer>
+
+    <script>
+        const videoImg = document.getElementById('videoStream');
+        const toggleBtn = document.getElementById('toggleBtn');
+        const STREAM_URL = "/video_feed";
+
+        // Initialize state
+        let isStreamRunning = false;
+
+        function togglePreview() {
+            if (isStreamRunning) {
+                stopPreview();
+            } else {
+                startPreview();
+            }
+        }
+
+        function startPreview() {
+            // Add timestamp to bypass cache
+            videoImg.src = STREAM_URL + "?t=" + new Date().getTime();
+            videoImg.classList.remove('hidden');
+            
+            isStreamRunning = true;
+            
+            // Update Button
+            toggleBtn.textContent = "Stop Preview";
+            toggleBtn.className = "stop";
+        }
+
+        function stopPreview() {
+            videoImg.src = "";
+            videoImg.removeAttribute("src");
+            videoImg.classList.add('hidden');
+            
+            isStreamRunning = false;
+            
+            // Update Button
+            toggleBtn.textContent = "Start Preview";
+            toggleBtn.className = "start";
+        }
+
+        // Initialize in Stopped state (showing placeholder)
+        stopPreview();
+
+    </script>
+</body>
+</html>
