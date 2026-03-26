@@ -1,7 +1,5 @@
 # Mathematics & Scientific Computing
 
-* Source Code: https://github.com/cggos/scikit
-
 * Blog (CGABC): https://cgabc.xyz/categories/Maths/
 
 ------
