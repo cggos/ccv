@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Gavin Gao">
-        <link rel="canonical" href="https://cv.cgabc.xyz/cam/">
+        <link rel="canonical" href="https://cv.cgabc.xyz/estimation/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Camera - CCV</title>
+        <title>Overview - CCV</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -38,7 +38,7 @@
                                 <a href=".." class="nav-link">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a href="./" class="nav-link active" aria-current="page">Camera</a>
+                                <a href="../cam/" class="nav-link">Camera</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Maths</a>
@@ -74,23 +74,23 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Estimation</a>
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Estimation</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../estimation/" class="dropdown-item">Overview</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Overview</a>
 </li>
                                     
 <li>
-    <a href="../estimation/filter/" class="dropdown-item">Filter</a>
+    <a href="filter/" class="dropdown-item">Filter</a>
 </li>
                                     
 <li>
-    <a href="../estimation/map/" class="dropdown-item">MAP</a>
+    <a href="map/" class="dropdown-item">MAP</a>
 </li>
                                     
 <li>
-    <a href="../estimation/solvers/" class="dropdown-item">Solver</a>
+    <a href="solvers/" class="dropdown-item">Solver</a>
 </li>
                                 </ul>
                             </li>
@@ -118,17 +118,17 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href=".." class="nav-link">
+                                <a rel="prev" href="../maths/appendix/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../maths/" class="nav-link">
+                                <a rel="next" href="filter/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/cggos/ccv/edit/master/docs/cam/README.md" class="nav-link">Edit on cggos/ccv
+                                <a href="https://github.com/cggos/ccv/edit/master/docs/estimation/README.md" class="nav-link">Edit on cggos/ccv
                                     </a>
                             </li>
                     </ul>
@@ -149,21 +149,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#camera" class="nav-link">Camera</a>
+            <li class="nav-item" data-bs-level="1"><a href="#state_estimation" class="nav-link">State Estimation</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#overview" class="nav-link">Overview</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#camera_control" class="nav-link">Camera Control</a>
+            <li class="nav-item" data-bs-level="2"><a href="#app" class="nav-link">App</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#camera_model" class="nav-link">Camera Model</a>
+            <li class="nav-item" data-bs-level="2"><a href="#dataset" class="nav-link">Dataset</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#camera_calibration_rectification" class="nav-link">Camera Calibration &amp; Rectification</a>
+            <li class="nav-item" data-bs-level="2"><a href="#books" class="nav-link">Books</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -174,31 +170,50 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="camera">Camera<a class="headerlink" href="#camera" title="Permanent link">&para;</a></h1>
+<h1 id="state_estimation">State Estimation<a class="headerlink" href="#state_estimation" title="Permanent link">&para;</a></h1>
 <ul>
-<li><a href="https://cgabc.xyz/tags/Camera/">https://cgabc.xyz/tags/Camera/</a></li>
+<li><a href="https://cgabc.xyz/categories/State-Estimation/">https://cgabc.xyz/categories/State-Estimation/</a></li>
 </ul>
 <hr />
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h2 id="app">App<a class="headerlink" href="#app" title="Permanent link">&para;</a></h2>
+<h3 id="pose_graph_optimization">Pose Graph Optimization<a class="headerlink" href="#pose_graph_optimization" title="Permanent link">&para;</a></h3>
+<h3 id="bundle_adjustment">Bundle Adjustment<a class="headerlink" href="#bundle_adjustment" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://cgabc.xyz/posts/85008746/">https://cgabc.xyz/posts/85008746/</a></li>
+<li><a href="https://cgabc.xyz/posts/8693e4e/">Bundle Adjustment (BA) in vSLAM or SFM</a></li>
 </ul>
-<h2 id="camera_control">Camera Control<a class="headerlink" href="#camera_control" title="Permanent link">&para;</a></h2>
+<p>Sparse Hessian matrix</p>
+<p align="center">
+  <img src="img/mat_H.png" style="width:60%"/>
+</p>
+
+<h2 id="dataset">Dataset<a class="headerlink" href="#dataset" title="Permanent link">&para;</a></h2>
+<h3 id="bal_dataset">BAL Dataset<a class="headerlink" href="#bal_dataset" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://cgabc.xyz/posts/57a09717/">https://cgabc.xyz/posts/57a09717/</a></li>
+<li><a href="https://grail.cs.washington.edu/projects/bal/">Bundle Adjustment in the Large</a></li>
 </ul>
-<h2 id="camera_model">Camera Model<a class="headerlink" href="#camera_model" title="Permanent link">&para;</a></h2>
+<h3 id="g2o_dataset">g2o Dataset<a class="headerlink" href="#g2o_dataset" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p><a href="https://cgabc.xyz/posts/c60702bf/">https://cgabc.xyz/posts/c60702bf/</a></p>
+<p><a href="https://lucacarlone.mit.edu/datasets/">g2o format datasets – Luca Carlone</a></p>
 </li>
 <li>
-<p><a href="https://cgabc.xyz/posts/ff73e084/">Pinhole Camera Model</a></p>
+<p>sphere.g2o</p>
 </li>
 </ul>
-<h2 id="camera_calibration_rectification">Camera Calibration &amp; Rectification<a class="headerlink" href="#camera_calibration_rectification" title="Permanent link">&para;</a></h2>
+<h2 id="books">Books<a class="headerlink" href="#books" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://cgabc.xyz/tags/Camera-Calibration/">https://cgabc.xyz/tags/Camera-Calibration/</a></li>
+<li>
+<p><em>Probability, Statistics and Random Processes</em></p>
+</li>
+<li>
+<p><em>STATE ESTIMATION FOR ROBOTICS</em></p>
+</li>
+<li>
+<p><em>Probabilistic Robotics</em></p>
+</li>
+<li>
+<p><em>Factor Graphs for Robot Perception</em></p>
+</li>
 </ul></div>
             </div>
         </div>

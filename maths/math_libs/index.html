@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Gavin Gao">
+        <link rel="canonical" href="https://cv.cgabc.xyz/maths/math_libs/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Overview - CCV</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="../..">CCV</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../cam/" class="nav-link">Camera</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Maths</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../" class="dropdown-item">Overview</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Maths Libs</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Overview</a>
+</li>
+            
+<li>
+    <a href="eigen/" class="dropdown-item">Eigen</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Appendix</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../appendix/" class="dropdown-item">Overview</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Estimation</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../estimation/" class="dropdown-item">Overview</a>
+</li>
+                                    
+<li>
+    <a href="../../estimation/filter/" class="dropdown-item">Filter</a>
+</li>
+                                    
+<li>
+    <a href="../../estimation/map/" class="dropdown-item">MAP</a>
+</li>
+                                    
+<li>
+    <a href="../../estimation/solvers/" class="dropdown-item">Solver</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Kinematics & Dynamics</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../kd/" class="dropdown-item">Overview</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../dip/" class="nav-link">DIP</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../mvg/" class="nav-link">MVG</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="eigen/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/cggos/ccv/edit/master/docs/maths/math_libs/README.md" class="nav-link">Edit on cggos/ccv
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#mathematical_libraries" class="nav-link">Mathematical Libraries</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#basic_linear_algebra" class="nav-link">Basic Linear Algebra</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#lie_theory" class="nav-link">Lie theory</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#dft" class="nav-link">DFT</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#optimization" class="nav-link">Optimization</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#search" class="nav-link">Search</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="mathematical_libraries">Mathematical Libraries<a class="headerlink" href="#mathematical_libraries" title="Permanent link">&para;</a></h1>
+<p>Mathematical libraries used in development and those usages with CMake.</p>
+<ul>
+<li><a href="https://www.boost.org/doc/libs/1_66_0/libs/math/doc/html/index.html">boost Math Toolkit</a></li>
+<li><a href="http://www.netlib.org/">Netlib</a> Repository at UTK and ORNL</li>
+<li><a href="https://www.codecogs.com/">CodeCogs</a>: Open Source Scientific Library (C/C++, .NET, Excel)</li>
+<li><a href="https://www.gnu.org/software/gsl/gsl.html">GSL</a> (GNU Scientific Library): a numerical library for C and C++ programmers<ul>
+<li><a href="https://savannah.nongnu.org/projects/gsl-shell/">GSL Shell</a> offers an interactive command-line interface that gives access to GSL collection of mathematical functions</li>
+</ul>
+</li>
+<li><a href="https://embeddedartistry.com/blog/2017/8/25/c11-fixed-point-arithemetic-library">C++11 Fixed Point Arithmetic Library</a></li>
+</ul>
+<hr />
+<h2 id="basic_linear_algebra">Basic Linear Algebra<a class="headerlink" href="#basic_linear_algebra" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://markus-beuckelmann.de/blog/boosting-numpy-blas.html">Boosting numpy: Why BLAS Matters</a></li>
+</ul>
+<h3 id="blas">BLAS<a class="headerlink" href="#blas" title="Permanent link">&para;</a></h3>
+<p>The <a href="http://www.netlib.org/blas/">BLAS</a> (Basic Linear Algebra Subprograms) are routines that provide standard building blocks for <strong>performing basic vector and matrix operations</strong>. The Level 1 BLAS perform scalar, vector and vector-vector operations, the Level 2 BLAS perform matrix-vector operations, and the Level 3 BLAS perform matrix-matrix operations. Because the BLAS are efficient, portable, and widely available, they are commonly used in the development of high quality linear algebra software, LAPACK for example.</p>
+<h3 id="lapack">LAPACK<a class="headerlink" href="#lapack" title="Permanent link">&para;</a></h3>
+<p><a href="http://www.netlib.org/lapack/">LAPACK</a> is written in Fortran 90 and provides routines for <strong>solving systems of simultaneous linear equations, least-squares solutions of linear systems of equations, eigenvalue problems, and singular value problems</strong>.</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>find_package<span class="o">(</span>LAPACK<span class="w"> </span>REQUIRED<span class="o">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">if</span><span class="o">(</span>LAPACK_FOUND<span class="o">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span>message<span class="o">(</span>STATUS<span class="w"> </span><span class="s2">&quot;LAPACK Libraries: &quot;</span><span class="o">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span>foreach<span class="w"> </span><span class="o">(</span>lib<span class="w"> </span><span class="si">${</span><span class="nv">LAPACK_LIBRARIES</span><span class="si">}</span><span class="o">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span>message<span class="o">(</span>STATUS<span class="w"> </span><span class="s2">&quot;  &quot;</span><span class="w"> </span><span class="si">${</span><span class="nv">lib</span><span class="si">}</span><span class="o">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span>endforeach<span class="o">()</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span>link_libraries<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">LAPACK_LIBRARIES</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>endif<span class="o">()</span>
+</code></pre></div>
+<h3 id="atlas">ATLAS<a class="headerlink" href="#atlas" title="Permanent link">&para;</a></h3>
+<p>The <a href="http://math-atlas.sourceforge.net/">ATLAS</a> (Automatically Tuned Linear Algebra Software) project is an ongoing research effort focusing on applying empirical techniques in order to provide portable performance. At present, it provides C and Fortran77 interfaces to a portably efficient BLAS implementation, as well as a few routines from LAPACK.</p>
+<h3 id="openblas">OpenBLAS<a class="headerlink" href="#openblas" title="Permanent link">&para;</a></h3>
+<p><a href="http://www.openblas.net/">OpenBLAS</a> is <strong>an optimized BLAS library</strong> based on GotoBLAS2 1.13 BSD version.</p>
+<h3 id="suitesparse">SuiteSparse<a class="headerlink" href="#suitesparse" title="Permanent link">&para;</a></h3>
+<p><a href="http://faculty.cse.tamu.edu/davis/suitesparse.html">SuiteSparse</a>: A Suite of Sparse Matrix Software.</p>
+<h3 id="eigen">Eigen<a class="headerlink" href="#eigen" title="Permanent link">&para;</a></h3>
+<p><a href="http://eigen.tuxfamily.org">Eigen</a> is a C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>find_package<span class="o">(</span>Eigen3<span class="w"> </span>REQUIRED<span class="o">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">if</span><span class="o">(</span>EIGEN3_FOUND<span class="o">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>include_directories<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">EIGEN3_INCLUDE_DIR</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>endif<span class="o">()</span>
+</code></pre></div>
+<ul>
+<li><a href="https://www.cc.gatech.edu/classes/AY2015/cs4496_spring/Eigen.html">Eigen Library Tutorial</a></li>
+</ul>
+<h3 id="matrix_template_library_mtl2mtl4">Matrix Template Library (MTL2/MTL4)<a class="headerlink" href="#matrix_template_library_mtl2mtl4" title="Permanent link">&para;</a></h3>
+<p>The Matrix Template Library 4 (MTL4) is a development library for scientific computing that combines high productivity with high performance in the execution.</p>
+<h3 id="blitz">Blitz++<a class="headerlink" href="#blitz" title="Permanent link">&para;</a></h3>
+<p><a href="https://sourceforge.net/projects/blitz/">Blitz++</a> is a C++ class library for scientific computing which provides performance on par with Fortran 77/90. It uses template techniques to achieve high performance. Blitz++ provides dense arrays and vectors, random number generators, and small vectors (useful for representing multicomponent or vector fields).</p>
+<h3 id="clblast">CLBlast<a class="headerlink" href="#clblast" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/CNugteren/CLBlast">CLBlast</a> is a modern, lightweight, performant and tunable OpenCL BLAS library written in C++11.</p>
+<h3 id="gmp">GMP<a class="headerlink" href="#gmp" title="Permanent link">&para;</a></h3>
+<p><a href="https://gmplib.org/">GMP</a> is a free library for arbitrary precision arithmetic, operating on signed integers, rational numbers, and floating-point numbers.</p>
+<h2 id="lie_theory">Lie theory<a class="headerlink" href="#lie_theory" title="Permanent link">&para;</a></h2>
+<h3 id="toon">TooN<a class="headerlink" href="#toon" title="Permanent link">&para;</a></h3>
+<p>TooN: Tom's Object-oriented numerics library. <br />
+The TooN library is a set of C++ header files which provide basic linear algebra facilities.</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># TooN</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># Require linking the LAPACK library</span>
+</code></pre></div>
+<h3 id="sophus">Sophus<a class="headerlink" href="#sophus" title="Permanent link">&para;</a></h3>
+<p>C++ implementation of Lie Groups using Eigen commonly used for 2d and 3d geometric problems (i.e. for Computer Vision or Robotics applications).</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>find_package<span class="o">(</span><span class="w"> </span>Sophus<span class="w"> </span>REQUIRED<span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">if</span><span class="o">(</span>Sophus_FOUND<span class="o">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span>include_directories<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">Sophus_INCLUDE_DIRS</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span>link_libraries<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">Sophus_LIBRARIES</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>endif<span class="o">()</span>
+</code></pre></div>
+<h3 id="manif">manif<a class="headerlink" href="#manif" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/artivis/manif">manif</a> is a header-only c++11 Lie theory library for state-estimation targeted at robotics applications</p>
+<h2 id="dft">DFT<a class="headerlink" href="#dft" title="Permanent link">&para;</a></h2>
+<h3 id="fftw">FFTW<a class="headerlink" href="#fftw" title="Permanent link">&para;</a></h3>
+<p><a href="http://www.fftw.org/">FFTW</a> is a C subroutine library for computing the discrete Fourier transform (DFT) in one or more dimensions, of arbitrary input size, and of both real and complex data (as well as of even/odd data, i.e. the discrete cosine/sine transforms or DCT/DST).</p>
+<h2 id="optimization">Optimization<a class="headerlink" href="#optimization" title="Permanent link">&para;</a></h2>
+<h3 id="ceres_solver">Ceres Solver<a class="headerlink" href="#ceres_solver" title="Permanent link">&para;</a></h3>
+<p><a href="http://ceres-solver.org/">Ceres Solver</a> is an open source C++ library for modeling and solving large, complicated optimization problems. It can be used to solve Non-linear Least Squares problems with bounds constraints and general unconstrained optimization problems.</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>find_package<span class="o">(</span><span class="w"> </span>Ceres<span class="w"> </span>REQUIRED<span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">if</span><span class="o">(</span>Ceres_FOUND<span class="o">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span>include_directories<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">CERES_INCLUDE_DIRS</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span>link_libraries<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">CERES_LIBRARIES</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>endif<span class="o">()</span>
+</code></pre></div>
+<h3 id="g2o">G2O<a class="headerlink" href="#g2o" title="Permanent link">&para;</a></h3>
+<p><a href="https://openslam-org.github.io/g2o.html">g2o</a>: A General Framework for Graph Optimization</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>find_package<span class="o">(</span><span class="w"> </span>G2O<span class="w"> </span>REQUIRED<span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">if</span><span class="o">(</span>G2O_FOUND<span class="o">)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>include_directories<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">G2O_INCLUDE_DIRS</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span>link_libraries<span class="o">(</span><span class="w"> </span>g2o_core<span class="w"> </span>g2o_stuff<span class="w"> </span>g2o_types_sba<span class="w"> </span><span class="o">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>endif<span class="o">()</span>
+</code></pre></div>
+<h3 id="ensmallen">ensmallen<a class="headerlink" href="#ensmallen" title="Permanent link">&para;</a></h3>
+<p><a href="http://ensmallen.org/">ensmallen</a>: flexible C++ library for efficient mathematical optimization</p>
+<h2 id="search">Search<a class="headerlink" href="#search" title="Permanent link">&para;</a></h2>
+<h3 id="ann">ANN<a class="headerlink" href="#ann" title="Permanent link">&para;</a></h3>
+<p><a href="https://www.cs.umd.edu/~mount/ANN/">ANN</a>: A Library for Approximate Nearest Neighbor Searching</p>
+<h3 id="flann">FLANN<a class="headerlink" href="#flann" title="Permanent link">&para;</a></h3>
+<p><a href="https://www.cs.ubc.ca/research/flann/">FLANN</a> is a library for performing fast approximate nearest neighbor searches in high dimensional spaces.</p>
+<h3 id="annoy">Annoy<a class="headerlink" href="#annoy" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/spotify/annoy">Annoy</a> (Approximate Nearest Neighbors Oh Yeah) is a C++ library with Python bindings to search for points in space that are close to a given query point.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
