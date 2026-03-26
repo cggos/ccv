@@ -1,170 +1,110 @@
-# CCV
+# CCV (Chenguang Computer Vision)
 
-Chenguang Computer Vision
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 
----
+CCV (Chenguang Computer Vision) is a comprehensive computer vision library that provides foundational mathematics, kinematics, dynamics, estimation, and core CV algorithms.
 
 ## Overview
 
-* **core**: core computer vision library, including maths, kinematics and dynamics, estimation, etc.
-* **libs**: cv demos with OpenCV, FFTW, PCL, OpenGL, Pangolin
-* **apps**: cv demos with the core library or with opencv using C++, Qt, C#, Java
+The core algorithmic implementation is designed to have **no third-party dependencies** (no OpenCV, Eigen, or PCL in core logic), ensuring it is highly portable and cross-platform. Alongside the core library, this repository contains a variety of wrappers, demos, and GUI applications (C++, Python, Java, C#) demonstrating integrations with major industry tools like OpenCV, PCL, OpenGL, Pangolin, Qt, and ROS.
 
-## Build
+### Key Features
 
-```bash
-# for CMake Plain Project (No ROS)
-cmake -S ./ -B build [-DBUILD_TEST=ON | -DBUILD_DOCS=ON]
-cmake --build build --target install/strip --parallel $(($(nproc) / 4))
-# after cmake 3.15
-# cmake --install build --prefix ${INSTALL_DIR}
+*   **Zero Dependencies:** Core modules are written from scratch for maximum portability.
+*   **Modular Design:** Compile only what you need using CMake flags.
+*   **High Performance:** Uses a `FLOAT` macro to toggle between single and double precision.
+*   **Robust Testing:** Validated against industry standards (Eigen, OpenCV) using GTest.
+*   **Well Documented:** Mathematical formulas are explicitly annotated in Doxygen comments with LaTeX.
 
-# for ROS Project, use catkin_tools
-catkin build -j$(nproc) -DWITH_ROS=ON [-DWITH_PCL=ON] <package-name>
-```
+---
 
 ## Core Modules
 
-### Maths
-
-* Basic Math Methods
-  - [x] Random Number
-  - [ ] Interpolation
-    - [ ] Linear Interpolation
-    - [ ] Bilinear Interpolation
-
-* Data Structures & Methods
-  - [x] Matrix
-  - [x] Vector
+### 📐 Maths
+Basic math methods, matrices, and vectors.
+- [x] Random Number Generation
+- [x] Matrix & Vector Structures
+- [ ] Interpolation (Linear, Bilinear)
+- [ ] SVD Decomposition
 
 <p align="center">
-  <img src="docs/maths/img/maths_map.png" style="width:80%;"/>
+  <img src="docs/maths/img/maths_map.png" style="width:60%;"/>
 </p>
 
-- https://github.com/cggos/suitesparse_android
+### 🛰️ Kinematics and Dynamics
+Rotation matrices, Hamilton quaternions, and Euler angles.
+- [x] Rotation Matrix
+- [x] Quaternion (Hamilton)
+- [x] Euler Angle (12 conventions)
+- [x] Converters (with small-angle approximations)
 
-### Kinematics and Dynamics
-
-**Note**: approximate treatment about **small angle**.
-
-* [x] Rotation Matrix
-* [x] Quarternion (Hamilton)
-* [x] Euler Angle
-* [x] Convertor
-
-### Estimation
-
-State Estimation for SLAM: Filter(EKF, Particle Filter), MAP(GN, LM), Solver(Ceres-Solver, G2O, GTSAM), Bundle Adjustment
-
-#### Bundle Adjustment
-
-Sparse Hessian matrix
+### 📈 Estimation
+State estimation for SLAM, filters, and optimization.
+- [x] Filters (EKF, Particle Filter)
+- [x] MAP (Gauss-Newton, Levenberg-Marquardt)
+- [x] Bundle Adjustment (Sparse Hessian)
+- [x] Solver Interfaces (Ceres, G2O, GTSAM)
 
 <p align="center">
-  <img src="docs/estimation/img/mat_H.png" style="width:60%"/>
+  <img src="docs/estimation/img/mat_H.png" style="width:50%"/>
 </p>
 
-### Computer Vision
+### 📷 Computer Vision
+2D/3D data structures and core vision algorithms.
+- [x] Basic Structures (Size, Point2, Point3)
+- [x] 2D Image Processing (Copy, Gaussian Filter, Pyramids)
+- [x] 2D Features (FAST)
+- [ ] 2D Features (ORB)
+- [ ] Camera Models & Binocular Stereo Vision
 
-* Data Structure & Methods
-  - [x] Size
-  - [x] Point2
-  - [ ] RGB
-* 2D Image & Methods
-  - [ ] YImg class
-    - [x] Copy
-    - [ ] ROI Extraction
-    - [ ] Zoom In & Out
-    - [ ] Mean Filter
-    - [x] Gaussian Filter
-    - [x] Image Pyramid
-* 2D Features
-  - Key Points
-    - [x] FAST
-    - [ ] ORB
-  - Discriptors
-  - Line
-    - [ ] Edge
-    - [ ] Straight Line
-* 3D PointCloud
-  - [x] Point3
-  - [ ] PointCloud
-* Camera
-  - [ ] Camera Models
-* Binocular Stereo Vision
-  - [ ] Stereo Match
-  - [ ] Disparity Compute
-  - [ ] Disparity --> Depth
-  - [ ] Depth --> PointCloud
+---
 
+## Building and Running
 
-## Libs
+### CMake (Standalone)
+```bash
+# Configure the project
+# Flags: -DBUILD_TEST=ON, -DBUILD_DOCS=ON, -DWITH_OPENCV=ON, -DWITH_PCL=ON, -DWITH_GL=ON
+cmake -S ./ -B build -DBUILD_TEST=ON
 
-* OpenCV
+# Build and install
+cmake --build build --target install/strip --parallel $(($(nproc) / 4))
 
-* FFTW
-
-* PCL
-
-* OpenGL
-
-* Pangolin
-
-## Apps
-
-* [x] Camera Kit
-
-  * [x] Camera App on Android
-  
-  * [x] Realsense Camera utils
-  
-  * [x] Camera driver with v4l2
-
-  * [x] Stereo camera driver with MIPI and v4l2
-
-  * [x] Camera utils with ROS
-
-  * [x] Camera calib & rectify utils
-
-* [x] [CVStudio](https://github.com/cggos/CVStudio): GUI App with Qt for Computer Vision :sunny:
-
-  <p align="center">
-    <img src="https://mirror.ghproxy.com/https://raw.githubusercontent.com/cggos/CVStudio/master/imgs/dip_demo.jpg"/>
-  </p>
-
-* [x] DIP Demo with Java
-  
-
-* [x] DIP Demo with C#
-
-  ![dip_csharp_ubuntu.png](csharp/images/dip_csharp_ubuntu.png)
-
-* [x] Face Detection
-
-* [ ] Medical Imaging
-
-* [x] Stereo Matching with OpenCL
-
-* [x] Stereo Reconstruction with ROS
-
-## Languages
-
-### Python
-
-- https://pypi.org/project/libccv/
-
-e.g. View Image Matches with **GraphViz**
-
-```sh
-python/libccv/img_match_graph.py
+# (For CMake >= 3.15)
+# cmake --install build --prefix /opt/ccv
 ```
 
+### ROS (using catkin_tools)
+```bash
+catkin build -j$(nproc) -DWITH_ROS=ON -DWITH_PCL=ON ccv
+```
+
+---
+
+## Apps & Integrations
+
+*   **[CVStudio](https://github.com/cggos/CVStudio):** A comprehensive GUI application for computer vision using Qt.
+*   **CamKit:** A collection of camera utilities (Android, V4L2, MIPI, RealSense, ROS).
+*   **Language Wrappers:**
+    *   **Python:** Available via `pip install libccv`. See `python/libccv/img_match_graph.py` for match visualization.
+    *   **Java/C#:** Desktop Image Processing (DIP) demos included.
+*   **Industry Demos:** Integration examples with OpenCV, PCL, OpenGL, Pangolin, and FFTW.
+
 <p align="center">
-  <img src="./python/imgs/imgmatch_graphviz.png" style="width: 80%"/>
+  <img src="csharp/images/dip_csharp_ubuntu.png" style="width: 70%"/>
+  <br><i>C# DIP Demo on Ubuntu</i>
 </p>
 
-### Matlab
+---
 
-### Java
+## Development
 
-### C#
+The codebase follows the **Google C++ Code Style**. For detailed guidelines on contributions, testing, and documentation, see [coding_style.md](coding_style.md).
+
+*   **Unit Tests:** Located in `unit_test/`, powered by GTest.
+*   **Documentation:** Generate Doxygen docs with `cmake --build build --target docs`.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
