@@ -85,6 +85,7 @@ catkin build -j$(nproc) -DWITH_ROS=ON -DWITH_PCL=ON ccv
 ## Apps & Integrations
 
 *   **[CVStudio](https://github.com/cggos/CVStudio):** A comprehensive GUI application for computer vision using Qt.
+*   **[MedAI](https://github.com/cggos/MedAI):** Medical Artificial Intelligence project integrating computer vision and deep learning.
 *   **CamKit:** A collection of camera utilities (Android, V4L2, MIPI, RealSense, ROS).
 *   **Language Wrappers:**
     *   **Python:** Available via `pip install libccv`. See `python/libccv/img_match_graph.py` for match visualization.
