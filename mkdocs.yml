@@ -7,7 +7,7 @@ repo_url: https://github.com/cggos/ccv
 repo_name: cggos/ccv
 
 theme: 
-  name: mkdocs # material # readthedocs material
+  name: material # mkdocs, material, readthedocs
   # logo: material/library
   favicon: images/favicon.png
   icon:
@@ -33,10 +33,10 @@ theme:
     # - toc.integrate
     - content.code.annotate
 
-# plugins:
-#   - search
-#   # - social
-#   - tags
+plugins:
+  - search
+  # - social
+  - tags
 
 markdown_extensions:
   - abbr
@@ -71,9 +71,9 @@ markdown_extensions:
       alternate_style: true       
   - pymdownx.betterem:
       smart_enable: all
-  # - pymdownx.emoji:
-  #     emoji_index: !!python/name:material.extensions.emoji.twemoji
-  #     emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
       # emoji_generator: !!python/name:pymdownx.emoji.to_png
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -84,8 +84,8 @@ extra:
       link: https://github.com/cggos
       name: cggos on GitHub
     - icon: fontawesome/brands/twitter 
-      link: https://twitter.com/CGiABC
-      name: CGABC on Twitter
+      link: https://twitter.com/GavnGao
+      name: GavnGao on Twitter
         
 nav:
   - Home: 'index.md'
