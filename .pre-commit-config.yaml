@@ -6,3 +6,10 @@ repos:
     - id: ruff
     # Run the formatter.
     - id: ruff-format
+
+- repo: https://github.com/commitizen-tools/commitizen
+  rev: v3.13.0
+  hooks:
+    # Check commit message follows Conventional Commits
+    - id: commitizen
+      stages: [commit-msg]
