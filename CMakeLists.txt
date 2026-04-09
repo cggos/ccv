@@ -5,6 +5,11 @@ set(CCV_VERSION_MAJOR 1)
 set(CCV_VERSION_MINOR 0)
 set(CCV_VERSION_PATCH 0)
 
+# C++17 required
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 option(BUILD_DOCS "Create and install the HTML based API documentation (requires Doxygen)" OFF)
 option(BUILD_TEST "Build Unit Test Program for the project (requires GTest)" OFF)
 
