@@ -87,6 +87,8 @@ class Vector : public Matrix {
 
   Matrix operator*(const Vector &v) const { return Matrix(*this) * Matrix(v); }
 
+  Matrix operator*(const Matrix &m) const { return Matrix(*this) * m; }
+
   Vector operator/(const hpc::TScalarF &m) const { return Matrix(*this) / m; }
 
   void operator+=(const Vector &v) { *this = Matrix(*this) + Matrix(v); }
