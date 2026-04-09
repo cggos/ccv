@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-04-09",
+  "tasks": [
+    {
+      "id": "DONE-001",
+      "title": "Core Matrix Implementation",
+      "description": "Implemented basic matrix operations",
+      "completed_date": "2025-01-28",
+      "module": "maths",
+      "tags": ["algorithm", "maths"]
+    },
+    {
+      "id": "DONE-002",
+      "title": "FAST Feature Detection",
+      "description": "Implemented FAST corner detector",
+      "completed_date": "2025-01-28",
+      "module": "cv",
+      "tags": ["algorithm", "cv", "features"]
+    },
+    {
+      "id": "DONE-003",
+      "title": "Rotation Matrix Operations",
+      "description": "Implemented 3D rotation matrices",
+      "completed_date": "2025-01-28",
+      "module": "kd",
+      "tags": ["algorithm", "kinematics"]
+    },
+    {
+      "id": "DONE-004",
+      "title": "Hamilton Quaternion",
+      "description": "Implemented quaternion operations",
+      "completed_date": "2025-01-28",
+      "module": "kd",
+      "tags": ["algorithm", "kinematics"]
+    },
+    {
+      "id": "DONE-005",
+      "title": "Python Package Setup",
+      "description": "Created libccv PyPI package",
+      "completed_date": "2025-03-26",
+      "module": "python",
+      "tags": ["packaging", "python"]
+    }
+  ]
+}

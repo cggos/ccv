@@ -1,0 +1,133 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'site/**'
+  pull_request:
+    branches: [main, develop]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'site/**'
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_type: [Release, Debug]
+        with_opencv: [ON, OFF]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake \
+            build-essential \
+            libgtest-dev \
+            libeigen3-dev \
+            clang-format
+
+      - name: Install OpenCV (optional)
+        if: matrix.with_opencv == 'ON'
+        run: |
+          sudo apt-get install -y \
+            libopencv-dev \
+            libopencv-contrib-dev
+
+      - name: Build GTest
+        run: |
+          cd /usr/src/gtest
+          sudo cmake .
+          sudo make
+          sudo cp lib/*.a /usr/lib
+
+      - name: Configure
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+            -DBUILD_TEST=ON \
+            -DWITH_OPENCV=${{ matrix.with_opencv }} \
+            -DWITH_PCL=OFF \
+            -DWITH_GL=OFF
+
+      - name: Build
+        run: cmake --build build --parallel $(nproc)
+
+      - name: Test
+        run: |
+          cd build
+          ctest --output-on-failure --verbose
+
+      - name: Check Format
+        if: matrix.build_type == 'Release' && matrix.with_opencv == 'ON'
+        run: |
+          find . -name "*.cpp" -o -name "*.cc" -o -name "*.h" -o -name "*.hpp" | \
+            grep -v build | xargs clang-format --dry-run --Werror
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          brew install cmake eigen googletest opencv
+
+      - name: Configure
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TEST=ON \
+            -DWITH_OPENCV=ON \
+            -DWITH_PCL=OFF \
+            -DWITH_GL=OFF
+
+      - name: Build
+        run: cmake --build build --parallel $(sysctl -n hw.ncpu)
+
+      - name: Test
+        run: |
+          cd build
+          ctest --output-on-failure
+
+  python-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+
+      - name: Check Python format
+        run: |
+          cd python
+          ruff check .
+          ruff format --check .
+
+      - name: Install package
+        run: |
+          cd python
+          pip install .
+
+      - name: Test import
+        run: |
+          python -c "import libccv; print('libccv imported successfully')"

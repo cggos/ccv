@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-04-09",
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Implement SVD Decomposition",
+      "description": "Complete SVD implementation in src/maths/svd_fulluv.cpp",
+      "priority": "high",
+      "status": "in_progress",
+      "module": "maths",
+      "created": "2026-04-09",
+      "tags": ["algorithm", "maths"]
+    },
+    {
+      "id": "TASK-002",
+      "title": "Implement ORB Feature Detection",
+      "description": "Add ORB feature detector to src/cv/features2d.cc",
+      "priority": "medium",
+      "status": "pending",
+      "module": "cv",
+      "created": "2026-04-09",
+      "tags": ["algorithm", "cv", "features"]
+    },
+    {
+      "id": "TASK-003",
+      "title": "Add Camera Models",
+      "description": "Implement pinhole and fisheye camera models",
+      "priority": "medium",
+      "status": "pending",
+      "module": "cv",
+      "created": "2026-04-09",
+      "tags": ["algorithm", "cv", "camera"]
+    },
+    {
+      "id": "TASK-004",
+      "title": "Complete Bundle Adjustment",
+      "description": "Finish sparse Hessian implementation in src/est/",
+      "priority": "high",
+      "status": "pending",
+      "module": "est",
+      "created": "2026-04-09",
+      "tags": ["algorithm", "estimation", "optimization"]
+    },
+    {
+      "id": "TASK-005",
+      "title": "Add Unit Tests for Quaternion",
+      "description": "Expand test coverage for quaternion operations",
+      "priority": "low",
+      "status": "pending",
+      "module": "kd",
+      "created": "2026-04-09",
+      "tags": ["testing", "kinematics"]
+    }
+  ]
+}

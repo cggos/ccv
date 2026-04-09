@@ -1,0 +1,104 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "default",
+      "hidden": true,
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_INSTALL_PREFIX": "/opt/ccv",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "release",
+      "inherits": "default",
+      "displayName": "Release Build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_TEST": "ON",
+        "BUILD_DOCS": "OFF",
+        "WITH_OPENCV": "ON",
+        "WITH_PCL": "OFF",
+        "WITH_GL": "ON"
+      }
+    },
+    {
+      "name": "debug",
+      "inherits": "default",
+      "displayName": "Debug Build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_TEST": "ON",
+        "BUILD_DOCS": "OFF",
+        "WITH_OPENCV": "ON",
+        "WITH_PCL": "OFF",
+        "WITH_GL": "OFF"
+      }
+    },
+    {
+      "name": "minimal",
+      "inherits": "default",
+      "displayName": "Minimal Build (No Dependencies)",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_TEST": "ON",
+        "BUILD_DOCS": "OFF",
+        "WITH_OPENCV": "OFF",
+        "WITH_PCL": "OFF",
+        "WITH_GL": "OFF"
+      }
+    },
+    {
+      "name": "full",
+      "inherits": "default",
+      "displayName": "Full Build (All Features)",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_TEST": "ON",
+        "BUILD_DOCS": "ON",
+        "WITH_OPENCV": "ON",
+        "WITH_PCL": "ON",
+        "WITH_GL": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "release",
+      "configurePreset": "release",
+      "targets": ["install/strip"]
+    },
+    {
+      "name": "debug",
+      "configurePreset": "debug"
+    },
+    {
+      "name": "minimal",
+      "configurePreset": "minimal"
+    },
+    {
+      "name": "full",
+      "configurePreset": "full",
+      "targets": ["install/strip", "docs"]
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "release",
+      "configurePreset": "release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "debug",
+      "configurePreset": "debug",
+      "output": {
+        "outputOnFailure": true,
+        "verbosity": "verbose"
+      }
+    }
+  ]
+}
