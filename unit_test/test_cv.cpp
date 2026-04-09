@@ -12,7 +12,7 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/video/tracking.hpp>
 
-#include "ccv/common/types.h"
+#include "ccv/cv/type.h"
 #include "ccv/cv/corner_detector.h"
 #include "ccv/cv/image_filtering.h"
 #include "ccv/cv/visual_tracking.h"
@@ -67,8 +67,10 @@ TEST(YImg, copy) {
   mat_dst.create(mat_src.rows, mat_src.cols, CV_8UC1);
   memcpy(mat_dst.data, yimg_dst.data(), yimg_dst.size().area());
 
-  cv::imshow("YImg copy test", mat_dst);
-  cv::waitKey(1000);
+  // Skip GUI display in headless environment
+  // cv::imshow("YImg copy test", mat_dst);
+  // cv::waitKey(1000);
+  cv::imwrite("yimg_copy_test.png", mat_dst);
 }
 
 TEST(CornerDetector, detect_features) {
@@ -87,8 +89,10 @@ TEST(CornerDetector, detect_features) {
   for (const auto &pt : new_features) {
     cv::circle(mat_dst, cv::Point2f(pt.x, pt.y), 3, cv::Scalar(0, 255, 0), -1);
   }
-  cv::imshow("CornerDetector FAST", mat_dst);
-  cv::waitKey(1000);
+  // Skip GUI display in headless environment
+  // cv::imshow("CornerDetector FAST", mat_dst);
+  // cv::waitKey(1000);
+  cv::imwrite("corner_detector_fast.png", mat_dst);
 }
 
 TEST(ImageFiltering, gaussian_blur) {
@@ -113,10 +117,14 @@ TEST(ImageFiltering, gaussian_blur) {
   cv::Mat mat_dst_03(yimg_dst.rows(), yimg_dst.cols(), CV_8UC1);
   memcpy(mat_dst_03.data, yimg_dst.data(), yimg_dst.size().area());
 
-  cv::imshow("GaussianBlur YImg", mat_dst_01);
-  cv::imshow("GaussianBlur OCV", mat_dst_02);
-  cv::imshow("PyrDown YImg", mat_dst_03);
-  cv::waitKey(1000);
+  // Skip GUI display in headless environment
+  // cv::imshow("GaussianBlur YImg", mat_dst_01);
+  // cv::imshow("GaussianBlur OCV", mat_dst_02);
+  // cv::imshow("PyrDown YImg", mat_dst_03);
+  // cv::waitKey(1000);
+  cv::imwrite("gaussian_blur_yimg.png", mat_dst_01);
+  cv::imwrite("gaussian_blur_ocv.png", mat_dst_02);
+  cv::imwrite("pyr_down_yimg.png", mat_dst_03);
 }
 
 TEST(VisualTracking, optical_flow) {
@@ -207,7 +215,10 @@ TEST(VisualTracking, optical_flow) {
     }
   }
 
-  cv::imshow("tracked by opencv lk multi", cv_img2_multi);
-  cv::imshow("tracked multi level", img2_multi);
-  while (cv::waitKey(0) != 27);
+  // Skip GUI display in headless environment
+  // cv::imshow("tracked by opencv lk multi", cv_img2_multi);
+  // cv::imshow("tracked multi level", img2_multi);
+  // while (cv::waitKey(0) != 27);
+  cv::imwrite("tracked_opencv_lk.png", cv_img2_multi);
+  cv::imwrite("tracked_multi_level.png", img2_multi);
 }

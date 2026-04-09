@@ -125,7 +125,7 @@ TEST(maths, Vector) {
   std::cout << "va sqnorm 01: " << v4.squaredNorm() << std::endl;
   std::cout << "va l1norm 01: " << v4.lpNorm<1>() << std::endl;
 
-  cg::FLOAT val[] = {1, 2, 3, 4};
+  hpc::TScalarF val[] = {1, 2, 3, 4};
   cg::Vector5 va = cg::Vector5(val);
 
   std::cout << "va sqnorm 02: " << va.squared_l2norm() << std::endl;
@@ -158,7 +158,7 @@ TEST(maths, Vector) {
 }
 
 TEST(maths, math_basic) {
-  cg::FLOAT val[] = {1, 2, 3};
+  hpc::TScalarF val[] = {1, 2, 3};
   cg::Vector3 va(val);
   cg::Matrix ma = cg::skew_symmetric(va);
   std::cout << "skew_symmetric ma: \n" << ma << std::endl;

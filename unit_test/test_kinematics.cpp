@@ -21,7 +21,7 @@ TEST(kinematics, Quarternion) {
 
   std::cout << "qa: " << qa << std::endl;
   std::cout << "qb: " << qb << std::endl;
-  std::cout << "qc: " << qc << endll;
+  std::cout << "qc: " << qc << std::endl;
 
   // rotation_matrix
   cg::Matrix m_qb = qb.rotation_matrix();
@@ -29,12 +29,12 @@ TEST(kinematics, Quarternion) {
 
   Eigen::Vector4d v4b(qb.x(), qb.y(), qb.z(), qb.w());
   Eigen::Matrix3d mb = msckf::quaternionToRotation(v4b);
-  std::cout << "m_qb_02:\n" << mb << endll;
+  std::cout << "m_qb_02:\n" << mb <<  std::endl;
 
   // normalized
   std::cout << "qb  normalized: " << qb.normalized() << std::endl;
   msckf::quaternionNormalize(v4b);
-  std::cout << "v4b normalized: " << v4b.transpose() << endll;
+  std::cout << "v4b normalized: " << v4b.transpose() <<  std::endl;
 
   // q1 * q2
   Eigen::Vector4d v4c(qc.x(), qc.y(), qc.z(), qc.w());
@@ -43,7 +43,7 @@ TEST(kinematics, Quarternion) {
   std::cout << "qb * qc 01: " << q << std::endl;
 
   Eigen::Vector4d v4 = msckf::quaternionMultiplication(v4b, v4c);
-  std::cout << "qb * qc 02: " << v4.transpose() << endll;
+  std::cout << "qb * qc 02: " << v4.transpose() <<  std::endl;
 
   // small_angle_quaternion
   cg::Vector<3> v3_s = qc.vec();
@@ -55,7 +55,7 @@ TEST(kinematics, Quarternion) {
   v3_e[1] = v3_s[1];
   v3_e[2] = v3_s[2];
   v4 = msckf::smallAngleQuaternion(v3_e);
-  std::cout << "small q 02: " << v4.transpose() << endll;
+  std::cout << "small q 02: " << v4.transpose() <<  std::endl;
 }
 
 TEST(kinematics, RotationMatrix) {
@@ -69,13 +69,13 @@ TEST(kinematics, RotationMatrix) {
 
   std::cout << "m_qa:\n" << m_qa << std::endl;
 
-  std::cout << "q01: " << m_qa.quarternion() << endll;
+  std::cout << "q01: " << m_qa.quarternion() << std::endl;
 
   std::cout << "q01 hamilton: " << m_qa.quarternion_hamilton() << std::endl;
   Eigen::Quaterniond q4_r(m3);
-  std::cout << "q01 hamilton (Eigen): " << q4_r.coeffs().transpose() << endll;
+  std::cout << "q01 hamilton (Eigen): " << q4_r.coeffs().transpose() << std::endl;
 
-  std::cout << "q02: " << msckf::rotationToQuaternion(m3).transpose() << endll;
+  std::cout << "q02: " << msckf::rotationToQuaternion(m3).transpose() << std::endl;
 
   std::cout << "angle_axis(by RotationMatrix): \t" << m_qa.angle_axis() << std::endl;
   std::cout << "angle_axis(by Quarternion): \t" << m_qa.quarternion().angle_axis() << std::endl;
@@ -85,7 +85,7 @@ TEST(kinematics, RotationMatrix) {
 
 TEST(kinematics, Convertor) {
   // rodrigues
-  cg::FLOAT val[3] = {0.04345, -0.05236, -0.01810};
+  hpc::TScalarF val[3] = {0.04345, -0.05236, -0.01810};
   cg::Vector3 v3(val);
   cg::RotationMatrix R01 = cg::rodrigues(v3);
   std::cout << "R 01:\n" << R01 << std::endl;

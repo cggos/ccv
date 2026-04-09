@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include "ccv/common/types.h"
+#include "ccv/cv/type.h"
 
 #define cimg_display 0
 #include "CImg.h"

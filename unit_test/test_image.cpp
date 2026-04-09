@@ -1,6 +1,8 @@
 //
 // Created by gordon on 17-12-19.
 //
+#include <opencv2/opencv.hpp>
+
 #include "ccv/cv/features2d_fast.h"
 #include "ccv/cv/image.h"
 #include "ccv/cv/nonmax_suppression.h"
@@ -57,14 +59,18 @@ TEST(Image, features2d_fast) {
   CImg<unsigned char> img_fastcorner(foo_env->mstrPath.c_str());
   unsigned char green[] = {0, 255, 0};
   for (auto &pt : vMaxCorners) img_fastcorner.draw_circle(pt.x, pt.y, 1, green);
-  img_fastcorner.display("vMaxCorners");
+  // Skip display in headless environments
+  // img_fastcorner.display("vMaxCorners");
+  img_fastcorner.save_bmp("fast_corners.bmp");
 }
 
 TEST(Image, undistort_image) {
-  CImg<unsigned char> img_in("../../data/euroc.png");
+  // Use OpenCV to load PNG (CImg may not have PNG support)
+  cv::Mat img_in = cv::imread("../../data/euroc.png", cv::IMREAD_GRAYSCALE);
+  ASSERT_FALSE(img_in.empty());
 
-  cg::Image<unsigned char> img(img_in.width(), img_in.height());
-  memcpy(img.data(), img_in.data(), img.area());
+  cg::Image<unsigned char> img(img_in.cols, img_in.rows);
+  memcpy(img.data(), img_in.data, img.area());
   int width = img.size().width;
   int height = img.size().height;
 
@@ -82,7 +88,6 @@ TEST(Image, undistort_image) {
   cg::Image<unsigned char> img_dst(width, height);
   img.undistort_image(img_dst, width, height, model_cam, model_dis);
 
-  CImg<unsigned char> img_dst_out(width, height);
-  memcpy(img_dst_out.data(), img_dst.data(), width * height);
-  img_dst_out.save_bmp("undistort_image.bmp");
+  cv::Mat img_dst_out(height, width, CV_8UC1, img_dst.data());
+  cv::imwrite("undistort_image.png", img_dst_out);
 }
