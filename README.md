@@ -101,7 +101,7 @@ catkin build -j$(nproc) -DWITH_ROS=ON -DWITH_PCL=ON ccv
 
 ## Development
 
-The codebase follows the **Google C++ Code Style**. For detailed guidelines on contributions, testing, and documentation, see [coding_style.md](coding_style.md).
+The codebase follows the **Google C++ Code Style**. For detailed guidelines on contributions, testing, and documentation, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 *   **Unit Tests:** Located in `unit_test/`, powered by GTest.
 *   **Documentation:** Generate Doxygen docs with `cmake --build build --target docs`.
