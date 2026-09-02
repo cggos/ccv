@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.10)
 project( opencv_demo )
 
 set(CMAKE_CXX_STANDARD 11)
@@ -24,3 +24,4 @@ add_subdirectory( good_features_to_track )
 add_subdirectory( distance_transform )
 add_subdirectory( face_detection )
 add_subdirectory( project_points )
+add_subdirectory( chamfer_matching )
