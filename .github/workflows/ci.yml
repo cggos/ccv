@@ -19,11 +19,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build_type: [Release, Debug]
-        with_opencv: [ON, OFF]
+        include:
+          - build_type: Release
+            with_opencv: ON
+            build_test: ON
+          - build_type: Debug
+            with_opencv: ON
+            build_test: ON
+          # The current unit tests use OpenCV directly, so the OpenCV-disabled
+          # CCV sources are validated without building those tests.
+          - build_type: Release
+            with_opencv: OFF
+            build_test: OFF
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install dependencies
         run: |
@@ -33,27 +45,15 @@ jobs:
             build-essential \
             libgtest-dev \
             libeigen3-dev \
-            clang-format
-
-      - name: Install OpenCV (optional)
-        if: matrix.with_opencv == 'ON'
-        run: |
-          sudo apt-get install -y \
+            clang-format \
             libopencv-dev \
             libopencv-contrib-dev
-
-      - name: Build GTest
-        run: |
-          cd /usr/src/gtest
-          sudo cmake .
-          sudo make
-          sudo cp lib/*.a /usr/lib
 
       - name: Configure
         run: |
           cmake -S . -B build \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-            -DBUILD_TEST=ON \
+            -DBUILD_TEST=${{ matrix.build_test }} \
             -DWITH_OPENCV=${{ matrix.with_opencv }} \
             -DWITH_PCL=OFF \
             -DWITH_GL=OFF
@@ -62,15 +62,38 @@ jobs:
         run: cmake --build build --parallel $(nproc)
 
       - name: Test
+        if: matrix.build_test == 'ON'
         run: |
           cd build
           ctest --output-on-failure --verbose
 
+      - name: Configure OpenCV examples
+        if: matrix.with_opencv == 'ON'
+        run: cmake -S libs/opencv -B build/opencv-examples
+
+      - name: Build chamfer matching example
+        if: matrix.with_opencv == 'ON'
+        run: cmake --build build/opencv-examples --target chamfer_matching --parallel $(nproc)
+
       - name: Check Format
         if: matrix.build_type == 'Release' && matrix.with_opencv == 'ON'
+        shell: bash
         run: |
-          find . -name "*.cpp" -o -name "*.cc" -o -name "*.h" -o -name "*.hpp" | \
-            grep -v build | xargs clang-format --dry-run --Werror
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            base_sha="${{ github.event.pull_request.base.sha }}"
+          else
+            base_sha="${{ github.event.before }}"
+          fi
+
+          if [[ -z "$base_sha" || "$base_sha" =~ ^0+$ ]]; then
+            base_sha="$(git rev-list --max-parents=0 HEAD)"
+          fi
+
+          mapfile -t files < <(git diff --name-only --diff-filter=ACMR "$base_sha" HEAD -- \
+            '*.cpp' '*.cc' '*.h' '*.hpp')
+          if (( ${#files[@]} )); then
+            clang-format --dry-run --Werror "${files[@]}"
+          fi
 
   build-macos:
     runs-on: macos-latest
